@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php wp_head(); ?>
+
+<meta charset="<?php bloginfo('charset'); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<?php wp_head(); ?>
+
 </head>
 
 <body <?php body_class(); ?>>
 
-<header>
-    <div class="container">
-        <h1><?php bloginfo('name'); ?></h1>
-        <p><?php bloginfo('description'); ?></p>
+<header class="site-header">
 
-        <nav>
-            <?php
-            wp_nav_menu(array(
+    <div class="container">
+
+        <div class="logo">
+            <a href="<?php echo home_url(); ?>">
+                <?php bloginfo('name'); ?>
+            </a>
+        </div>
+
+        <nav class="main-nav">
+            <?php wp_nav_menu([
                 'theme_location' => 'main-menu'
-            ));
-            ?>
+            ]); ?>
         </nav>
+
     </div>
+
 </header>
 
-<div class="container">
+<main class="site-main">
