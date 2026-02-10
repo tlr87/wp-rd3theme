@@ -42,10 +42,29 @@ body {
     background: #f4f4f4;
 }
 
+
 /* Footer */
 .site-footer {
     background: #111;
     color: #fff;
     text-align: center;
     padding: 30px;
+}
+
+.footer-widgets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 30px 0;
+    justify-content: space-between;
+}
+
+.footer-column {
+    flex: 1 1 30%;
+    min-width: 200px;
+}
+
+.footer-widget-title {
+    font-size: 16px;
+    margin-bottom: 10px;
 }

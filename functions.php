@@ -37,18 +37,49 @@ function rd3_assets() {
 }
 add_action('wp_enqueue_scripts', 'rd3_assets');
 
-
-// Widget Areas
+// ===============================
+// Widgets
+// ===============================
 function rd3_widgets() {
 
+    // Sidebar
     register_sidebar([
         'name' => 'Sidebar',
-        'id'   => 'main-sidebar'
+        'id'   => 'main-sidebar',
+    ]);
+
+    // Footer Column 1
+    register_sidebar([
+        'name'          => 'Footer Column 1',
+        'id'            => 'footer-col-1',
+        'before_widget' => '<div class="footer-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4 class="footer-widget-title">',
+        'after_title'   => '</h4>',
+    ]);
+
+    // Footer Column 2
+    register_sidebar([
+        'name'          => 'Footer Column 2',
+        'id'            => 'footer-col-2',
+        'before_widget' => '<div class="footer-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4 class="footer-widget-title">',
+        'after_title'   => '</h4>',
+    ]);
+
+    // Footer Column 3
+    register_sidebar([
+        'name'          => 'Footer Column 3',
+        'id'            => 'footer-col-3',
+        'before_widget' => '<div class="footer-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4 class="footer-widget-title">',
+        'after_title'   => '</h4>',
     ]);
 
 }
 add_action('widgets_init', 'rd3_widgets');
-
 
 
 
