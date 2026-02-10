@@ -15,10 +15,22 @@
 
     <div class="container">
 
-        <div class="logo">
+    <div class="logo">
+
+        <?php if ( get_theme_mod('rd3_logo') ) : ?>
+
+            <a href="<?php echo home_url(); ?>">
+                <img src="<?php echo esc_url(get_theme_mod('rd3_logo')); ?>" alt="Logo">
+            </a>
+
+        <?php else : ?>
+
             <a href="<?php echo home_url(); ?>">
                 <?php bloginfo('name'); ?>
             </a>
+
+        <?php endif; ?>
+
         </div>
 
         <nav class="main-nav">
