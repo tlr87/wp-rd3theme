@@ -1,23 +1,47 @@
-</main>
+<?php
+/**
+ * Footer Template
+ * RD3 Client Starter Theme
+ */
+?>
 
-<footer class="site-footer">
+    </main><!-- /.site-main -->
 
-    <div class="container">
+    <footer class="site-footer">
 
-        <nav>
-            <?php wp_nav_menu([
-                'theme_location' => 'footer-menu'
-            ]); ?>
-        </nav>
+        <div class="container">
 
-        <p>
-            &copy; <?php echo date('Y'); ?>
-            <?php bloginfo('name'); ?>
-        </p>
+            <?php
+            // Show footer menu if enabled in Customizer
+            if ( get_theme_mod('rd3_show_footer_menu', true) ) :
+            ?>
 
-    </div>
+                <nav class="footer-nav">
+                    <?php
+                    wp_nav_menu([
+                        'theme_location' => 'footer-menu',
+                        'container'      => false,
+                        'fallback_cb'    => false,
+                    ]);
+                    ?>
+                </nav>
 
-</footer>
+            <?php endif; ?>
+
+
+            <div class="footer-info">
+
+                <p>
+                    &copy; <?php echo date('Y'); ?>
+                    <?php bloginfo('name'); ?>
+                    . All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
 
 <?php wp_footer(); ?>
 </body>

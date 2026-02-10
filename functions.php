@@ -162,6 +162,23 @@ function rd3_branding_customizer($wp_customize) {
         ],
     ]);
 
+/* ======================
+   Footer Menu Toggle
+====================== */
+
+$wp_customize->add_setting('rd3_show_footer_menu', [
+    'default' => true,
+]);
+
+$wp_customize->add_control('rd3_show_footer_menu', [
+    'label' => __('Display Footer Menu', 'rd3starter'),
+    'section' => 'nav_menus', // Move to Menus section
+    'type'    => 'checkbox',
+]);
+
+
+
+
 }
 
 add_action('customize_register', 'rd3_branding_customizer');
