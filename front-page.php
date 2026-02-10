@@ -6,7 +6,7 @@
 
     <p><?php bloginfo('description'); ?></p>
 
-    <a class="btn" href="/contact">Get Started</a>
+
 
 </section>
 

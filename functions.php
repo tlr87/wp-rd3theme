@@ -146,23 +146,7 @@ $wp_customize->add_control('rd3_logo_alignment', [
     ]);
 
 
-    /* ======================
-       Button Style
-    ====================== */
-    $wp_customize->add_setting('rd3_button_style', [
-        'default' => 'rounded',
-    ]);
 
-    $wp_customize->add_control('rd3_button_style', [
-        'label'   => __('Button Style', 'rd3starter'),
-        'section' => 'rd3_branding',
-        'type'    => 'radio',
-        'choices' => [
-            'square'  => 'Square',
-            'rounded' => 'Rounded',
-            'pill'    => 'Pill',
-        ],
-    ]);
 
 /* ======================
    Footer Menu Toggle
@@ -195,7 +179,6 @@ function rd3_branding_styles() {
     $primary   = get_theme_mod('rd3_primary_color', '#000000');
     $secondary = get_theme_mod('rd3_secondary_color', '#666666');
     $font      = get_theme_mod('rd3_font_family', 'system');
-    $button    = get_theme_mod('rd3_button_style', 'rounded');
     $logo_align = get_theme_mod('rd3_logo_alignment', 'left');
 
     // Font mapping
@@ -208,13 +191,6 @@ function rd3_branding_styles() {
     ];
 
     $font_family = $fonts[$font] ?? $fonts['system'];
-
-    // Button radius
-    $radius = '6px';
-
-    if ($button === 'square') $radius = '0';
-    if ($button === 'pill')   $radius = '50px';
-
     ?>
 
     <style>
@@ -242,14 +218,6 @@ function rd3_branding_styles() {
                 else echo 'center';
                 ?>;
         }
-        .btn,
-        button,
-        input[type="submit"] {
-            background: <?php echo $primary; ?>;
-            border-radius: <?php echo $radius; ?>;
-            color: #fff;
-        }
-
         .site-header,
         .site-footer {
             background: <?php echo $secondary; ?>;
