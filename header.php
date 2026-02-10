@@ -1,3 +1,10 @@
+<?php
+/**
+ * Header Template
+ * RD3 Client Starter Theme
+ */
+?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -15,32 +22,46 @@
 
     <div class="container">
 
-    <div class="logo">
+        <!-- Logo Area -->
+        <div class="logo">
 
-        <?php if ( get_theme_mod('rd3_logo') ) : ?>
+            <?php if ( get_theme_mod('rd3_logo') ) : ?>
 
-            <a href="<?php echo home_url(); ?>">
-                <img src="<?php echo esc_url(get_theme_mod('rd3_logo')); ?>" alt="Logo">
-            </a>
+                <a href="<?php echo esc_url( home_url('/') ); ?>">
+                    <img 
+                        src="<?php echo esc_url( get_theme_mod('rd3_logo') ); ?>" 
+                        alt="<?php bloginfo('name'); ?>"
+                    >
+                </a>
 
-        <?php else : ?>
+            <?php else : ?>
 
-            <a href="<?php echo home_url(); ?>">
-                <?php bloginfo('name'); ?>
-            </a>
+                <a href="<?php echo esc_url( home_url('/') ); ?>" class="site-title">
+                    <?php bloginfo('name'); ?>
+                </a>
 
-        <?php endif; ?>
+            <?php endif; ?>
 
         </div>
 
+
+        <!-- Navigation -->
         <nav class="main-nav">
-            <?php wp_nav_menu([
-                'theme_location' => 'main-menu'
-            ]); ?>
+
+            <?php
+            wp_nav_menu([
+                'theme_location' => 'main-menu',
+                'container'      => false,
+                'fallback_cb'    => false,
+                'menu_class'     => 'main-menu',
+            ]);
+            ?>
+
         </nav>
 
     </div>
 
 </header>
+
 
 <main class="site-main">

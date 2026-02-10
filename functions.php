@@ -67,22 +67,24 @@ function rd3_branding_customizer($wp_customize) {
     ]);
 
 
-    /* ======================
-       Logo
-    ====================== */
-    $wp_customize->add_setting('rd3_logo');
+/* ======================
+   Logo Alignment
+====================== */
 
-    $wp_customize->add_control(
-        new WP_Customize_Image_Control(
-            $wp_customize,
-            'rd3_logo',
-            [
-                'label'    => __('Site Logo', 'rd3starter'),
-                'section'  => 'rd3_branding',
-                'settings' => 'rd3_logo',
-            ]
-        )
-    );
+$wp_customize->add_setting('rd3_logo_alignment', [
+    'default' => 'left',
+]);
+
+$wp_customize->add_control('rd3_logo_alignment', [
+    'label'   => __('Logo Alignment', 'rd3starter'),
+    'section' => 'rd3_branding',
+    'type'    => 'radio',
+    'choices' => [
+        'left'   => 'Left',
+        'center' => 'Center',
+        'right'  => 'Right',
+    ],
+]);
 
 
     /* ======================
@@ -194,6 +196,7 @@ function rd3_branding_styles() {
     $secondary = get_theme_mod('rd3_secondary_color', '#666666');
     $font      = get_theme_mod('rd3_font_family', 'system');
     $button    = get_theme_mod('rd3_button_style', 'rounded');
+    $logo_align = get_theme_mod('rd3_logo_alignment', 'left');
 
     // Font mapping
     $fonts = [
@@ -224,7 +227,21 @@ function rd3_branding_styles() {
         .btn {
             color: <?php echo $primary; ?>;
         }
+        /* Logo Alignment */
+        .site-header .logo {
+            text-align: <?php echo $logo_align; ?>;
+        }
 
+        .site-header .container {
+            display: flex;
+            flex-direction: column;
+            align-items:
+                <?php
+                if ($logo_align === 'left') echo 'flex-start';
+                elseif ($logo_align === 'right') echo 'flex-end';
+                else echo 'center';
+                ?>;
+        }
         .btn,
         button,
         input[type="submit"] {
