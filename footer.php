@@ -1,7 +1,6 @@
 <?php
 /**
  * Footer Template
- * RD3 Client Starter Theme
  */
 ?>
 
@@ -24,26 +23,15 @@
         <!-- Footer Widgets -->
         <div class="footer-widgets">
 
-            <?php if ( is_active_sidebar('footer-col-1') ) : ?>
-                <div class="footer-column">
-                    <?php dynamic_sidebar('footer-col-1'); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if ( is_active_sidebar('footer-col-2') ) : ?>
-                <div class="footer-column">
-                    <?php dynamic_sidebar('footer-col-2'); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if ( is_active_sidebar('footer-col-3') ) : ?>
-                <div class="footer-column">
-                    <?php dynamic_sidebar('footer-col-3'); ?>
-                </div>
-            <?php endif; ?>
+            <?php for ($i=1; $i<=3; $i++) : ?>
+                <?php if ( is_active_sidebar("footer-col-$i") ) : ?>
+                    <div class="footer-column">
+                        <?php dynamic_sidebar("footer-col-$i"); ?>
+                    </div>
+                <?php endif; ?>
+            <?php endfor; ?>
 
         </div>
-
 
         <!-- Footer Info -->
         <div class="footer-info">

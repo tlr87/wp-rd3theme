@@ -43,6 +43,31 @@ body {
 }
 
 
+/* Header & Footer Overlay for Background Images */
+.site-header,
+.site-footer {
+    position: relative; /* Needed so overlay sits behind content */
+}
+
+.site-header::before,
+.site-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3); /* Semi-transparent black overlay */
+    z-index: 0; /* Behind content */
+}
+
+.site-header .container,
+.site-footer .container {
+    position: relative;
+    z-index: 1; /* Content sits above overlay */
+}
+
+
 /* Footer */
 .site-footer {
     background: #111;
