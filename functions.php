@@ -209,6 +209,8 @@ function rd3_branding_styles()
     ?>
     <style>
         body,
+        h1,
+        p,
         .site-header .logo a,
         .main-nav a,
         .footer-nav a,
