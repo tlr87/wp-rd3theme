@@ -1,45 +1,36 @@
-<?php
+<?php 
 /**
  * Header Template
  */
 ?><!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-
+<html <?php language_attributes();?>>
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php wp_head(); ?>
+<meta charset="<?php bloginfo('charset');?>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php wp_head();?>
 </head>
+<body <?php body_class();?>>
 
-<body <?php body_class(); ?>>
+<header class="site-header">
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <?php if(get_theme_mod('rd3_logo')):?>
+                <a href="<?php echo esc_url(home_url('/'));?>">
+                    <img src="<?php echo esc_url(get_theme_mod('rd3_logo'));?>" alt="<?php bloginfo('name');?>">
+                </a>
+                <?php if ( get_theme_mod('rd3_show_site_title', true) ): ?>
+                
+                <h1><?php bloginfo('name'); ?></h1><?php endif; ?>
 
-    <header class="site-header">
-        <div class="container">
-            <!-- Logo -->
-            <div class="logo">
-                <?php if (get_theme_mod('rd3_logo')): ?>
-                    <a href="<?php echo esc_url(home_url('/')); ?>">
-                        <img src="<?php echo esc_url(get_theme_mod('rd3_logo')); ?>" alt="<?php bloginfo('name'); ?>">
-                        <?php if (get_theme_mod('rd3_show_site_title', true)): ?>
+                <?php if ( get_theme_mod('rd3_show_site_desc', true) ): ?><p><?php bloginfo('description'); ?></p><?php endif; ?>
 
-                                                    <h1><?php bloginfo('name'); ?></h1>
-        <?php endif; ?>
-              
-              
-                                      <?php if (get_theme_mod('rd3_show_site_desc', true)): ?>
-                <p><?php bloginfo('description'); ?></p>
-         <?php endif; ?>
-                    </a>
-                <?php else: ?>
-                  
-      <h1><a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></h1>
-            <?php endif; ?>
+            <?php else:?>
+                <h1><a href="<?php echo esc_url(home_url('/'));?>"><?php bloginfo('name');?></a></h1>
+            <?php endif;?>
+        </div>
 
- </div>
-
-    
-
-              <!--   Desktop Menu -->
+        <!-- Desktop Menu -->
         <nav class="main-nav desktop">
             <?php
             wp_nav_menu([
@@ -48,19 +39,18 @@
                 'menu_class' => 'main-menu'
             ]);
             ?>
-            </nav>
- 
-               
-               <!-- Mobile Hamburger -->
-        <button id="menu-toggle" class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMenu()">
-                <span class="hamburger"></span>
-                <span class="hamburger"></span>
-                <span class="hamburger"></span>
-                <span class="screen-reader-text"><?php _e('Toggle Menu', 'davis'); ?></span>
-        </button>
-        </div>
+        </nav>
 
-        <!--     Mobile Slide-In Menu -->
+        <!-- Mobile Hamburger -->
+        <button id="menu-toggle" class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMenu()">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="screen-reader-text"><?php _e('Toggle Menu', 'davis'); ?></span>
+        </button>
+    </div>
+
+    <!-- Mobile Slide-In Menu -->
     <nav id="mobile-menu" class="mobile-nav">
         <?php
         wp_nav_menu([
@@ -70,23 +60,23 @@
         ]);
         ?>
     </nav>
-    </header>
-        
-        <script>
-        // Toggle mobile menu
-  func      tion toggleMenu() {
-            const body = document.body;
-    const toggle = document.getElementById('menu-toggle');
-            body.classList.toggle('menu-open');
+</header>
 
-                    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+<script>
+// Toggle mobile menu
+function toggleMenu() {
+    const body = document.body;
+    const toggle = document.getElementById('menu-toggle');
+    body.classList.toggle('menu-open');
+
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', !expanded);
-        }
-        
-        // Auto-close mobile menu
-        document.q uerySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                if(document.body.classList.contains('menu-open')) toggleMenu();
-        });
+}
+
+// Auto-close mobile menu
+document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        if(document.body.classList.contains('menu-open')) toggleMenu();
+    });
 });
 </script>
