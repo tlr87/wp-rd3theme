@@ -1,12 +1,11 @@
-/* ================================
-   Reset / Global Styles
-   ================================ */
-   * {
+Refactor code with comments /* Reset */
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Layout */
 body {
     font-family: system-ui, sans-serif;
     line-height: 1.6;
@@ -19,169 +18,42 @@ body {
     padding: 20px;
 }
 
-/* ================================
-   Header Styles
-   ================================ */
+/* Header */
 .site-header {
     background: #111;
     color: #fff;
-    position: relative; /* Needed for overlay */
 }
 
 .site-header a {
     color: #fff;
 }
 
-.site-header::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.3); /* Semi-transparent overlay */
-    z-index: 0; /* Behind content */
-}
-
-.site-header .container {
-    position: relative;
-    z-index: 1; /* Content above overlay */
-}
-
-/* ================================
-   Navigation Styles
-   ================================ */
+/* Navigation */
 .main-nav ul {
     display: flex;
     gap: 20px;
     list-style: none;
 }
 
-/* --- Desktop Menu --- */
-.main-nav.desktop {
-    display: flex;
-    gap: 25px;
-}
-
-.main-nav.desktop .main-menu {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.main-nav.desktop .main-menu li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    padding: 0;
-}
-
-.main-nav.desktop .main-menu li a:hover {
-    text-decoration: underline;
-}
-
-/* --- Mobile Hamburger Button --- */
-.menu-toggle {
-    display: none; /* hidden on desktop */
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 10px;
-    z-index: 1100;
-}
-
-.menu-toggle .hamburger {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px;
-    border-radius: 2px;
-    background: #000 !important;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Hamburger animation when menu is open */
-body.menu-open .menu-toggle .hamburger:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-body.menu-open .menu-toggle .hamburger:nth-child(2) {
-    opacity: 0;
-}
-
-body.menu-open .menu-toggle .hamburger:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* --- Mobile Menu Slide-In --- */
-.mobile-nav {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 80%; /* slide width */
-    background: #f5f5f5;
-    padding: 60px 20px 20px;
-    box-shadow: -2px 0 8px rgba(0,0,0,0.2);
-    overflow-y: auto;
-    z-index: 1050;
-    transition: transform 0.3s ease;
-    transform: translateX(100%);
-}
-
-body.menu-open .mobile-nav {
-    display: block;
-    transform: translateX(0);
-}
-
-.mobile-nav .main-menu {
-    display: block;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.mobile-nav .main-menu li a {
-    display: block;
-    padding: 12px 10px;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-}
-
-.mobile-nav .main-menu li a:hover {
-    background: #ddd;
-}
-
-/* ================================
-   Hero Section
-   ================================ */
+/* Hero */
 .hero {
     padding: 100px 20px;
     text-align: center;
     background: #f4f4f4;
 }
 
-/* ================================
-   Page Content
-   ================================ */
-article.page {
+
+article.page{
     padding: 1.5%;
 }
 
-/* ================================
-   Footer Styles
-   ================================ */
+/* Header & Footer Overlay for Background Images */
+.site-header,
 .site-footer {
-    background: #111;
-    color: #fff;
-    text-align: center;
-    padding: 30px;
-    position: relative; /* Needed for overlay */
+    position: relative; /* Needed so overlay sits behind content */
 }
 
+.site-header::before,
 .site-footer::before {
     content: "";
     position: absolute;
@@ -189,13 +61,23 @@ article.page {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.3);
-    z-index: 0;
+    background: rgba(0,0,0,0.3); /* Semi-transparent black overlay */
+    z-index: 0; /* Behind content */
 }
 
+.site-header .container,
 .site-footer .container {
     position: relative;
-    z-index: 1;
+    z-index: 1; /* Content sits above overlay */
+}
+
+
+/* Footer */
+.site-footer {
+    background: #111;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
 }
 
 .footer-widgets {
@@ -216,9 +98,98 @@ article.page {
     margin-bottom: 10px;
 }
 
-/* ================================
-   Responsive / Media Queries
-   ================================ */
+/*Test CSS*/
+
+
+/* --- Desktop Menu --- */
+.main-nav.desktop {
+    display: flex;
+    gap: 25px;
+}
+.main-nav.desktop .main-menu {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.main-nav.desktop .main-menu li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0;
+}
+.main-nav.desktop .main-menu li a:hover {
+    text-decoration: underline;
+}
+
+/* --- Mobile Hamburger Button --- */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 10px;
+    z-index: 1100;
+}
+.menu-toggle .hamburger {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px;
+    border-radius: 2px;
+    background: #000 !important;
+    transition: all 0.3s ease-in-out;
+}
+body.menu-open .menu-toggle .hamburger:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+body.menu-open .menu-toggle .hamburger:nth-child(2) {
+    opacity: 0;
+}
+body.menu-open .menu-toggle .hamburger:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* --- Mobile Menu Slide-In --- */
+.mobile-nav {
+    display: none;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background: #f5f5f5;
+    padding: 60px 20px 20px;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+    overflow-y: auto;
+    z-index: 1050;
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+}
+body.menu-open .mobile-nav {
+    display: block;
+    transform: translateX(0);
+}
+.mobile-nav .main-menu {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.mobile-nav .main-menu li a {
+    display: block;
+    padding: 12px 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+.mobile-nav .main-menu li a:hover {
+    background: #ddd;
+}
+
+
+
+
+
+/* --- Media Queries --- */
 @media (max-width: 767px) {
     .main-nav.desktop {
         display: none; /* hide desktop menu on mobile */
