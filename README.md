@@ -1,111 +1,150 @@
 # RD3 Starter Theme
 
-**Version:** 1.0
-**Author:** RD3 Tech
+**Version:** 1.0  
+**Author:** RD3 Tech  
 
-A lightweight, client-ready WordPress starter theme for small businesses, churches, and community organizations. Fully customizable via the WordPress Customizer.
+A lightweight, client-ready WordPress starter theme designed for small businesses, churches, and community organisations. It focuses on simplicity, flexibility, and easy customisation through the WordPress Customizer.
+
+---
+
+## Overview
+
+RD3 Starter Theme provides a clean foundation for building professional WordPress websites without unnecessary complexity. It allows non-technical users to manage branding, layout, and content while giving developers a solid base for extension.
 
 ---
 
 ## Features
 
-### 1. Header
+### Header
 
-* Custom logo (upload via Customizer)
-* **Logo alignment**: left, center, right
-* **Header menu**: independent alignment (left, center, right)
-* **Header background image** with cover, center, and no-repeat
-* Optional overlay for text readability
+- Custom logo (via Customizer)
+- Logo alignment: left, centre, right
+- Independent header menu alignment
+- Header background image (cover, centre, no-repeat)
+- Optional overlay for improved readability
 
-### 2. Footer
+### Footer
 
-* Footer menu with **independent alignment** (left, center, right)
-* Toggle to **show/hide footer menu**
-* **3-column widget area** for footer content
-* Footer background image with cover, center, and no-repeat
-* Optional overlay for text readability
+- Footer menu with independent alignment
+- Toggle to show/hide footer menu
+- Three-column widget area
+- Footer background image support
+- Optional overlay
 
-### 3. Customizer Options
+### Customizer Options
 
-* Logo upload + alignment
-* Header & footer menu alignment
-* Primary and secondary colors
-* Font selection (System, Arial, Roboto, Poppins, Lato)
-* Header and footer background images
-* Homepage layout: latest posts or full page
-* Full-page selection for homepage if layout is set to page
+- Logo upload and alignment
+- Header and footer menu alignment
+- Primary and secondary colours
+- Font selection (System, Arial, Roboto, Poppins, Lato)
+- Header and footer background images
+- Homepage layout selection
+- Page selection for full-page homepage
 
-### 4. Widgets
+### Widgets
 
-* Sidebar widget area
-* Footer: 3 independent widget columns
+- Sidebar widget area
+- Three independent footer widget columns
 
-### 5. Homepage Layout
+### Homepage Layout
 
-* Show latest posts (default)
-* Show a full page of content (selectable via Customizer)
+- Latest posts (default)
+- Full-page content (selectable)
 
-### 6. Responsive & Clean
+### Performance & Design
 
-* Fully responsive header, menu, and footer
-* Lightweight and minimal CSS for easy client editing
-* Ready for future expansion
+- Fully responsive layout
+- Minimal, lightweight CSS
+- Easy to customise
+- Ready for future expansion
 
 ---
 
-## How to Modify
+## Installation
 
-### 1. Customizer
+1. Download or clone this repository.
+2. Upload the folder to `/wp-content/themes/`.
+3. In WordPress Admin, go to **Appearance → Themes**.
+4. Activate **RD3 Starter Theme**.
+5. Configure via **Appearance → Customize**.
 
-* Go to **Appearance → Customize → Branding Settings**
-* Change **logo** and its alignment
-* Set **header & footer menu alignment**
-* Upload **header and footer background images**
-* Adjust **primary/secondary colors** and **font family**
-* Toggle **footer menu** visibility
-* Select **homepage layout** (latest posts or full page)
+---
 
-### 2. Menus
+## Customisation Guide
 
-* Header menu: assign under **Appearance → Menus → Manage Locations → Main Menu**
-* Footer menu: assign under **Appearance → Menus → Manage Locations → Footer Menu**
+### Customizer
 
-### 3. Widgets
+Navigate to:
 
-* Go to **Appearance → Widgets**
-* Add content to **Sidebar** or **Footer Column 1-3**
+```
+Appearance → Customize → Branding Settings
+```
 
-### 4. CSS Customizations
+From here you can:
 
-* Additional styling can be added in `assets/css/main.css`
-* Overlay adjustments for header/footer background images:
+- Upload and align the logo
+- Set menu alignment
+- Configure colours and fonts
+- Upload background images
+- Toggle footer menu
+- Select homepage layout
+
+### Menus
+
+- Header menu:  
+  `Appearance → Menus → Manage Locations → Main Menu`
+
+- Footer menu:  
+  `Appearance → Menus → Manage Locations → Footer Menu`
+
+### Widgets
+
+Go to:
+
+```
+Appearance → Widgets
+```
+
+Configure:
+
+- Sidebar
+- Footer Column 1–3
+
+---
+
+## CSS Customisation
+
+Additional styling can be added in:
+
+```
+assets/css/main.css
+```
+
+Example overlay styling:
 
 ```css
 .site-header::before,
 .site-footer::before {
     content: "";
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.3); /* adjust opacity/color */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
     z-index: 0;
 }
+
 .site-header .container,
 .site-footer .container {
     position: relative;
-    z-index: 1; /* content above overlay */
+    z-index: 1;
 }
 ```
 
-### 5. Functions / Features
-
-* `functions.php` contains all Customizer settings, dynamic CSS, menu registration, and widget areas.
-* Header menu and logo alignment are **separate** for flexible layouts.
-* Footer menu alignment and widget columns are fully configurable.
-
 ---
 
-## Folder Structure
+## Theme Structure
 
 ```
 rd3-starter-theme/
@@ -124,72 +163,113 @@ rd3-starter-theme/
 
 ---
 
-## Tips for Clients / Developers
+## Developer Guide
 
-* Use the **Customizer** for layout changes; avoids touching code.
-* For advanced styling, edit `main.css`.
-* Widgets and menus are fully flexible for content changes.
-* Background images scale automatically (`cover`) for desktop and mobile.
+This section is for extending or modifying theme behaviour.
 
----
+### Header & Footer
 
-## For Coders: Code Modification Guide
+- `header.php` – Logo, menus, and header elements
+- `footer.php` – Widgets, menus, and footer blocks
 
-This section is for developers who want to **extend or modify theme behavior**.
+### Customizer Settings
 
-### 1. Header / Footer
+All Customizer logic is in:
 
-* `header.php` → modify logo structure, menu markup, or add custom elements.
-* `footer.php` → modify footer widgets, menus, or add custom content blocks.
+```
+functions.php → rd3_branding_customizer()
+```
 
-### 2. Customizer / Theme Options
-
-* All Customizer settings are in `functions.php` → `rd3_branding_customizer()`
-* Add new settings by copying the pattern:
+To add a new setting:
 
 ```php
-$wp_customize->add_setting('new_setting_name', ['default'=>'value']);
+$wp_customize->add_setting('new_setting_name', [
+    'default' => 'value'
+]);
+
 $wp_customize->add_control('new_setting_name', [
-    'label'=>'New Setting',
-    'section'=>'rd3_branding',
-    'type'=>'text', // or radio, checkbox, color, etc.
+    'label' => 'New Setting',
+    'section' => 'rd3_branding',
+    'type' => 'text'
 ]);
 ```
 
-* Use `get_theme_mod('new_setting_name')` in templates to output the value.
+Retrieve values using:
 
-### 3. Dynamic CSS
+```php
+get_theme_mod('new_setting_name');
+```
 
-* All live styles are generated in `rd3_branding_styles()`
-* To add new CSS rules based on Customizer values, append them here.
+### Dynamic Styles
 
-### 4. Widgets
+Generated in:
 
-* Register new widget areas in `rd3_widgets()`
-* Add markup in `footer.php` or other template files.
+```
+rd3_branding_styles()
+```
 
-### 5. JavaScript
+Append new rules here when adding Customizer options.
 
-* Custom JS can be added in `assets/js/main.js`
-* Enqueued automatically by `rd3_assets()` in `functions.php`.
+### Widgets
 
-### 6. Homepage Layout
+- Registered in `rd3_widgets()`
+- Output in `footer.php` or templates
 
-* Controlled by Customizer (`rd3_homepage_layout`)
-* `index.php` should handle logic for either latest posts or a full page:
+### JavaScript
+
+Add custom scripts in:
+
+```
+assets/js/main.js
+```
+
+Automatically enqueued via `rd3_assets()`.
+
+### Homepage Logic
+
+Controlled by `rd3_homepage_layout`:
 
 ```php
 $layout = get_theme_mod('rd3_homepage_layout', 'posts');
+
 if ($layout === 'page') {
     $page_id = get_theme_mod('rd3_homepage_page', 0);
-    echo apply_filters('the_content', get_post_field('post_content', $page_id));
+    echo apply_filters(
+        'the_content',
+        get_post_field('post_content', $page_id)
+    );
 } else {
-    if (have_posts()) while(have_posts()) { the_post(); the_content(); }
+    if (have_posts()) {
+        while (have_posts()) {
+            the_post();
+            the_content();
+        }
+    }
 }
 ```
 
-### 7. Best Practices
+---
 
-* Avoid modifying core files directly if possible; use a child theme for major changes.
-* Keep custom CSS in `main.css` or a separate file for easy updates.
-* Use WordPress hooks (`add_action`, `add_filter`) to extend functionality without editing core theme files.
+## Best Practices
+
+- Use the Customizer for most changes
+- Create a child theme for major customisation
+- Keep custom CSS organised
+- Use WordPress hooks where possible
+- Avoid editing core files directly
+
+---
+
+## License
+
+This project is licensed under **Creative Commons Attribution-NonCommercial (CC BY-NC)**.  
+Commercial use requires permission from RD3 Tech.
+
+---
+
+## Support
+
+For support, customisation, or development services, contact:
+
+**RD3 Tech**  
+Website: https://rd3tech.com
