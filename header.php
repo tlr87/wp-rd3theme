@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Header Template
  */
@@ -12,9 +12,7 @@
 <body <?php body_class();?>>
 
 <header class="site-header">
-
     <div class="container">
-
         <!-- Logo -->
         <div class="logo">
             <?php if(get_theme_mod('rd3_logo')):?>
@@ -26,11 +24,53 @@
             <?php endif;?>
         </div>
 
-        <!-- Main Navigation -->
-        <nav class="main-nav">
-            <?php wp_nav_menu(['theme_location'=>'main-menu','container'=>false,'menu_class'=>'main-menu']);?>
+        <!-- Desktop Menu -->
+        <nav class="main-nav desktop">
+            <?php
+            wp_nav_menu([
+                'theme_location' => 'main-menu',
+                'container' => false,
+                'menu_class' => 'main-menu'
+            ]);
+            ?>
         </nav>
 
+        <!-- Mobile Hamburger -->
+        <button id="menu-toggle" class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMenu()">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="screen-reader-text"><?php _e('Toggle Menu', 'davis'); ?></span>
+        </button>
     </div>
 
+    <!-- Mobile Slide-In Menu -->
+    <nav id="mobile-menu" class="mobile-nav">
+        <?php
+        wp_nav_menu([
+            'theme_location' => 'main-menu',
+            'container' => false,
+            'menu_class' => 'main-menu'
+        ]);
+        ?>
+    </nav>
 </header>
+
+<script>
+// Toggle mobile menu
+function toggleMenu() {
+    const body = document.body;
+    const toggle = document.getElementById('menu-toggle');
+    body.classList.toggle('menu-open');
+
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', !expanded);
+}
+
+// Auto-close mobile menu
+document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        if(document.body.classList.contains('menu-open')) toggleMenu();
+    });
+});
+</script>

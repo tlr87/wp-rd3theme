@@ -93,3 +93,102 @@ body {
     font-size: 16px;
     margin-bottom: 10px;
 }
+
+/*Test CSS*/
+
+
+/* --- Desktop Menu --- */
+.main-nav.desktop {
+    display: flex;
+    gap: 25px;
+}
+.main-nav.desktop .main-menu {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.main-nav.desktop .main-menu li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0;
+}
+.main-nav.desktop .main-menu li a:hover {
+    text-decoration: underline;
+}
+
+/* --- Mobile Hamburger Button --- */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 10px;
+    z-index: 1100;
+}
+.menu-toggle .hamburger {
+    display: block;
+    width: 30px;
+    height: 4px;
+    margin: 6px 0;
+    background: #333;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+body.menu-open .menu-toggle .hamburger:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+body.menu-open .menu-toggle .hamburger:nth-child(2) {
+    opacity: 0;
+}
+body.menu-open .menu-toggle .hamburger:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* --- Mobile Menu Slide-In --- */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    background: #f5f5f5;
+    padding: 60px 20px 20px;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+    overflow-y: auto;
+    z-index: 1050;
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+}
+body.menu-open .mobile-nav {
+    display: block;
+    transform: translateX(0);
+}
+.mobile-nav .main-menu {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.mobile-nav .main-menu li a {
+    display: block;
+    padding: 12px 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+.mobile-nav .main-menu li a:hover {
+    background: #ddd;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 767px) {
+    .main-nav.desktop {
+        display: none; /* hide desktop menu on mobile */
+    }
+    .menu-toggle {
+        display: inline-block; /* show hamburger on mobile */
+    }
+}
