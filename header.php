@@ -18,11 +18,16 @@
             <?php if(get_theme_mod('rd3_logo')):?>
                 <a href="<?php echo esc_url(home_url('/'));?>">
                     <img src="<?php echo esc_url(get_theme_mod('rd3_logo'));?>" alt="<?php bloginfo('name');?>">
+                    <h1><?php bloginfo('name'); ?></h1>
+                    <p><?php bloginfo('description'); ?></p>
                 </a>
             <?php else:?>
                 <h1><a href="<?php echo esc_url(home_url('/'));?>"><?php bloginfo('name');?></a></h1>
             <?php endif;?>
         </div>
+
+       
+        
 
         <!-- Desktop Menu -->
         <nav class="main-nav desktop">
