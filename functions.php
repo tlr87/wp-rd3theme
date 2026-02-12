@@ -277,7 +277,7 @@ function rd3_breadcrumbs()
 {
     if (is_front_page()) return;
 
-    echo '<p class="rd3-breadcrumbs">';
+    echo '<p class="breadcrumbs">';
     echo '<a href="' . esc_url(home_url('/')) . '">Home</a> » ';
 
     if (is_category() || is_single()) {
