@@ -8,6 +8,8 @@
 
     <?php while ( have_posts() ) : the_post(); ?>
 
+    <?php get_sidebar(); ?>
+
         <article class="post">
 
             <h2>
