@@ -289,3 +289,32 @@ function rd3_branding_styles()
     <?php
 }
 add_action('wp_head', 'rd3_branding_styles');
+
+
+
+/* =========================
+   Breadcrumbs
+========================= */
+function rd3_breadcrumbs() {
+
+    if (is_front_page()) return;
+
+    echo '<p class="rd3-breadcrumbs">'; // changed from <nav>
+    echo '<a href="' . esc_url(home_url('/')) . '">Home</a> » ';
+
+    if (is_category() || is_single()) {
+        the_category(' » ');
+        if (is_single()) {
+            echo ' » ';
+            the_title();
+        }
+    } elseif (is_page()) {
+        the_title();
+    } elseif (is_search()) {
+        echo 'Search: "' . get_search_query() . '"';
+    } elseif (is_404()) {
+        echo '404';
+    }
+
+    echo '</p>'; // close p tag
+}

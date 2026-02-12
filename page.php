@@ -1,5 +1,8 @@
 <?php get_header(); ?>
 
+<p><?php rd3_breadcrumbs(); ?></p>
+
+
 <?php while ( have_posts() ) : the_post(); ?>
 
 <article class="page">
