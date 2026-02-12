@@ -72,39 +72,44 @@ function rd3_branding_customizer($wp_customize)
         'choices' => ['left' => 'Left', 'center' => 'Center', 'right' => 'Right']
     ]);
 
+            //Display Site Title
+            $wp_customize->add_setting('rd3_show_site_title', [
+                'default' => true,
+                'sanitize_callback' => 'wp_validate_boolean',
+            ]);
 
+            $wp_customize->add_control('rd3_show_site_title_control', [
+                'label'    => __('Display Site Title', 'rd3starter'),
+                'section'  => 'rd3_branding',
+                'type'     => 'checkbox',
+                'settings' => 'rd3_show_site_title',
+            ]);
 
-        /* ======================
-        Display Site Title
-        ====================== */
-        $wp_customize->add_setting('rd3_show_site_title', [
-            'default' => true,
-            'sanitize_callback' => 'wp_validate_boolean',
-        ]);
+            //Display Site Description
+            $wp_customize->add_setting('rd3_show_site_desc', [
+                'default' => true,
+                'sanitize_callback' => 'wp_validate_boolean',
+            ]);
 
-        $wp_customize->add_control('rd3_show_site_title_control', [
-            'label'    => __('Display Site Title', 'rd3starter'),
-            'section'  => 'rd3_branding',
-            'type'     => 'checkbox',
-            'settings' => 'rd3_show_site_title',
-        ]);
+            $wp_customize->add_control('rd3_show_site_desc_control', [
+                'label'    => __('Display Site Description / Tagline', 'rd3starter'),
+                'section'  => 'rd3_branding',
+                'type'     => 'checkbox',
+                'settings' => 'rd3_show_site_desc',
+            ]);
 
-        /* ======================
-        Display Site Description
-        ====================== */
-        $wp_customize->add_setting('rd3_show_site_desc', [
-            'default' => true,
-            'sanitize_callback' => 'wp_validate_boolean',
-        ]);
+            //Display Breadcrumbs
+            $wp_customize->add_setting('rd3_show_breadcrumbs', [
+                'default'           => true,
+                'sanitize_callback'  => 'wp_validate_boolean',
+            ]);
 
-        $wp_customize->add_control('rd3_show_site_desc_control', [
-            'label'    => __('Display Site Description / Tagline', 'rd3starter'),
-            'section'  => 'rd3_branding',
-            'type'     => 'checkbox',
-            'settings' => 'rd3_show_site_desc',
-        ]);
-
-
+            $wp_customize->add_control('rd3_show_breadcrumbs_control', [
+                'label'    => __('Display Breadcrumbs', 'rd3starter'),
+                'section'  => 'rd3_branding',
+                'type'     => 'checkbox',
+                'settings' => 'rd3_show_breadcrumbs',
+            ]);
 
     // Header Menu Alignment
     $wp_customize->add_setting('rd3_header_menu_alignment', ['default' => 'center']);

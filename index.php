@@ -1,6 +1,8 @@
 <?php get_header(); ?>
 
-<?php rd3_breadcrumbs(); ?>
+<?php if ( get_theme_mod('rd3_show_breadcrumbs', true) ) : ?>
+    <?php rd3_breadcrumbs(); ?>
+<?php endif; ?>
 
 <?php if ( have_posts() ) : ?>
 
