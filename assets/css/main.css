@@ -219,7 +219,7 @@ body.menu-open .mobile-nav {
 }
 
 /* Posts */
-article.post {
+article{
     padding: 1.5%;
     margin-bottom: 2rem;
     background: #f9f9f9;
