@@ -190,6 +190,24 @@ body.menu-open .mobile-nav {
     flex: 1;
     max-width: 300px; /* adjust width here */
 }
+.main-sidebar-wrapper {
+    width: 320px;
+    padding: 0 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    list-style-type: none; /* Removes the bullets */
+}
+
+.main-sidebar-wrapper .widget {
+    margin-bottom: 2.5rem;
+}
+
+.main-sidebar-wrapper .widget-title {
+    font-size: 1.3rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.6rem;
+}
 
 /* Swap sidebar position dynamically */
 .content-area.sidebar-left {
@@ -296,10 +314,12 @@ article.post {
 =============================== */
 @media (max-width: 1024px) {
     .content-area {
-        flex-direction: column;
+        flex-direction: column!important;
+        padding: 1%;
     }
     .sidebar {
         max-width: 100%;
+        
     }
     .site-main {
         flex: 1;
@@ -307,6 +327,9 @@ article.post {
 }
 
 @media (max-width: 767px) {
+    .content-area {
+        flex-direction: column;
+    }
     .main-nav.desktop {
         display: none;
     }
