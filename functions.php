@@ -145,24 +145,8 @@ function rd3_branding_customizer($wp_customize)
         'type' => 'checkbox'
     ]);
 
-    // Homepage Layout
-    $wp_customize->add_setting('rd3_homepage_layout', ['default' => 'posts']);
-    $wp_customize->add_control('rd3_homepage_layout', [
-        'label' => 'Homepage Layout',
-        'section' => 'rd3_branding',
-        'type' => 'radio',
-        'choices' => ['posts' => 'Show Latest Posts', 'page' => 'Show Full Page']
-    ]);
+    // 
 
-    $wp_customize->add_setting('rd3_homepage_page', ['default' => 0]);
-    $wp_customize->add_control('rd3_homepage_page', [
-        'label' => 'Select Full Page for Homepage',
-        'section' => 'rd3_branding',
-        'type' => 'dropdown-pages',
-        'active_callback' => function () {
-            return get_theme_mod('rd3_homepage_layout', 'posts') === 'page';
-        }
-    ]);
 
     // Header & Footer Background Images
     $wp_customize->add_setting('rd3_header_bg');
