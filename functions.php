@@ -221,6 +221,7 @@ function rd3_branding_styles()
     $font = get_theme_mod('rd3_font_family', 'system');
     $font_color = get_theme_mod('rd3_font_color', '#000000');
     $logo_align = get_theme_mod('rd3_logo_alignment', 'left');
+    $logo_align_class = 'logo-align-' . $logo_align;
     $header_bg = get_theme_mod('rd3_header_bg', '');
     $footer_bg = get_theme_mod('rd3_footer_bg', '');
     $header_menu_align = get_theme_mod('rd3_header_menu_alignment', 'center');
