@@ -72,44 +72,44 @@ function rd3_branding_customizer($wp_customize)
         'choices' => ['left' => 'Left', 'center' => 'Center', 'right' => 'Right']
     ]);
 
-            //Display Site Title
-            $wp_customize->add_setting('rd3_show_site_title', [
-                'default' => true,
-                'sanitize_callback' => 'wp_validate_boolean',
-            ]);
+    //Display Site Title
+    $wp_customize->add_setting('rd3_show_site_title', [
+        'default' => true,
+        'sanitize_callback' => 'wp_validate_boolean',
+    ]);
 
-            $wp_customize->add_control('rd3_show_site_title_control', [
-                'label'    => __('Display Site Title', 'rd3starter'),
-                'section'  => 'rd3_branding',
-                'type'     => 'checkbox',
-                'settings' => 'rd3_show_site_title',
-            ]);
+    $wp_customize->add_control('rd3_show_site_title_control', [
+        'label' => __('Display Site Title', 'rd3starter'),
+        'section' => 'rd3_branding',
+        'type' => 'checkbox',
+        'settings' => 'rd3_show_site_title',
+    ]);
 
-            //Display Site Description
-            $wp_customize->add_setting('rd3_show_site_desc', [
-                'default' => true,
-                'sanitize_callback' => 'wp_validate_boolean',
-            ]);
+    //Display Site Description
+    $wp_customize->add_setting('rd3_show_site_desc', [
+        'default' => true,
+        'sanitize_callback' => 'wp_validate_boolean',
+    ]);
 
-            $wp_customize->add_control('rd3_show_site_desc_control', [
-                'label'    => __('Display Site Description / Tagline', 'rd3starter'),
-                'section'  => 'rd3_branding',
-                'type'     => 'checkbox',
-                'settings' => 'rd3_show_site_desc',
-            ]);
+    $wp_customize->add_control('rd3_show_site_desc_control', [
+        'label' => __('Display Site Description / Tagline', 'rd3starter'),
+        'section' => 'rd3_branding',
+        'type' => 'checkbox',
+        'settings' => 'rd3_show_site_desc',
+    ]);
 
-            //Display Breadcrumbs
-            $wp_customize->add_setting('rd3_show_breadcrumbs', [
-                'default'           => true,
-                'sanitize_callback'  => 'wp_validate_boolean',
-            ]);
+    //Display Breadcrumbs
+    $wp_customize->add_setting('rd3_show_breadcrumbs', [
+        'default' => true,
+        'sanitize_callback' => 'wp_validate_boolean',
+    ]);
 
-            $wp_customize->add_control('rd3_show_breadcrumbs_control', [
-                'label'    => __('Display Breadcrumbs', 'rd3starter'),
-                'section'  => 'rd3_branding',
-                'type'     => 'checkbox',
-                'settings' => 'rd3_show_breadcrumbs',
-            ]);
+    $wp_customize->add_control('rd3_show_breadcrumbs_control', [
+        'label' => __('Display Breadcrumbs', 'rd3starter'),
+        'section' => 'rd3_branding',
+        'type' => 'checkbox',
+        'settings' => 'rd3_show_breadcrumbs',
+    ]);
 
     // Header Menu Alignment
     $wp_customize->add_setting('rd3_header_menu_alignment', ['default' => 'center']);
@@ -135,21 +135,21 @@ function rd3_branding_customizer($wp_customize)
     $wp_customize->add_setting('rd3_secondary_color', ['default' => '#666666']);
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_secondary_color', ['label' => 'Secondary Colour', 'section' => 'rd3_branding']));
 
-// Font Color
-$wp_customize->add_setting('rd3_font_color', [
-    'default'           => '#000000',
-    'sanitize_callback' => 'sanitize_hex_color',
-]);
+    // Font Color
+    $wp_customize->add_setting('rd3_font_color', [
+        'default' => '#000000',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
 
-$wp_customize->add_control(new WP_Customize_Color_Control(
-    $wp_customize,
-    'rd3_font_color_control',
-    [
-        'label'    => __('Font Color', 'rd3starter'),
-        'section'  => 'rd3_branding',
-        'settings' => 'rd3_font_color',
-    ]
-));
+    $wp_customize->add_control(new WP_Customize_Color_Control(
+        $wp_customize,
+        'rd3_font_color_control',
+        [
+            'label' => __('Font Color', 'rd3starter'),
+            'section' => 'rd3_branding',
+            'settings' => 'rd3_font_color',
+        ]
+    ));
 
 
 
@@ -200,7 +200,7 @@ function rd3_branding_styles()
     $primary = get_theme_mod('rd3_primary_color', '#000000');
     $secondary = get_theme_mod('rd3_secondary_color', '#666666');
     $font = get_theme_mod('rd3_font_family', 'system');
-    $font_color  = get_theme_mod('rd3_font_color', '#000000');
+    $font_color = get_theme_mod('rd3_font_color', '#000000');
     $logo_align = get_theme_mod('rd3_logo_alignment', 'left');
     $header_bg = get_theme_mod('rd3_header_bg', '');
     $footer_bg = get_theme_mod('rd3_footer_bg', '');
@@ -222,8 +222,8 @@ function rd3_branding_styles()
         .footer-widgets,
         .site-footer p {
             color:
-                <?php echo esc_attr($font_color); ?>!important
-            ;
+                <?php echo esc_attr($font_color); ?>
+                !important;
         }
 
         body {
@@ -300,9 +300,11 @@ add_action('wp_head', 'rd3_branding_styles');
 /* =========================
    Breadcrumbs
 ========================= */
-function rd3_breadcrumbs() {
+function rd3_breadcrumbs()
+{
 
-    if (is_front_page()) return;
+    if (is_front_page())
+        return;
 
     echo '<p class="rd3-breadcrumbs">'; // changed from <nav>
     echo '<a href="' . esc_url(home_url('/')) . '">Home</a> » ';
