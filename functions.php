@@ -136,37 +136,7 @@ function rd3_branding_customizer($wp_customize)
         'choices' => ['left' => 'Left', 'center' => 'Center', 'right' => 'Right']
     ]);
 
-    // Colors
-    $wp_customize->add_setting('rd3_primary_color', ['default' => '#000000']);
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_primary_color', [
-        'label' => 'Primary Colour', 'section' => 'rd3_branding'
-    ]));
-
-    $wp_customize->add_setting('rd3_secondary_color', ['default' => '#666666']);
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_secondary_color', [
-        'label' => 'Secondary Colour', 'section' => 'rd3_branding'
-    ]));
-
-    // Font Color
-    $wp_customize->add_setting('rd3_font_color', [
-        'default' => '#000000',
-        'sanitize_callback' => 'sanitize_hex_color',
-    ]);
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_font_color_control', [
-        'label' => __('Font Color', 'rd3starter'),
-        'section' => 'rd3_branding',
-        'settings' => 'rd3_font_color',
-    ]));
-
-    // Font Family
-    $wp_customize->add_setting('rd3_font_family', ['default' => 'system']);
-    $wp_customize->add_control('rd3_font_family', [
-        'label' => 'Font Family',
-        'section' => 'rd3_branding',
-        'type' => 'select',
-        'choices' => ['system' => 'System Default', 'arial' => 'Arial', 'roboto' => 'Roboto', 'poppins' => 'Poppins', 'lato' => 'Lato']
-    ]);
-
+   
     // Footer Menu Toggle
     $wp_customize->add_setting('rd3_show_footer_menu', ['default' => true]);
     $wp_customize->add_control('rd3_show_footer_menu', [
@@ -218,8 +188,6 @@ function rd3_branding_styles()
 {
     $primary = get_theme_mod('rd3_primary_color', '#000000');
     $secondary = get_theme_mod('rd3_secondary_color', '#666666');
-    $font = get_theme_mod('rd3_font_family', 'system');
-    $font_color = get_theme_mod('rd3_font_color', '#000000');
     $logo_align = get_theme_mod('rd3_logo_alignment', 'left');
     $logo_align_class = 'logo-align-' . $logo_align;
     $header_bg = get_theme_mod('rd3_header_bg', '');
@@ -234,23 +202,9 @@ function rd3_branding_styles()
         'poppins' => 'Poppins, sans-serif',
         'lato' => 'Lato, sans-serif'
     ];
-
-    $font_family = $fonts[$font] ?? $fonts['system'];
     $logo_text_align = $logo_align;
     ?>
     <style>
-        body,
-        h1, p,
-        .site-header .logo a,
-        .main-nav a,
-        .footer-nav a,
-        .footer-widgets,
-        .site-footer p {
-            color: <?php echo esc_attr($font_color); ?> !important;
-        }
-
-        body { font-family: <?php echo $font_family; ?>; }
-        a { color: <?php echo $primary; ?>; }
         .site-header, .site-footer { background: <?php echo $secondary; ?>; }
 
         .site-header .logo { text-align: <?php echo $logo_text_align; ?>; }
