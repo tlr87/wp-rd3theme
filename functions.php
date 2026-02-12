@@ -56,12 +56,18 @@ add_action('widgets_init', 'rd3_widgets');
 // ===============================
 function rd3_branding_customizer($wp_customize)
 {
+    $wp_customize->add_section('rd3_branding', [
+        'title' => __('Branding Settings', 'rd3starter'),
+        'priority' => 30,
+    ]);
 
-    $wp_customize->add_section('rd3_branding', ['title' => __('Branding Settings', 'rd3starter'), 'priority' => 30]);
-
-    // Logo
+    // Site Logo
     $wp_customize->add_setting('rd3_logo');
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_logo', ['label' => 'Site Logo', 'section' => 'rd3_branding', 'settings' => 'rd3_logo']));
+    $wp_customize->add_control(new WP_Customize_Image_Control(
+        $wp_customize,
+        'rd3_logo',
+        ['label' => 'Site Logo', 'section' => 'rd3_branding', 'settings' => 'rd3_logo']
+    ));
 
     // Logo Alignment
     $wp_customize->add_setting('rd3_logo_alignment', ['default' => 'left']);
@@ -72,12 +78,8 @@ function rd3_branding_customizer($wp_customize)
         'choices' => ['left' => 'Left', 'center' => 'Center', 'right' => 'Right']
     ]);
 
-    //Display Site Title
-    $wp_customize->add_setting('rd3_show_site_title', [
-        'default' => true,
-        'sanitize_callback' => 'wp_validate_boolean',
-    ]);
-
+    // Display Site Title
+    $wp_customize->add_setting('rd3_show_site_title', ['default' => true, 'sanitize_callback' => 'wp_validate_boolean']);
     $wp_customize->add_control('rd3_show_site_title_control', [
         'label' => __('Display Site Title', 'rd3starter'),
         'section' => 'rd3_branding',
@@ -85,12 +87,8 @@ function rd3_branding_customizer($wp_customize)
         'settings' => 'rd3_show_site_title',
     ]);
 
-    //Display Site Description
-    $wp_customize->add_setting('rd3_show_site_desc', [
-        'default' => true,
-        'sanitize_callback' => 'wp_validate_boolean',
-    ]);
-
+    // Display Site Description / Tagline
+    $wp_customize->add_setting('rd3_show_site_desc', ['default' => true, 'sanitize_callback' => 'wp_validate_boolean']);
     $wp_customize->add_control('rd3_show_site_desc_control', [
         'label' => __('Display Site Description / Tagline', 'rd3starter'),
         'section' => 'rd3_branding',
@@ -98,17 +96,26 @@ function rd3_branding_customizer($wp_customize)
         'settings' => 'rd3_show_site_desc',
     ]);
 
-    //Display Breadcrumbs
-    $wp_customize->add_setting('rd3_show_breadcrumbs', [
-        'default' => true,
-        'sanitize_callback' => 'wp_validate_boolean',
-    ]);
-
+    // Display Breadcrumbs
+    $wp_customize->add_setting('rd3_show_breadcrumbs', ['default' => true, 'sanitize_callback' => 'wp_validate_boolean']);
     $wp_customize->add_control('rd3_show_breadcrumbs_control', [
         'label' => __('Display Breadcrumbs', 'rd3starter'),
         'section' => 'rd3_branding',
         'type' => 'checkbox',
         'settings' => 'rd3_show_breadcrumbs',
+    ]);
+
+    // Sidebar Position
+    $wp_customize->add_setting('rd3_sidebar_position', [
+        'default' => 'left',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('rd3_sidebar_position_control', [
+        'label' => __('Sidebar Position', 'rd3starter'),
+        'section' => 'rd3_branding',
+        'type' => 'radio',
+        'settings' => 'rd3_sidebar_position',
+        'choices' => ['left' => 'Left', 'right' => 'Right'],
     ]);
 
     // Header Menu Alignment
@@ -131,27 +138,25 @@ function rd3_branding_customizer($wp_customize)
 
     // Colors
     $wp_customize->add_setting('rd3_primary_color', ['default' => '#000000']);
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_primary_color', ['label' => 'Primary Colour', 'section' => 'rd3_branding']));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_primary_color', [
+        'label' => 'Primary Colour', 'section' => 'rd3_branding'
+    ]));
+
     $wp_customize->add_setting('rd3_secondary_color', ['default' => '#666666']);
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_secondary_color', ['label' => 'Secondary Colour', 'section' => 'rd3_branding']));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_secondary_color', [
+        'label' => 'Secondary Colour', 'section' => 'rd3_branding'
+    ]));
 
     // Font Color
     $wp_customize->add_setting('rd3_font_color', [
         'default' => '#000000',
         'sanitize_callback' => 'sanitize_hex_color',
     ]);
-
-    $wp_customize->add_control(new WP_Customize_Color_Control(
-        $wp_customize,
-        'rd3_font_color_control',
-        [
-            'label' => __('Font Color', 'rd3starter'),
-            'section' => 'rd3_branding',
-            'settings' => 'rd3_font_color',
-        ]
-    ));
-
-
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_font_color_control', [
+        'label' => __('Font Color', 'rd3starter'),
+        'section' => 'rd3_branding',
+        'settings' => 'rd3_font_color',
+    ]));
 
     // Font Family
     $wp_customize->add_setting('rd3_font_family', ['default' => 'system']);
@@ -164,7 +169,11 @@ function rd3_branding_customizer($wp_customize)
 
     // Footer Menu Toggle
     $wp_customize->add_setting('rd3_show_footer_menu', ['default' => true]);
-    $wp_customize->add_control('rd3_show_footer_menu', ['label' => 'Display Footer Menu', 'section' => 'nav_menus', 'type' => 'checkbox']);
+    $wp_customize->add_control('rd3_show_footer_menu', [
+        'label' => 'Display Footer Menu',
+        'section' => 'nav_menus',
+        'type' => 'checkbox'
+    ]);
 
     // Homepage Layout
     $wp_customize->add_setting('rd3_homepage_layout', ['default' => 'posts']);
@@ -174,6 +183,7 @@ function rd3_branding_customizer($wp_customize)
         'type' => 'radio',
         'choices' => ['posts' => 'Show Latest Posts', 'page' => 'Show Full Page']
     ]);
+
     $wp_customize->add_setting('rd3_homepage_page', ['default' => 0]);
     $wp_customize->add_control('rd3_homepage_page', [
         'label' => 'Select Full Page for Homepage',
@@ -186,9 +196,18 @@ function rd3_branding_customizer($wp_customize)
 
     // Header & Footer Background Images
     $wp_customize->add_setting('rd3_header_bg');
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_header_bg', ['label' => 'Header Background Image', 'section' => 'rd3_branding', 'settings' => 'rd3_header_bg']));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_header_bg', [
+        'label' => 'Header Background Image',
+        'section' => 'rd3_branding',
+        'settings' => 'rd3_header_bg'
+    ]));
+
     $wp_customize->add_setting('rd3_footer_bg');
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_footer_bg', ['label' => 'Footer Background Image', 'section' => 'rd3_branding', 'settings' => 'rd3_footer_bg']));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_footer_bg', [
+        'label' => 'Footer Background Image',
+        'section' => 'rd3_branding',
+        'settings' => 'rd3_footer_bg'
+    ]));
 }
 add_action('customize_register', 'rd3_branding_customizer');
 
@@ -207,121 +226,65 @@ function rd3_branding_styles()
     $header_menu_align = get_theme_mod('rd3_header_menu_alignment', 'center');
     $footer_menu_align = get_theme_mod('rd3_footer_menu_alignment', 'center');
 
-    $fonts = ['system' => 'system-ui, sans-serif', 'arial' => 'Arial, sans-serif', 'roboto' => 'Roboto, sans-serif', 'poppins' => 'Poppins', 'lato' => 'Lato'];
-    $font_family = $fonts[$font] ?? $fonts['system'];
+    $fonts = [
+        'system' => 'system-ui, sans-serif',
+        'arial' => 'Arial, sans-serif',
+        'roboto' => 'Roboto, sans-serif',
+        'poppins' => 'Poppins, sans-serif',
+        'lato' => 'Lato, sans-serif'
+    ];
 
-    $logo_text_align = $logo_align; // text-align property for logo
+    $font_family = $fonts[$font] ?? $fonts['system'];
+    $logo_text_align = $logo_align;
     ?>
     <style>
         body,
-        h1,
-        p,
+        h1, p,
         .site-header .logo a,
         .main-nav a,
         .footer-nav a,
         .footer-widgets,
         .site-footer p {
-            color:
-                <?php echo esc_attr($font_color); ?>
-                !important;
+            color: <?php echo esc_attr($font_color); ?> !important;
         }
 
-        body {
-            font-family:
-                <?php echo $font_family; ?>
-            ;
-        }
+        body { font-family: <?php echo $font_family; ?>; }
+        a { color: <?php echo $primary; ?>; }
+        .site-header, .site-footer { background: <?php echo $secondary; ?>; }
 
-        a {
-            color:
-                <?php echo $primary; ?>
-            ;
-        }
+        .site-header .logo { text-align: <?php echo $logo_text_align; ?>; }
 
-        .site-header,
-        .site-footer {
-            background:
-                <?php echo $secondary; ?>
-            ;
-        }
+        .main-nav { display: flex; justify-content: <?php echo $header_menu_align==='left'?'flex-start':($header_menu_align==='right'?'flex-end':'center'); ?>; width: 100%; }
+        .footer-nav ul { display: flex; justify-content: <?php echo $footer_menu_align==='left'?'flex-start':($footer_menu_align==='right'?'flex-end':'center'); ?>; }
 
-        /* Logo alignment only */
-        .site-header .logo {
-            text-align:
-                <?php echo $logo_text_align; ?>
-            ;
-        }
-
-        /* Header Menu Alignment */
-        .main-nav {
-            display: flex;
-            justify-content:
-                <?php echo $header_menu_align === 'left' ? 'flex-start' : ($header_menu_align === 'right' ? 'flex-end' : 'center'); ?>
-            ;
-            width: 100%;
-        }
-
-        /* Footer Menu Alignment */
-        .footer-nav ul {
-            display: flex;
-            justify-content:
-                <?php echo $footer_menu_align === 'left' ? 'flex-start' : ($footer_menu_align === 'right' ? 'flex-end' : 'center'); ?>
-            ;
-        }
-
-        /* Header Background */
         <?php if ($header_bg): ?>
-            .site-header {
-                background-image: url('<?php echo esc_url($header_bg); ?>');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-
+        .site-header { background-image: url('<?php echo esc_url($header_bg); ?>'); background-size: cover; background-position: center; background-repeat: no-repeat; }
         <?php endif; ?>
 
-        /* Footer Background */
         <?php if ($footer_bg): ?>
-            .site-footer {
-                background-image: url('<?php echo esc_url($footer_bg); ?>');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-
+        .site-footer { background-image: url('<?php echo esc_url($footer_bg); ?>'); background-size: cover; background-position: center; background-repeat: no-repeat; }
         <?php endif; ?>
     </style>
     <?php
 }
 add_action('wp_head', 'rd3_branding_styles');
 
-
-
-/* =========================
-   Breadcrumbs
-========================= */
+// ===============================
+// Breadcrumbs
+// ===============================
 function rd3_breadcrumbs()
 {
+    if (is_front_page()) return;
 
-    if (is_front_page())
-        return;
-
-    echo '<p class="rd3-breadcrumbs">'; // changed from <nav>
+    echo '<p class="rd3-breadcrumbs">';
     echo '<a href="' . esc_url(home_url('/')) . '">Home</a> » ';
 
     if (is_category() || is_single()) {
         the_category(' » ');
-        if (is_single()) {
-            echo ' » ';
-            the_title();
-        }
-    } elseif (is_page()) {
-        the_title();
-    } elseif (is_search()) {
-        echo 'Search: "' . get_search_query() . '"';
-    } elseif (is_404()) {
-        echo '404';
-    }
+        if (is_single()) { echo ' » '; the_title(); }
+    } elseif (is_page()) { the_title(); }
+    elseif (is_search()) { echo 'Search: "' . get_search_query() . '"'; }
+    elseif (is_404()) { echo '404'; }
 
-    echo '</p>'; // close p tag
+    echo '</p>';
 }
