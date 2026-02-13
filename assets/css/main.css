@@ -40,7 +40,10 @@ a:hover {
     position: relative;
     background: #111;
     color: #fff;
+    float: left;
+    min-height: 100vh;
 }
+
 
 .site-header a {
     color: #fff;
@@ -90,6 +93,7 @@ a:hover {
     display: flex;
     gap: 20px;
     list-style: none;
+    flex-direction: column;
 }
 
 .main-nav.desktop li a {
