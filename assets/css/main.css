@@ -11,9 +11,10 @@
    Body & Typography
 =============================== */
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-family: system-ui, sans-serif;
-    line-height: 1.6;
-    color: #222;
 }
 
 a {
@@ -24,15 +25,15 @@ a {
 a:hover {
     text-decoration: underline;
 }
+p{
+        padding: .8%;
+}
 
 /* ===============================
    Container
 =============================== */
 .Main-container{
-    min-height: 100%;
-      height: auto !important;
-      margin: 0 auto; 
-      position: relative;
+   flex: 1; /* Take up remaining space */
 
 }
 
@@ -271,11 +272,10 @@ article.post{
    Footer
 =============================== */
 .site-footer {
-    bottom: 0px;
-      background-color: yellow;
-      position: absolute;
-      width: 100%;
-      text-align: center;
+    position: relative;
+    width: 100%;
+    text-align: center;
+
 }
 
 .site-footer::before {
