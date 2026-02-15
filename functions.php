@@ -24,7 +24,40 @@ add_action('after_setup_theme', 'rd3_theme_setup');
 // ===============================
 function rd3_assets()
 {
+    // Load main stylesheet
     wp_enqueue_style('rd3-main', get_template_directory_uri() . '/assets/css/main.css', [], '1.0');
+
+    // Load horizontal or vertical layout CSS based on Customizer setting
+    $layout = get_theme_mod('rd3_site_layout', 'horizontal'); // default horizontal
+
+    if ($layout === 'vertical') {
+        wp_enqueue_style(
+            'rd3-layout-vertical',
+            get_template_directory_uri() . '/assets/css/layout-vertical.css',
+            ['rd3-main'], // make main.css a dependency
+            '1.0'
+        );
+    } else {
+        wp_enqueue_style(
+            'rd3-layout-horizontal',
+            get_template_directory_uri() . '/assets/css/layout-horizontal.css',
+            ['rd3-main'],
+            '1.0'
+        );
+    }
+
+    // Load custom uploaded CSS if the user uploaded one
+    $custom_layout_css = get_theme_mod('rd3_layout_custom_upload');
+    if ($custom_layout_css) {
+        wp_enqueue_style(
+            'rd3-layout-custom-upload',
+            esc_url($custom_layout_css),
+            [],
+            '1.0'
+        );
+    }
+
+    // Load main JS
     wp_enqueue_script('rd3-js', get_template_directory_uri() . '/assets/js/main.js', [], '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'rd3_assets');
@@ -48,8 +81,11 @@ function rd3_widgets()
             'after_title' => '</h4>',
         ]);
     }
+
 }
 add_action('widgets_init', 'rd3_widgets');
+
+
 
 // ===============================
 // Customizer Settings
@@ -60,6 +96,40 @@ function rd3_branding_customizer($wp_customize)
         'title' => __('Branding Settings', 'rd3starter'),
         'priority' => 30,
     ]);
+ // ===============================
+    // Layout Switcher (Horizontal / Vertical)
+    // ===============================
+    $wp_customize->add_section('rd3_layout_section', [
+        'title'    => __('Layout Settings', 'rd3starter'),
+        'priority' => 40,
+    ]);
+
+    $wp_customize->add_setting('rd3_site_layout', [
+        'default'   => 'horizontal',
+        'transport' => 'refresh',
+    ]);
+
+    $wp_customize->add_control('rd3_site_layout', [
+        'label'   => __('Site Layout', 'rd3starter'),
+        'section' => 'rd3_layout_section',
+        'type'    => 'radio',
+        'choices' => [
+            'horizontal' => __('Horizontal Header', 'rd3starter'),
+            'vertical'   => __('Vertical Sidebar', 'rd3starter'),
+        ],
+    ]);
+
+
+    $wp_customize->add_control(new WP_Customize_Upload_Control(
+    $wp_customize,
+    'rd3_layout_custom_upload_control',
+    [
+        'label'       => __('Upload Custom Layout CSS', 'rd3starter'),
+        'section'     => 'rd3_layout_section',
+        'settings'    => 'rd3_layout_custom_upload',
+        'description' => 'Upload a custom CSS file to override layout styles.',
+    ]
+    ));
 
     // Site Logo
     $wp_customize->add_setting('rd3_logo');
@@ -68,6 +138,18 @@ function rd3_branding_customizer($wp_customize)
         'rd3_logo',
         ['label' => 'Site Logo', 'section' => 'rd3_branding', 'settings' => 'rd3_logo']
     ));
+
+
+    // Site Logo
+    $wp_customize->add_setting('rd3_logo');
+    $wp_customize->add_control(new WP_Customize_Image_Control(
+        $wp_customize,
+        'rd3_logo',
+        ['label' => 'Site Logo', 'section' => 'rd3_branding', 'settings' => 'rd3_logo']
+    ));
+
+
+
 
     // Logo Alignment
     $wp_customize->add_setting('rd3_logo_alignment', ['default' => 'left']);
@@ -162,8 +244,56 @@ function rd3_branding_customizer($wp_customize)
         'section' => 'rd3_branding',
         'settings' => 'rd3_footer_bg'
     ]));
+    
 }
 add_action('customize_register', 'rd3_branding_customizer');
+
+
+function rd3_branding_layout($wp_customize){
+// ===============================
+// Layout Section: Horizontal / Vertical + Custom CSS Upload
+// ===============================
+$wp_customize->add_section('rd3_layout_section', [
+    'title'    => __('Layout Settings', 'rd3starter'),
+    'priority' => 40,
+]);
+
+// Layout switcher
+$wp_customize->add_setting('rd3_site_layout', [
+    'default'   => 'horizontal',
+    'transport' => 'refresh',
+]);
+
+$wp_customize->add_control('rd3_site_layout', [
+    'label'   => __('Site Layout', 'rd3starter'),
+    'section' => 'rd3_layout_section',
+    'type'    => 'radio',
+    'choices' => [
+        'horizontal' => __('Horizontal Header', 'rd3starter'),
+        'vertical'   => __('Vertical Sidebar', 'rd3starter'),
+    ],
+]);
+
+// Custom layout CSS upload
+$wp_customize->add_setting('rd3_layout_custom_upload', [
+    'default'           => '',
+    'sanitize_callback' => 'esc_url_raw',
+]);
+
+$wp_customize->add_control(new WP_Customize_Upload_Control(
+    $wp_customize,
+    'rd3_layout_custom_upload_control',
+    [
+        'label'       => __('Upload Custom Layout CSS', 'rd3starter'),
+        'section'     => 'rd3_layout_section',
+        'settings'    => 'rd3_layout_custom_upload',
+        'description' => 'Upload a custom CSS file to override layout styles.',
+    ]
+));
+}
+add_action('customize_register', 'rd3_branding_layout');
+
+
 
 // ===============================
 // Dynamic Styles

@@ -1,0 +1,21 @@
+
+.site-header {
+    position: relative;
+    background: #111;
+    color: #fff;
+}
+
+
+
+.main-nav.desktop ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+
+article.page, article.single-post {
+    background: #f9f9f9;
+    padding: 0vh 4vh;
+    overflow: scroll;
+}

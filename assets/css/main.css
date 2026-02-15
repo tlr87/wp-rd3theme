@@ -31,27 +31,19 @@ a:hover {
 .Main-container{
     min-height: 100%;
       height: auto !important;
-      margin: 0 auto -42px; /* the bottom margin is the negative value of the footer's height */
+      margin: 0 auto; 
       position: relative;
 
 }
 
 .container {
     margin: auto;
-    padding: 20px;
+    padding: 10px 0;
 }
 
 /* ===============================
    Header
 =============================== */
-.site-header {
-    position: relative;
-    background: #111;
-    color: #fff;
-    float: left;
-    min-height: 100%;
-}
-
 
 .site-header a {
     color: #fff;
@@ -73,6 +65,7 @@ a:hover {
     z-index: 1;
     flex-direction: column;
     align-items: flex-start; /* controlled by logo alignment */
+    padding: 2% 0;
 }
 
 .site-header .logo {
@@ -97,12 +90,7 @@ a:hover {
 /* ===============================
    Navigation - Desktop
 =============================== */
-.main-nav.desktop ul {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-    flex-direction: column;
-}
+
 
 .main-nav.desktop li a {
     font-weight: 500;
@@ -230,12 +218,7 @@ ul.wp-block-categories-list {
     padding-left: 7%;
 }
 
-/* Posts */
-article.page,article.single-post{
-    background: #f9f9f9;
-    padding: 16vh 25vh;
 
-}
 
 article.post{
 

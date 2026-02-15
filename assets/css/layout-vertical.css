@@ -1,0 +1,23 @@
+
+.site-header {
+    position: relative;
+    background: #111;
+    color: #fff;
+    float: left!important;
+    min-height: 100%;
+}
+
+
+
+.main-nav.desktop ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    flex-direction: column;
+}
+
+article.page, article.single-post {
+    background: #f9f9f9;
+    padding: 16vh 25vh;
+}
+
