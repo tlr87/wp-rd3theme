@@ -14,6 +14,17 @@ $message            = get_theme_mod('rd3_maintenance_message', 'We’re making i
 $countdown_enabled  = get_theme_mod('rd3_maintenance_countdown_enable', true);
 $countdown_date     = get_theme_mod('rd3_maintenance_countdown', date('Y-m-d H:i:s', strtotime('+3 days')));
 $back_message       = get_theme_mod('rd3_maintenance_back_message', 'We are back!');
+$auto_reload        = get_theme_mod('rd3_maintenance_auto_reload', true);
+
+// ===============================
+// Auto-disable Maintenance if Countdown Passed
+// ===============================
+$current_time = current_time('timestamp');
+$countdown_timestamp = strtotime($countdown_date);
+
+if ($auto_reload && $current_time >= $countdown_timestamp) {
+    return; // Skip rendering → live site visible
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,10 +33,7 @@ $back_message       = get_theme_mod('rd3_maintenance_back_message', 'We are back
     <title><?php echo esc_html($title); ?></title>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/maintenance.css">
     <style>
-        body {
-            background-color: <?php echo esc_attr($bg_color); ?>;
-            color: <?php echo esc_attr($text_color); ?>;
-        }
+        body { background-color: <?php echo esc_attr($bg_color); ?>; color: <?php echo esc_attr($text_color); ?>; }
     </style>
 </head>
 <body>
@@ -40,23 +48,33 @@ $back_message       = get_theme_mod('rd3_maintenance_back_message', 'We are back
         <?php if ($countdown_enabled): ?>
             <div id="countdown"></div>
             <script>
-                // Countdown timer
                 const countdownDate = new Date("<?php echo esc_js($countdown_date); ?>").getTime();
                 const countdownEl = document.getElementById('countdown');
+                const autoReload = <?php echo $auto_reload ? 'true' : 'false'; ?>;
+                let reloaded = false;
 
                 function updateCountdown() {
                     const now = new Date().getTime();
                     const distance = countdownDate - now;
 
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60));
+                    const days = Math.floor(distance / (1000*60*60*24));
+                    const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
                     const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
                     const seconds = Math.floor((distance % (1000*60)) / 1000);
 
                     if (distance > 0) {
-                        countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+                        countdownEl.innerHTML =
+                            days + "d " +
+                            hours + "h " +
+                            minutes + "m " +
+                            seconds + "s ";
                     } else {
                         countdownEl.innerHTML = "<?php echo esc_js($back_message); ?>";
+
+                        if (autoReload && !reloaded) {
+                            reloaded = true;
+                            setTimeout(() => { window.location.reload(true); }, 5000);
+                        }
                     }
                 }
 
