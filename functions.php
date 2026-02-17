@@ -69,14 +69,14 @@ function rd3_widgets()
 {
     // Sidebar
     register_sidebar(['name' => 'Sidebar', 'id' => 'main-sidebar']);
-    
+
     register_sidebar([
-        'name'          => 'Maintenance Page Widgets',
-        'id'            => 'maintenance-widgets',
+        'name' => 'Maintenance Page Widgets',
+        'id' => 'maintenance-widgets',
         'before_widget' => '<div class="maintenance-widget">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
+        'after_widget' => '</div>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>',
     ]);
 
 
@@ -92,7 +92,7 @@ function rd3_widgets()
         ]);
     }
 
-    
+
 
 }
 add_action('widgets_init', 'rd3_widgets');
@@ -100,48 +100,51 @@ add_action('widgets_init', 'rd3_widgets');
 // ===============================
 // Customizer: Maintenance Mode Settings
 // ===============================
-function rd3_customize_register($wp_customize) {
+function rd3_customize_register($wp_customize)
+{
 
     $wp_customize->add_section('rd3_maintenance', [
-        'title'    => 'Maintenance Mode',
+        'title' => 'Maintenance Mode',
         'priority' => 30,
     ]);
 
     // Enable/Disable Maintenance Mode
     $wp_customize->add_setting('rd3_maintenance_mode', [
-        'default'           => false,
+        'default' => false,
         'sanitize_callback' => 'rd3_sanitize_checkbox',
     ]);
     $wp_customize->add_control('rd3_maintenance_mode', [
-        'type'    => 'checkbox',
+        'type' => 'checkbox',
         'section' => 'rd3_maintenance',
-        'label'   => 'Enable Maintenance Mode',
+        'label' => 'Enable Maintenance Mode',
     ]);
 
 
-// Add link to Widgets for Maintenance Page
-class RD3_Maintenance_Widgets_Link extends WP_Customize_Control {
-    public $type = 'link';
-    public function render_content() {
-        ?>
-        <p>
-            <strong>Widgets:</strong> 
-            <a href="<?php echo admin_url('widgets.php'); ?>" target="_blank">
-                Edit Maintenance Page Widgets
-            </a>
-        </p>
-        <?php
+    // Add link to Widgets for Maintenance Page
+    class RD3_Maintenance_Widgets_Link extends WP_Customize_Control
+    {
+        public $type = 'link';
+        public function render_content()
+        {
+            ?>
+            <p>
+                <strong>Widgets:</strong>
+                <a href="<?php echo admin_url('widgets.php'); ?>" target="_blank">
+                    Edit Maintenance Page Widgets
+                </a>
+            </p>
+            <?php
+        }
     }
-}
 
-// Add the control to the Maintenance section
-$wp_customize->add_setting('rd3_maintenance_widgets_link', [
-    'sanitize_callback' => 'esc_url', // not really used, just a placeholder
-]);
+    // Add the control to the Maintenance section
+    $wp_customize->add_setting('rd3_maintenance_widgets_link', [
+        'sanitize_callback' => 'esc_url', // not really used, just a placeholder
+    ]);
 
-$wp_customize->add_control(new RD3_Maintenance_Widgets_Link($wp_customize, 'rd3_maintenance_widgets_link', [
-    'section' => 'rd3_maintenance',
-]));
+    $wp_customize->add_control(new RD3_Maintenance_Widgets_Link($wp_customize, 'rd3_maintenance_widgets_link', [
+        'section' => 'rd3_maintenance',
+    ]));
 
 
     // Logo
@@ -150,9 +153,9 @@ $wp_customize->add_control(new RD3_Maintenance_Widgets_Link($wp_customize, 'rd3_
         'sanitize_callback' => 'esc_url_raw',
     ]);
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_maintenance_logo', [
-        'label'   => 'Maintenance Logo',
+        'label' => 'Maintenance Logo',
         'section' => 'rd3_maintenance',
-        'settings'=> 'rd3_maintenance_logo',
+        'settings' => 'rd3_maintenance_logo',
     ]));
 
     // Background Color
@@ -161,9 +164,9 @@ $wp_customize->add_control(new RD3_Maintenance_Widgets_Link($wp_customize, 'rd3_
         'sanitize_callback' => 'sanitize_hex_color',
     ]);
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_maintenance_bg', [
-        'label'   => 'Background Color',
+        'label' => 'Background Color',
         'section' => 'rd3_maintenance',
-        'settings'=> 'rd3_maintenance_bg',
+        'settings' => 'rd3_maintenance_bg',
     ]));
 
     // Text Color
@@ -172,82 +175,83 @@ $wp_customize->add_control(new RD3_Maintenance_Widgets_Link($wp_customize, 'rd3_
         'sanitize_callback' => 'sanitize_hex_color',
     ]);
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_maintenance_text', [
-        'label'   => 'Text Color',
+        'label' => 'Text Color',
         'section' => 'rd3_maintenance',
-        'settings'=> 'rd3_maintenance_text',
+        'settings' => 'rd3_maintenance_text',
     ]));
 
 
 
-// Maintenance Title (h1)
-$wp_customize->add_setting('rd3_maintenance_title', [
-    'default' => 'Site Under Maintenance',
-    'sanitize_callback' => 'sanitize_text_field',
-]);
-$wp_customize->add_control('rd3_maintenance_title', [
-    'type'    => 'text',
-    'section' => 'rd3_maintenance',
-    'label'   => 'Maintenance Page Title',
-]);
+    // Maintenance Title (h1)
+    $wp_customize->add_setting('rd3_maintenance_title', [
+        'default' => 'Site Under Maintenance',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('rd3_maintenance_title', [
+        'type' => 'text',
+        'section' => 'rd3_maintenance',
+        'label' => 'Maintenance Page Title',
+    ]);
 
-// Maintenance Message (p)
-$wp_customize->add_setting('rd3_maintenance_message', [
-    'default' => 'We’re making improvements. Please check back soon.',
-    'sanitize_callback' => 'sanitize_textarea_field',
-]);
-$wp_customize->add_control('rd3_maintenance_message', [
-    'type'    => 'textarea',
-    'section' => 'rd3_maintenance',
-    'label'   => 'Maintenance Page Message',
-]);
+    // Maintenance Message (p)
+    $wp_customize->add_setting('rd3_maintenance_message', [
+        'default' => 'We’re making improvements. Please check back soon.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ]);
+    $wp_customize->add_control('rd3_maintenance_message', [
+        'type' => 'textarea',
+        'section' => 'rd3_maintenance',
+        'label' => 'Maintenance Page Message',
+    ]);
 
-// Toggle Countdown On/Off
-$wp_customize->add_setting('rd3_maintenance_countdown_enable', [
-    'default' => true,
-    'sanitize_callback' => 'rd3_sanitize_checkbox',
-]);
+    // Toggle Countdown On/Off
+    $wp_customize->add_setting('rd3_maintenance_countdown_enable', [
+        'default' => true,
+        'sanitize_callback' => 'rd3_sanitize_checkbox',
+    ]);
 
-$wp_customize->add_control('rd3_maintenance_countdown_enable', [
-    'type'    => 'checkbox',
-    'section' => 'rd3_maintenance',
-    'label'   => 'Enable Countdown Timer',
-    'description' => 'Check to show the countdown timer on the maintenance page. Uncheck to hide it.',
-]);
-
-
-
-// Maintenance Countdown Date
-$wp_customize->add_setting('rd3_maintenance_countdown', [
-    'default' => date('Y-m-d H:i:s', strtotime('+3 days')), // default 3 days from now
-    'sanitize_callback' => 'sanitize_text_field',
-]);
-
-$wp_customize->add_control('rd3_maintenance_countdown', [
-    'type'    => 'text',
-    'section' => 'rd3_maintenance',
-    'label'   => 'Maintenance Countdown Date (YYYY-MM-DD HH:MM:SS)',
-    'description' => 'Set the exact date and time the site will be back online.',
-]);
+    $wp_customize->add_control('rd3_maintenance_countdown_enable', [
+        'type' => 'checkbox',
+        'section' => 'rd3_maintenance',
+        'label' => 'Enable Countdown Timer',
+        'description' => 'Check to show the countdown timer on the maintenance page. Uncheck to hide it.',
+    ]);
 
 
-// Maintenance Countdown Finished Message
-$wp_customize->add_setting('rd3_maintenance_back_message', [
-    'default' => 'We are back!',
-    'sanitize_callback' => 'sanitize_text_field',
-]);
 
-$wp_customize->add_control('rd3_maintenance_back_message', [
-    'type'    => 'text',
-    'section' => 'rd3_maintenance',
-    'label'   => 'Maintenance Countdown Finished Message',
-    'description' => 'Message displayed when countdown reaches zero.',
-]);
+    // Maintenance Countdown Date
+    $wp_customize->add_setting('rd3_maintenance_countdown', [
+        'default' => date('Y-m-d H:i:s', strtotime('+3 days')), // default 3 days from now
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+
+    $wp_customize->add_control('rd3_maintenance_countdown', [
+        'type' => 'text',
+        'section' => 'rd3_maintenance',
+        'label' => 'Maintenance Countdown Date (YYYY-MM-DD HH:MM:SS)',
+        'description' => 'Set the exact date and time the site will be back online.',
+    ]);
+
+
+    // Maintenance Countdown Finished Message
+    $wp_customize->add_setting('rd3_maintenance_back_message', [
+        'default' => 'We are back!',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+
+    $wp_customize->add_control('rd3_maintenance_back_message', [
+        'type' => 'text',
+        'section' => 'rd3_maintenance',
+        'label' => 'Maintenance Countdown Finished Message',
+        'description' => 'Message displayed when countdown reaches zero.',
+    ]);
 
 
 }
 add_action('customize_register', 'rd3_customize_register');
 
-function rd3_sanitize_checkbox($checked) {
+function rd3_sanitize_checkbox($checked)
+{
     return ((isset($checked) && $checked === true) ? true : false);
 }
 
@@ -256,24 +260,26 @@ function rd3_sanitize_checkbox($checked) {
 // ===============================
 // Register Maintenance Page Widget Area
 // ===============================
-function rd3_register_maintenance_widgets() {
+function rd3_register_maintenance_widgets()
+{
     register_sidebar([
-        'name'          => 'Maintenance Page Widgets',
-        'id'            => 'maintenance-widgets',
+        'name' => 'Maintenance Page Widgets',
+        'id' => 'maintenance-widgets',
         'before_widget' => '<div class="maintenance-widget">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
+        'after_widget' => '</div>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>',
     ]);
 }
 add_action('widgets_init', 'rd3_register_maintenance_widgets');
 
 
 
-function rd3_maintenance_mode_redirect() {
-    if ( !current_user_can('manage_options') && !is_admin() ) {
+function rd3_maintenance_mode_redirect()
+{
+    if (!current_user_can('manage_options') && !is_admin()) {
         $maintenance = get_theme_mod('rd3_maintenance_mode', false);
-        if ( $maintenance ) {
+        if ($maintenance) {
             include get_template_directory() . '/maintenance.php';
             exit();
         }
@@ -295,14 +301,14 @@ function rd3_branding_customizer($wp_customize)
 
 
     $wp_customize->add_control(new WP_Customize_Upload_Control(
-    $wp_customize,
-    'rd3_layout_custom_upload_control',
-    [
-        'label'       => __('Upload Custom Layout CSS', 'rd3starter'),
-        'section'     => 'rd3_layout_section',
-        'settings'    => 'rd3_layout_custom_upload',
-        'description' => 'Upload a custom CSS file to override layout styles.',
-    ]
+        $wp_customize,
+        'rd3_layout_custom_upload_control',
+        [
+            'label' => __('Upload Custom Layout CSS', 'rd3starter'),
+            'section' => 'rd3_layout_section',
+            'settings' => 'rd3_layout_custom_upload',
+            'description' => 'Upload a custom CSS file to override layout styles.',
+        ]
     ));
 
     // Site Logo
@@ -392,7 +398,7 @@ function rd3_branding_customizer($wp_customize)
         'choices' => ['left' => 'Left', 'center' => 'Center', 'right' => 'Right']
     ]);
 
-   
+
     // Footer Menu Toggle
     $wp_customize->add_setting('rd3_show_footer_menu', ['default' => true]);
     $wp_customize->add_control('rd3_show_footer_menu', [
@@ -415,7 +421,7 @@ function rd3_branding_customizer($wp_customize)
         'section' => 'rd3_branding',
         'settings' => 'rd3_footer_bg'
     ]));
-    
+
 }
 add_action('customize_register', 'rd3_branding_customizer');
 
@@ -423,13 +429,14 @@ add_action('customize_register', 'rd3_branding_customizer');
 // ===============================
 // Layout Section with Enable/Disable
 // ===============================
-function rd3_customize_layout($wp_customize) {
+function rd3_customize_layout($wp_customize)
+{
 
     // --- Layout Section ---
     $wp_customize->add_section('rd3_layout_section', [
         'title' => 'Layout & Custom CSS',
         'priority' => 30,
-        'description' => __( 'Layout & Custom CSS for Advanced users only.', 'textdomain' ),
+        'description' => __('Layout & Custom CSS for Advanced users only.', 'textdomain'),
     ]);
 
     // --- Master Enable/Disable Checkbox ---
@@ -446,35 +453,35 @@ function rd3_customize_layout($wp_customize) {
 
     // --- Layout Choice: Horizontal / Vertical ---
     $wp_customize->add_setting('rd3_site_layout', [
-        'default'   => 'horizontal',
+        'default' => 'horizontal',
         'transport' => 'refresh',
     ]);
 
     $wp_customize->add_control('rd3_site_layout', [
-        'label'   => __('Site Layout', 'rd3starter'),
+        'label' => __('Site Layout', 'rd3starter'),
         'section' => 'rd3_layout_section',
-        'type'    => 'radio',
+        'type' => 'radio',
         'choices' => [
             'horizontal' => __('Horizontal Header', 'rd3starter'),
-            'vertical'   => __('Vertical Header', 'rd3starter'),
+            'vertical' => __('Vertical Header', 'rd3starter'),
         ],
         // Only active if master checkbox is checked
-        'active_callback' => function() use ($wp_customize) {
+        'active_callback' => function () use ($wp_customize) {
             return get_theme_mod('rd3_layout_enabled', 1) == 1;
         }
     ]);
 
-        // --- Custom CSS Upload ---
-        $wp_customize->add_setting('rd3_custom_css', [
-            'default' => '',
-            'sanitize_callback' => 'esc_url_raw',
-        ]);
+    // --- Custom CSS Upload ---
+    $wp_customize->add_setting('rd3_custom_css', [
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
 
     $wp_customize->add_control(new WP_Customize_Upload_Control($wp_customize, 'rd3_custom_css', [
         'label' => 'Upload Custom CSS File',
         'section' => 'rd3_layout_section',
         // Only active if master checkbox is checked
-        'active_callback' => function() use ($wp_customize) {
+        'active_callback' => function () use ($wp_customize) {
             return get_theme_mod('rd3_layout_enabled', 1) == 1;
         }
     ]));
@@ -508,20 +515,45 @@ function rd3_branding_styles()
     $logo_text_align = $logo_align;
     ?>
     <style>
-        .site-header, .site-footer { background: <?php echo $secondary; ?>; }
+        .site-header,
+        .site-footer {
+            background:
+                <?php echo $secondary; ?>; }
 
-        .site-header .logo { text-align: <?php echo $logo_text_align; ?>; }
+                .site-header .logo {
+                text-align:
+                    <?php echo $logo_text_align; ?>; }
 
-        .main-nav { display: flex; justify-content: <?php echo $header_menu_align==='left'?'flex-start':($header_menu_align==='right'?'flex-end':'center'); ?>; width: 100%; }
-        .footer-nav ul { display: flex; justify-content: <?php echo $footer_menu_align==='left'?'flex-start':($footer_menu_align==='right'?'flex-end':'center'); ?>; }
+                    .main-nav {
+                    display: flex;
+                    justify-content:
+                        <?php echo $header_menu_align === 'left' ? 'flex-start' : ($header_menu_align === 'right' ? 'flex-end' : 'center'); ?>; width: 100%;
+                }
 
-        <?php if ($header_bg): ?>
-        .site-header { background-image: url('<?php echo esc_url($header_bg); ?>'); background-size: cover; background-position: center; background-repeat: no-repeat; }
-        <?php endif; ?>
+                .footer-nav ul {
+                    display: flex;
+                    justify-content:
+                        <?php echo $footer_menu_align === 'left' ? 'flex-start' : ($footer_menu_align === 'right' ? 'flex-end' : 'center'); ?>; }
 
-        <?php if ($footer_bg): ?>
-        .site-footer { background-image: url('<?php echo esc_url($footer_bg); ?>'); background-size: cover; background-position: center; background-repeat: no-repeat; }
-        <?php endif; ?>
+                        <?php if ($header_bg): ?>
+                            .site-header {
+                            background-image: url('<?php echo esc_url($header_bg); ?>');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+
+                    <?php endif; ?>
+
+                    <?php if ($footer_bg): ?>
+                        .site-footer {
+                            background-image: url('<?php echo esc_url($footer_bg); ?>');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+
+                    <?php endif; ?>
     </style>
     <?php
 }
@@ -532,38 +564,48 @@ add_action('wp_head', 'rd3_branding_styles');
 // ===============================
 function rd3_breadcrumbs()
 {
-    if (is_front_page()) return;
+    if (is_front_page())
+        return;
 
     echo '<p class="breadcrumbs">';
     echo '<a href="' . esc_url(home_url('/')) . '">Home</a> » ';
 
     if (is_category() || is_single()) {
         the_category(' » ');
-        if (is_single()) { echo ' » '; the_title(); }
-    } elseif (is_page()) { the_title(); }
-    elseif (is_search()) { echo 'Search: "' . get_search_query() . '"'; }
-    elseif (is_404()) { echo '404'; }
+        if (is_single()) {
+            echo ' » ';
+            the_title();
+        }
+    } elseif (is_page()) {
+        the_title();
+    } elseif (is_search()) {
+        echo 'Search: "' . get_search_query() . '"';
+    } elseif (is_404()) {
+        echo '404';
+    }
 
     echo '</p>';
 }
 
 // Allow CSS uploads
-function rd3_allow_css_uploads( $mimes ) {
+function rd3_allow_css_uploads($mimes)
+{
     $mimes['css'] = 'text/css';
     return $mimes;
 }
-add_filter( 'upload_mimes', 'rd3_allow_css_uploads' );
+add_filter('upload_mimes', 'rd3_allow_css_uploads');
 
 // Fix WordPress filetype checking (WP 5.0+)
-function rd3_fix_css_mime_check( $data, $file, $filename, $mimes ) {
+function rd3_fix_css_mime_check($data, $file, $filename, $mimes)
+{
 
-    $ext = pathinfo( $filename, PATHINFO_EXTENSION );
+    $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-    if ( $ext === 'css' ) {
-        $data['ext']  = 'css';
+    if ($ext === 'css') {
+        $data['ext'] = 'css';
         $data['type'] = 'text/css';
     }
 
     return $data;
 }
-add_filter( 'wp_check_filetype_and_ext', 'rd3_fix_css_mime_check', 10, 4 );
+add_filter('wp_check_filetype_and_ext', 'rd3_fix_css_mime_check', 10, 4);
