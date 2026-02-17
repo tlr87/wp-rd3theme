@@ -18,3 +18,18 @@ body {
 .maintenance-container p {
     font-size: 20px;
 }
+
+
+
+.maintenance-widgets-area {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.maintenance-widget {
+    max-width: 300px;
+    text-align: center;
+}
