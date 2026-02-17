@@ -118,6 +118,32 @@ function rd3_customize_register($wp_customize) {
         'label'   => 'Enable Maintenance Mode',
     ]);
 
+
+// Add link to Widgets for Maintenance Page
+class RD3_Maintenance_Widgets_Link extends WP_Customize_Control {
+    public $type = 'link';
+    public function render_content() {
+        ?>
+        <p>
+            <strong>Widgets:</strong> 
+            <a href="<?php echo admin_url('widgets.php'); ?>" target="_blank">
+                Edit Maintenance Page Widgets
+            </a>
+        </p>
+        <?php
+    }
+}
+
+// Add the control to the Maintenance section
+$wp_customize->add_setting('rd3_maintenance_widgets_link', [
+    'sanitize_callback' => 'esc_url', // not really used, just a placeholder
+]);
+
+$wp_customize->add_control(new RD3_Maintenance_Widgets_Link($wp_customize, 'rd3_maintenance_widgets_link', [
+    'section' => 'rd3_maintenance',
+]));
+
+
     // Logo
     $wp_customize->add_setting('rd3_maintenance_logo', [
         'default' => '',

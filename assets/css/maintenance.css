@@ -33,3 +33,9 @@ body {
     max-width: 300px;
     text-align: center;
 }
+
+.wp-customizer .rd3-maintenance-widgets-link a {
+    color: #007cba;
+    text-decoration: underline;
+    font-weight: bold;
+}
