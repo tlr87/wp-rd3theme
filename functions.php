@@ -139,12 +139,70 @@ function rd3_customize_register($wp_customize) {
         'settings'=> 'rd3_maintenance_text',
     ]));
 
+
+
+// Maintenance Title (h1)
+$wp_customize->add_setting('rd3_maintenance_title', [
+    'default' => 'Site Under Maintenance',
+    'sanitize_callback' => 'sanitize_text_field',
+]);
+$wp_customize->add_control('rd3_maintenance_title', [
+    'type'    => 'text',
+    'section' => 'rd3_maintenance',
+    'label'   => 'Maintenance Page Title',
+]);
+
+// Maintenance Message (p)
+$wp_customize->add_setting('rd3_maintenance_message', [
+    'default' => 'We’re making improvements. Please check back soon.',
+    'sanitize_callback' => 'sanitize_textarea_field',
+]);
+$wp_customize->add_control('rd3_maintenance_message', [
+    'type'    => 'textarea',
+    'section' => 'rd3_maintenance',
+    'label'   => 'Maintenance Page Message',
+]);
+
+
+
+
+// Maintenance Countdown Date
+$wp_customize->add_setting('rd3_maintenance_countdown', [
+    'default' => date('Y-m-d H:i:s', strtotime('+3 days')), // default 3 days from now
+    'sanitize_callback' => 'sanitize_text_field',
+]);
+
+$wp_customize->add_control('rd3_maintenance_countdown', [
+    'type'    => 'text',
+    'section' => 'rd3_maintenance',
+    'label'   => 'Maintenance Countdown Date (YYYY-MM-DD HH:MM:SS)',
+    'description' => 'Set the exact date and time the site will be back online.',
+]);
+
+
+// Maintenance Countdown Finished Message
+$wp_customize->add_setting('rd3_maintenance_back_message', [
+    'default' => 'We are back!',
+    'sanitize_callback' => 'sanitize_text_field',
+]);
+
+$wp_customize->add_control('rd3_maintenance_back_message', [
+    'type'    => 'text',
+    'section' => 'rd3_maintenance',
+    'label'   => 'Maintenance Countdown Finished Message',
+    'description' => 'Message displayed when countdown reaches zero.',
+]);
+
+
 }
 add_action('customize_register', 'rd3_customize_register');
 
 function rd3_sanitize_checkbox($checked) {
     return ((isset($checked) && $checked === true) ? true : false);
 }
+
+
+
 
 
 function rd3_maintenance_mode_redirect() {
