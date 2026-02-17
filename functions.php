@@ -163,6 +163,18 @@ $wp_customize->add_control('rd3_maintenance_message', [
     'label'   => 'Maintenance Page Message',
 ]);
 
+// Toggle Countdown On/Off
+$wp_customize->add_setting('rd3_maintenance_countdown_enable', [
+    'default' => true,
+    'sanitize_callback' => 'rd3_sanitize_checkbox',
+]);
+
+$wp_customize->add_control('rd3_maintenance_countdown_enable', [
+    'type'    => 'checkbox',
+    'section' => 'rd3_maintenance',
+    'label'   => 'Enable Countdown Timer',
+    'description' => 'Check to show the countdown timer on the maintenance page. Uncheck to hide it.',
+]);
 
 
 
