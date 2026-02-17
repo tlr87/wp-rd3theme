@@ -100,13 +100,14 @@ add_action('widgets_init', 'rd3_widgets');
 // ===============================
 // Customizer: Maintenance Mode Settings
 // ===============================
-function rd3_customize_register($wp_customize)
-{
-
+    function rd3_customize_register($wp_customize)
+    {
     $wp_customize->add_section('rd3_maintenance', [
-        'title' => 'Maintenance Mode',
-        'priority' => 30,
+        'title'       => 'Maintenance Mode',
+        'priority'    => 30,
+        'description' => 'Configure the maintenance splash page, countdown timer, messages, colors, and widgets shown to visitors while your site is offline for updates or new features.',
     ]);
+
 
     // Enable/Disable Maintenance Mode
     $wp_customize->add_setting('rd3_maintenance_mode', [
@@ -140,6 +141,7 @@ function rd3_customize_register($wp_customize)
     // Add the control to the Maintenance section
     $wp_customize->add_setting('rd3_maintenance_widgets_link', [
         'sanitize_callback' => 'esc_url', // not really used, just a placeholder
+       
     ]);
 
     $wp_customize->add_control(new RD3_Maintenance_Widgets_Link($wp_customize, 'rd3_maintenance_widgets_link', [
