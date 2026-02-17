@@ -85,6 +85,78 @@ function rd3_widgets()
 }
 add_action('widgets_init', 'rd3_widgets');
 
+// ===============================
+// Customizer: Maintenance Mode Settings
+// ===============================
+function rd3_customize_register($wp_customize) {
+
+    $wp_customize->add_section('rd3_maintenance', [
+        'title'    => 'Maintenance Mode',
+        'priority' => 30,
+    ]);
+
+    // Enable/Disable Maintenance Mode
+    $wp_customize->add_setting('rd3_maintenance_mode', [
+        'default'           => false,
+        'sanitize_callback' => 'rd3_sanitize_checkbox',
+    ]);
+    $wp_customize->add_control('rd3_maintenance_mode', [
+        'type'    => 'checkbox',
+        'section' => 'rd3_maintenance',
+        'label'   => 'Enable Maintenance Mode',
+    ]);
+
+    // Logo
+    $wp_customize->add_setting('rd3_maintenance_logo', [
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_maintenance_logo', [
+        'label'   => 'Maintenance Logo',
+        'section' => 'rd3_maintenance',
+        'settings'=> 'rd3_maintenance_logo',
+    ]));
+
+    // Background Color
+    $wp_customize->add_setting('rd3_maintenance_bg', [
+        'default' => '#f7f7f7',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_maintenance_bg', [
+        'label'   => 'Background Color',
+        'section' => 'rd3_maintenance',
+        'settings'=> 'rd3_maintenance_bg',
+    ]));
+
+    // Text Color
+    $wp_customize->add_setting('rd3_maintenance_text', [
+        'default' => '#333333',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_maintenance_text', [
+        'label'   => 'Text Color',
+        'section' => 'rd3_maintenance',
+        'settings'=> 'rd3_maintenance_text',
+    ]));
+
+}
+add_action('customize_register', 'rd3_customize_register');
+
+function rd3_sanitize_checkbox($checked) {
+    return ((isset($checked) && $checked === true) ? true : false);
+}
+
+
+function rd3_maintenance_mode_redirect() {
+    if ( !current_user_can('manage_options') && !is_admin() ) {
+        $maintenance = get_theme_mod('rd3_maintenance_mode', false);
+        if ( $maintenance ) {
+            include get_template_directory() . '/maintenance.php';
+            exit();
+        }
+    }
+}
+add_action('template_redirect', 'rd3_maintenance_mode_redirect');
 
 
 // ===============================
