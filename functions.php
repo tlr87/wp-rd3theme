@@ -211,8 +211,19 @@ function rd3_branding_customizer($wp_customize)
         'priority' => 30,
     ]);
 
+// Add this inside rd3_branding_customizer
+$wp_customize->add_setting('rd3_body_bg_color', [
+    'default'           => '#ffffff',
+    'sanitize_callback' => 'sanitize_hex_color',
+    'transport'         => 'refresh',
+]);
 
-
+$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_body_bg_color', [
+    'label'    => 'Body Background Color',
+    'section'  => 'rd3_branding',
+    'settings' => 'rd3_body_bg_color',
+]));
+   // Site Background Colour chooser
     $wp_customize->add_control(new WP_Customize_Upload_Control(
         $wp_customize,
         'rd3_layout_custom_upload_control',
@@ -337,8 +348,27 @@ function rd3_branding_customizer($wp_customize)
 
 }
 add_action('customize_register', 'rd3_branding_customizer');
-
-
+   
+// Site Background Colour chooser function
+function rd3_force_body_bg() {
+    $body_bg = get_theme_mod('rd3_body_bg_color', '#ffffff');
+    ?>
+    <style id="rd3-force-bg">
+        /* Target the body AND common wrapper divs that might be white */
+        body, 
+        html body, 
+        html[language] body, 
+        #page, 
+        .site, .container,
+        .main-container,
+        #content { 
+            background-color: <?php echo esc_attr($body_bg); ?> !important; 
+            background: <?php echo esc_attr($body_bg); ?> !important;
+        }
+    </style>
+    <?php
+}
+add_action('wp_footer', 'rd3_force_body_bg', 999);
 // ===============================
 // Layout Section with Enable/Disable
 // ===============================
