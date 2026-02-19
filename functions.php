@@ -84,7 +84,7 @@ function rd3_sanitize_checkbox($checked) {
 }
 
 
-// ===============================
+// ===============================rd3_maintenance_mode_redirect
 // Maintenance Mode Redirect
 // ===============================
 function rd3_maintenance_mode_redirect() {
@@ -96,8 +96,17 @@ function rd3_maintenance_mode_redirect() {
     $current_time = current_time('timestamp');
     $countdown_timestamp = strtotime($countdown_date);
 
-    // Only show maintenance if enabled and countdown not passed
-    if ($maintenance && !($auto_reload && $current_time >= $countdown_timestamp)) {
+    // If countdown passed and auto reload enabled, turn off maintenance mode
+    if ($auto_reload && $current_time >= $countdown_timestamp) {
+        if ($maintenance) {
+            // Update the theme mod to false so checkbox becomes unchecked
+            set_theme_mod('rd3_maintenance_mode', false);
+        }
+        return; // Don't show maintenance page
+    }
+
+    // Show maintenance page if enabled
+    if ($maintenance) {
         include get_template_directory() . '/maintenance.php';
         exit;
     }
@@ -108,7 +117,8 @@ add_action('template_redirect', 'rd3_maintenance_mode_redirect');
 // ===============================
 // Customizer: Maintenance Mode
 // ===============================
-function rd3_customize_register($wp_customize) {
+function rd3_customize_register($wp_customize)
+{
     $wp_customize->add_section('rd3_maintenance', [
         'title' => 'Maintenance Mode',
         'priority' => 30,
@@ -124,17 +134,19 @@ function rd3_customize_register($wp_customize) {
     ]);
 
     // Widgets link
-    class RD3_Maintenance_Widgets_Link extends WP_Customize_Control {
+    class RD3_Maintenance_Widgets_Link extends WP_Customize_Control
+    {
         public $type = 'link';
-        public function render_content() {
+        public function render_content()
+        {
             ?>
-            <p>
-                <strong>Widgets:</strong>
-                <a href="<?php echo admin_url('widgets.php'); ?>" target="_blank">
-                    Edit Maintenance Page Widgets
-                </a>
-            </p>
-            <?php
+                        <p>
+                            <strong>Widgets:</strong>
+                            <a href="<?php echo admin_url('widgets.php'); ?>" target="_blank">
+                                Edit Maintenance Page Widgets
+                            </a>
+                        </p>
+                        <?php
         }
     }
     $wp_customize->add_setting('rd3_maintenance_widgets_link', ['sanitize_callback' => 'esc_url']);
