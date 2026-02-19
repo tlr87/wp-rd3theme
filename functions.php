@@ -6,7 +6,8 @@
 // ===============================
 // Theme Setup
 // ===============================
-function rd3_theme_setup() {
+function rd3_theme_setup()
+{
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('html5');
@@ -22,7 +23,8 @@ add_action('after_setup_theme', 'rd3_theme_setup');
 // ===============================
 // Load Assets
 // ===============================
-function rd3_assets() {
+function rd3_assets()
+{
     // Load main stylesheet
     wp_enqueue_style('rd3-main', get_template_directory_uri() . '/assets/css/main.css', [], '1.0');
 
@@ -36,7 +38,8 @@ function rd3_assets() {
 
     // Custom uploaded CSS
     $custom_css = get_theme_mod('rd3_layout_custom_upload');
-    if ($custom_css) wp_enqueue_style('rd3-custom-css', esc_url($custom_css), [], '1.0');
+    if ($custom_css)
+        wp_enqueue_style('rd3-custom-css', esc_url($custom_css), [], '1.0');
 
     // Main JS
     wp_enqueue_script('rd3-js', get_template_directory_uri() . '/assets/js/main.js', [], '1.0', true);
@@ -47,7 +50,8 @@ add_action('wp_enqueue_scripts', 'rd3_assets');
 // ===============================
 // Widgets
 // ===============================
-function rd3_widgets() {
+function rd3_widgets()
+{
     // Sidebar
     register_sidebar(['name' => 'Sidebar', 'id' => 'main-sidebar']);
 
@@ -79,7 +83,8 @@ add_action('widgets_init', 'rd3_widgets');
 // ===============================
 // Sanitize Checkbox
 // ===============================
-function rd3_sanitize_checkbox($checked) {
+function rd3_sanitize_checkbox($checked)
+{
     return (isset($checked) && $checked === true) ? true : false;
 }
 
@@ -87,8 +92,10 @@ function rd3_sanitize_checkbox($checked) {
 // ===============================rd3_maintenance_mode_redirect
 // Maintenance Mode Redirect
 // ===============================
-function rd3_maintenance_mode_redirect() {
-    if (current_user_can('manage_options') || is_admin()) return;
+function rd3_maintenance_mode_redirect()
+{
+    if (current_user_can('manage_options') || is_admin())
+        return;
 
     $maintenance = get_theme_mod('rd3_maintenance_mode', false);
     $auto_reload = get_theme_mod('rd3_maintenance_auto_reload', true);
@@ -140,13 +147,13 @@ function rd3_customize_register($wp_customize)
         public function render_content()
         {
             ?>
-                        <p>
-                            <strong>Widgets:</strong>
-                            <a href="<?php echo admin_url('widgets.php'); ?>" target="_blank">
-                                Edit Maintenance Page Widgets
-                            </a>
-                        </p>
-                        <?php
+            <p>
+                <strong>Widgets:</strong>
+                <a href="<?php echo admin_url('widgets.php'); ?>" target="_blank">
+                    Edit Maintenance Page Widgets
+                </a>
+            </p>
+            <?php
         }
     }
     $wp_customize->add_setting('rd3_maintenance_widgets_link', ['sanitize_callback' => 'esc_url']);
@@ -211,30 +218,13 @@ function rd3_branding_customizer($wp_customize)
         'priority' => 30,
     ]);
 
-// Add this inside rd3_branding_customizer
-$wp_customize->add_setting('rd3_body_bg_color', [
-    'default'           => '#ffffff',
-    'sanitize_callback' => 'sanitize_hex_color',
-    'transport'         => 'refresh',
-]);
-
-$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_body_bg_color', [
-    'label'    => 'Body Background Color',
-    'section'  => 'rd3_branding',
-    'settings' => 'rd3_body_bg_color',
-]));
-   // Site Background Colour chooser
-    $wp_customize->add_control(new WP_Customize_Upload_Control(
-        $wp_customize,
-        'rd3_layout_custom_upload_control',
-        [
-            'label' => __('Upload Custom Layout CSS', 'rd3starter'),
-            'section' => 'rd3_layout_section',
-            'settings' => 'rd3_layout_custom_upload',
-            'description' => 'Upload a custom CSS file to override layout styles.',
-        ]
-    ));
-
+    // Add this inside rd3_branding_customizer
+    $wp_customize->add_setting('rd3_body_bg_color', [
+        'default' => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport' => 'refresh',
+    ]);
+ 
     // Site Logo
     $wp_customize->add_setting('rd3_logo');
     $wp_customize->add_control(new WP_Customize_Image_Control(
@@ -346,29 +336,46 @@ $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_bo
         'settings' => 'rd3_footer_bg'
     ]));
 
+
+    // Header Background Colour
+    $wp_customize->add_setting('rd3_header_bg_color', [
+        'default' => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+
+    $wp_customize->add_control(
+        new WP_Customize_Color_Control(
+            $wp_customize,
+            'rd3_header_bg_color',
+            [
+                'label' => __('Header Background Colour', 'rd3starter'),
+                'section' => 'rd3_branding',
+            ]
+        )
+    );
+
+    // Footer Background Colour
+    $wp_customize->add_setting('rd3_footer_bg_color', [
+        'default' => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+
+    $wp_customize->add_control(
+        new WP_Customize_Color_Control(
+            $wp_customize,
+            'rd3_footer_bg_color',
+            [
+                'label' => __('Footer Background Colour', 'rd3starter'),
+                'section' => 'rd3_branding',
+            ]
+        )
+    );
+
+
 }
 add_action('customize_register', 'rd3_branding_customizer');
-   
-// Site Background Colour chooser function
-function rd3_force_body_bg() {
-    $body_bg = get_theme_mod('rd3_body_bg_color', '#ffffff');
-    ?>
-    <style id="rd3-force-bg">
-        /* Target the body AND common wrapper divs that might be white */
-        body, 
-        html body, 
-        html[language] body, 
-        #page, 
-        .site, .container,
-        .main-container,
-        #content { 
-            background-color: <?php echo esc_attr($body_bg); ?> !important; 
-            background: <?php echo esc_attr($body_bg); ?> !important;
-        }
-    </style>
-    <?php
-}
-add_action('wp_footer', 'rd3_force_body_bg', 999);
+
+
 // ===============================
 // Layout Section with Enable/Disable
 // ===============================
@@ -414,7 +421,7 @@ function rd3_customize_layout($wp_customize)
         }
     ]);
 
-    // --- Custom CSS Upload ---
+    //Custom CSS Upload
     $wp_customize->add_setting('rd3_custom_css', [
         'default' => '',
         'sanitize_callback' => 'esc_url_raw',
@@ -447,6 +454,8 @@ function rd3_branding_styles()
     $footer_bg = get_theme_mod('rd3_footer_bg', '');
     $header_menu_align = get_theme_mod('rd3_header_menu_alignment', 'center');
     $footer_menu_align = get_theme_mod('rd3_footer_menu_alignment', 'center');
+    $header_bg_color = get_theme_mod('rd3_header_bg_color', '#ffffff');
+    $footer_bg_color = get_theme_mod('rd3_footer_bg_color', '#ffffff');
 
     $fonts = [
         'system' => 'system-ui, sans-serif',
@@ -457,47 +466,67 @@ function rd3_branding_styles()
     ];
     $logo_text_align = $logo_align;
     ?>
-    <style>
-        .site-header,
-        .site-footer {
-            background:
-                <?php echo $secondary; ?>; }
-
-                .site-header .logo {
+    
+        <style>
+            .site-header .container {
+            background-color: <?php echo esc_attr($header_bg_color) ?>!important
+                ;
+            }
+        
+            .site-footer .container {
+                background-color:
+                    <?php echo esc_attr($footer_bg_color)?>!important 
+                ;
+            }
+        
+            .site-header,
+            .site-footer {
+                background:
+                    <?php echo $secondary; ?>
+                ;
+            }
+        
+            .site-header .logo {
                 text-align:
-                    <?php echo $logo_text_align; ?>; }
-
-                    .main-nav {
-                    display: flex;
-                    justify-content:
-                        <?php echo $header_menu_align === 'left' ? 'flex-start' : ($header_menu_align === 'right' ? 'flex-end' : 'center'); ?>; width: 100%;
+                    <?php echo $logo_text_align; ?>
+                ;
+            }
+        
+            .main-nav {
+                display: flex;
+                justify-content:
+                    <?php echo $header_menu_align === 'left' ? 'flex-start' : ($header_menu_align === 'right' ? 'flex-end' : 'center'); ?>
+                ;
+                width: 100%;
+            }
+        
+            .footer-nav ul {
+                display: flex;
+                justify-content:
+                    <?php echo $footer_menu_align === 'left' ? 'flex-start' : ($footer_menu_align === 'right' ? 'flex-end' : 'center'); ?>
+                ;
+            }
+        
+            <?php if ($header_bg): ?>
+                .site-header {
+                    background-image: url('<?php echo esc_url($header_bg); ?>');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
                 }
-
-                .footer-nav ul {
-                    display: flex;
-                    justify-content:
-                        <?php echo $footer_menu_align === 'left' ? 'flex-start' : ($footer_menu_align === 'right' ? 'flex-end' : 'center'); ?>; }
-
-                        <?php if ($header_bg): ?>
-                            .site-header {
-                            background-image: url('<?php echo esc_url($header_bg); ?>');
-                            background-size: cover;
-                            background-position: center;
-                            background-repeat: no-repeat;
-                        }
-
-                    <?php endif; ?>
-
-                    <?php if ($footer_bg): ?>
-                        .site-footer {
-                            background-image: url('<?php echo esc_url($footer_bg); ?>');
-                            background-size: cover;
-                            background-position: center;
-                            background-repeat: no-repeat;
-                        }
-
-                    <?php endif; ?>
-    </style>
+        
+            <?php endif; ?>
+        
+            <?php if ($footer_bg): ?>
+                .site-footer {
+                    background-image: url('<?php echo esc_url($footer_bg); ?>');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+        
+            <?php endif; ?>
+        </style>
     <?php
 }
 add_action('wp_head', 'rd3_branding_styles');
