@@ -492,13 +492,11 @@ function rd3_branding_styles()
         <style>
 
             .Main-container{
-            background-color: <?php echo esc_attr($rd3_bg_color) ?>!important
-                ;
+            background-color: <?php echo esc_attr($rd3_bg_color) ?>;
             }
 
             .site-header .container {
-            background-color: <?php echo esc_attr($header_bg_color) ?>!important
-                ;
+            background-color: <?php echo esc_attr($header_bg_color) ?>;
             }
         
             .site-footer .container {
