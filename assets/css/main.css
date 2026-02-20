@@ -217,10 +217,14 @@ ul.wp-block-categories-list {
 
 
 article.post{
-
  padding: 3vh 0vh;
-
 }
+
+article.page, article.single-post {
+background: transparent;
+}
+
+
 
 /* Widgets */
 .widget {

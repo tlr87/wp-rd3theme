@@ -225,6 +225,27 @@ function rd3_branding_customizer($wp_customize)
         'transport' => 'refresh',
     ]);
  
+        // ===============================
+        // Header Background Colour
+        // ===============================
+        $wp_customize->add_setting('rd3_bg_color', [
+            'default' => '#ffffff',
+            'sanitize_callback' => 'sanitize_hex_color',
+        ]);
+
+        $wp_customize->add_control(
+            new WP_Customize_Color_Control(
+                $wp_customize,
+                'rd3_bg_color',
+                [
+                    'label' => __(' Background Colour', 'rd3starter'),
+                    'section' => 'rd3_branding',
+                ]
+            )
+        );
+
+
+
     // Site Logo
     $wp_customize->add_setting('rd3_logo');
     $wp_customize->add_control(new WP_Customize_Image_Control(
@@ -446,6 +467,7 @@ add_action('customize_register', 'rd3_customize_layout');
 // ===============================
 function rd3_branding_styles()
 {
+    $rd3_bg_color = get_theme_mod('rd3_bg_color', '#ffffff');    
     $primary = get_theme_mod('rd3_primary_color', '#000000');
     $secondary = get_theme_mod('rd3_secondary_color', '#666666');
     $logo_align = get_theme_mod('rd3_logo_alignment', 'left');
@@ -468,6 +490,12 @@ function rd3_branding_styles()
     ?>
     
         <style>
+
+            .Main-container{
+            background-color: <?php echo esc_attr($rd3_bg_color) ?>!important
+                ;
+            }
+
             .site-header .container {
             background-color: <?php echo esc_attr($header_bg_color) ?>!important
                 ;
