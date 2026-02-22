@@ -22,38 +22,14 @@ add_action('after_setup_theme', 'rd3_theme_setup');
 // ===============================
 // Load modules
 // ===============================
+require get_template_directory() . '/modules/assets.php';
 require get_template_directory() . '/modules/widgets.php';
 require get_template_directory() . '/modules/css-upload.php';
 require get_template_directory() . '/modules/customizer-layout.php';
-require get_template_directory() . '/modules/maintenance.php'; // future
+require get_template_directory() . '/modules/maintenance.php'; 
 require get_template_directory() . '/modules/breadcrumbs.php';
 
 
-// ===============================
-// Load Assets
-// ===============================
-function rd3_assets()
-{
-    // Load main stylesheet
-    wp_enqueue_style('rd3-main', get_template_directory_uri() . '/assets/css/main.css', [], '1.0');
-
-    // Horizontal or vertical layout
-    $layout = get_theme_mod('rd3_site_layout', 'horizontal');
-    if ($layout === 'vertical') {
-        wp_enqueue_style('rd3-layout-vertical', get_template_directory_uri() . '/assets/css/layout-vertical.css', ['rd3-main'], '1.0');
-    } else {
-        wp_enqueue_style('rd3-layout-horizontal', get_template_directory_uri() . '/assets/css/layout-horizontal.css', ['rd3-main'], '1.0');
-    }
-
-    // Custom uploaded CSS
-    $custom_css = get_theme_mod('rd3_layout_custom_upload');
-    if ($custom_css)
-        wp_enqueue_style('rd3-custom-css', esc_url($custom_css), [], '1.0');
-
-    // Main JS
-    wp_enqueue_script('rd3-js', get_template_directory_uri() . '/assets/js/main.js', [], '1.0', true);
-}
-add_action('wp_enqueue_scripts', 'rd3_assets');
 
 // ===============================
 // Sanitize Checkbox
