@@ -24,6 +24,7 @@ add_action('after_setup_theme', 'rd3_theme_setup');
 // ===============================
 require get_template_directory() . '/modules/widgets.php';
 require get_template_directory() . '/modules/css-upload.php';
+require get_template_directory() . '/modules/customizer-layout.php';
 require get_template_directory() . '/modules/maintenance.php'; // future
 require get_template_directory() . '/modules/breadcrumbs.php';
 
@@ -53,7 +54,6 @@ function rd3_assets()
     wp_enqueue_script('rd3-js', get_template_directory_uri() . '/assets/js/main.js', [], '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'rd3_assets');
-
 
 // ===============================
 // Sanitize Checkbox
@@ -258,70 +258,6 @@ function rd3_branding_customizer($wp_customize)
 
 }
 add_action('customize_register', 'rd3_branding_customizer');
-
-
-// ===============================
-// Layout Section with Enable/Disable
-// ===============================
-function rd3_customize_layout($wp_customize)
-{
-
-    // --- Layout Section ---
-    $wp_customize->add_section('rd3_layout_section', [
-        'title' => 'Layout & Custom CSS',
-        'priority' => 30,
-        'description' => __('Layout & Custom CSS for Advanced users only.', 'textdomain'),
-    ]);
-
-    // --- Master Enable/Disable Checkbox ---
-    $wp_customize->add_setting('rd3_layout_enabled', [
-        'default' => 1, // 1 = enabled, 0 = disabled
-        'sanitize_callback' => 'absint',
-    ]);
-
-    $wp_customize->add_control('rd3_layout_enabled', [
-        'label' => 'Show Layout & Custom CSS Controls',
-        'section' => 'rd3_layout_section',
-        'type' => 'checkbox',
-    ]);
-
-    // --- Layout Choice: Horizontal / Vertical ---
-    $wp_customize->add_setting('rd3_site_layout', [
-        'default' => 'horizontal',
-        'transport' => 'refresh',
-    ]);
-
-    $wp_customize->add_control('rd3_site_layout', [
-        'label' => __('Site Layout', 'rd3starter'),
-        'section' => 'rd3_layout_section',
-        'type' => 'radio',
-        'choices' => [
-            'horizontal' => __('Horizontal Header', 'rd3starter'),
-            'vertical' => __('Vertical Header', 'rd3starter'),
-        ],
-        // Only active if master checkbox is checked
-        'active_callback' => function () use ($wp_customize) {
-            return get_theme_mod('rd3_layout_enabled', 1) == 1;
-        }
-    ]);
-
-    //Custom CSS Upload
-    $wp_customize->add_setting('rd3_custom_css', [
-        'default' => '',
-        'sanitize_callback' => 'esc_url_raw',
-    ]);
-
-    $wp_customize->add_control(new WP_Customize_Upload_Control($wp_customize, 'rd3_custom_css', [
-        'label' => 'Upload Custom CSS File',
-        'section' => 'rd3_layout_section',
-        // Only active if master checkbox is checked
-        'active_callback' => function () use ($wp_customize) {
-            return get_theme_mod('rd3_layout_enabled', 1) == 1;
-        }
-    ]));
-
-}
-add_action('customize_register', 'rd3_customize_layout');
 
 
 
