@@ -19,6 +19,12 @@ function rd3_theme_setup()
 }
 add_action('after_setup_theme', 'rd3_theme_setup');
 
+// ===============================
+// Load modules
+// ===============================
+require get_template_directory() . '/modules/maintenance.php'; // future
+require get_template_directory() . '/modules/breadcrumbs.php';
+
 
 // ===============================
 // Load Assets
@@ -87,125 +93,6 @@ function rd3_sanitize_checkbox($checked)
 {
     return (isset($checked) && $checked === true) ? true : false;
 }
-
-
-// ===============================rd3_maintenance_mode_redirect
-// Maintenance Mode Redirect
-// ===============================
-function rd3_maintenance_mode_redirect()
-{
-    if (current_user_can('manage_options') || is_admin())
-        return;
-
-    $maintenance = get_theme_mod('rd3_maintenance_mode', false);
-    $auto_reload = get_theme_mod('rd3_maintenance_auto_reload', true);
-    $countdown_date = get_theme_mod('rd3_maintenance_countdown', date('Y-m-d H:i:s', strtotime('+3 days')));
-    $current_time = current_time('timestamp');
-    $countdown_timestamp = strtotime($countdown_date);
-
-    // If countdown passed and auto reload enabled, turn off maintenance mode
-    if ($auto_reload && $current_time >= $countdown_timestamp) {
-        if ($maintenance) {
-            // Update the theme mod to false so checkbox becomes unchecked
-            set_theme_mod('rd3_maintenance_mode', false);
-        }
-        return; // Don't show maintenance page
-    }
-
-    // Show maintenance page if enabled
-    if ($maintenance) {
-        include get_template_directory() . '/maintenance.php';
-        exit;
-    }
-}
-add_action('template_redirect', 'rd3_maintenance_mode_redirect');
-
-
-// ===============================
-// Customizer: Maintenance Mode
-// ===============================
-function rd3_customize_register($wp_customize)
-{
-    $wp_customize->add_section('rd3_maintenance', [
-        'title' => 'Maintenance Mode',
-        'priority' => 30,
-        'description' => 'Configure the maintenance splash page, countdown timer, messages, colors, and widgets shown to visitors.',
-    ]);
-
-    // Enable/Disable Maintenance Mode
-    $wp_customize->add_setting('rd3_maintenance_mode', ['default' => false, 'sanitize_callback' => 'rd3_sanitize_checkbox']);
-    $wp_customize->add_control('rd3_maintenance_mode', [
-        'type' => 'checkbox',
-        'section' => 'rd3_maintenance',
-        'label' => 'Enable Maintenance Mode',
-    ]);
-
-    // Widgets link
-    class RD3_Maintenance_Widgets_Link extends WP_Customize_Control
-    {
-        public $type = 'link';
-        public function render_content()
-        {
-            ?>
-            <p>
-                <strong>Widgets:</strong>
-                <a href="<?php echo admin_url('widgets.php'); ?>" target="_blank">
-                    Edit Maintenance Page Widgets
-                </a>
-            </p>
-            <?php
-        }
-    }
-    $wp_customize->add_setting('rd3_maintenance_widgets_link', ['sanitize_callback' => 'esc_url']);
-    $wp_customize->add_control(new RD3_Maintenance_Widgets_Link($wp_customize, 'rd3_maintenance_widgets_link', [
-        'section' => 'rd3_maintenance',
-    ]));
-
-    // Logo
-    $wp_customize->add_setting('rd3_maintenance_logo', ['sanitize_callback' => 'esc_url_raw']);
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_maintenance_logo', [
-        'label' => 'Maintenance Logo',
-        'section' => 'rd3_maintenance',
-        'settings' => 'rd3_maintenance_logo',
-    ]));
-
-    // Colors
-    $wp_customize->add_setting('rd3_maintenance_bg', ['default' => '#f7f7f7', 'sanitize_callback' => 'sanitize_hex_color']);
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_maintenance_bg', ['label' => 'Background Color', 'section' => 'rd3_maintenance']));
-
-    $wp_customize->add_setting('rd3_maintenance_text', ['default' => '#333', 'sanitize_callback' => 'sanitize_hex_color']);
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_maintenance_text', ['label' => 'Text Color', 'section' => 'rd3_maintenance']));
-
-    // Title & Message
-    $wp_customize->add_setting('rd3_maintenance_title', ['default' => 'Site Under Maintenance', 'sanitize_callback' => 'sanitize_text_field']);
-    $wp_customize->add_control('rd3_maintenance_title', ['type' => 'text', 'section' => 'rd3_maintenance', 'label' => 'Maintenance Page Title']);
-
-    $wp_customize->add_setting('rd3_maintenance_message', ['default' => 'We’re making improvements. Please check back soon.', 'sanitize_callback' => 'sanitize_textarea_field']);
-    $wp_customize->add_control('rd3_maintenance_message', ['type' => 'textarea', 'section' => 'rd3_maintenance', 'label' => 'Maintenance Page Message']);
-
-    // Countdown
-    $wp_customize->add_setting('rd3_maintenance_countdown_enable', ['default' => true, 'sanitize_callback' => 'rd3_sanitize_checkbox']);
-    $wp_customize->add_control('rd3_maintenance_countdown_enable', [
-        'type' => 'checkbox',
-        'section' => 'rd3_maintenance',
-        'label' => 'Enable Countdown Timer',
-    ]);
-
-    $wp_customize->add_setting('rd3_maintenance_countdown', ['default' => date('Y-m-d H:i:s', strtotime('+3 days')), 'sanitize_callback' => 'sanitize_text_field']);
-    $wp_customize->add_control('rd3_maintenance_countdown', [
-        'type' => 'text',
-        'section' => 'rd3_maintenance',
-        'label' => 'Countdown End Date (YYYY-MM-DD HH:MM:SS)',
-    ]);
-
-    $wp_customize->add_setting('rd3_maintenance_back_message', ['default' => 'We are back!', 'sanitize_callback' => 'sanitize_text_field']);
-    $wp_customize->add_control('rd3_maintenance_back_message', ['type' => 'text', 'section' => 'rd3_maintenance', 'label' => 'Countdown Finished Message']);
-
-    $wp_customize->add_setting('rd3_maintenance_auto_reload', ['default' => true, 'sanitize_callback' => 'rd3_sanitize_checkbox']);
-    $wp_customize->add_control('rd3_maintenance_auto_reload', ['type' => 'checkbox', 'section' => 'rd3_maintenance', 'label' => 'Auto Reload When Countdown Ends']);
-}
-add_action('customize_register', 'rd3_customize_register');
-
 
 
 // ===============================
@@ -580,33 +467,7 @@ function rd3_branding_styles()
 }
 add_action('wp_head', 'rd3_branding_styles');
 
-// ===============================
-// Breadcrumbs
-// ===============================
-function rd3_breadcrumbs()
-{
-    if (is_front_page())
-        return;
 
-    echo '<p class="breadcrumbs">';
-    echo '<a href="' . esc_url(home_url('/')) . '">Home</a> » ';
-
-    if (is_category() || is_single()) {
-        the_category(' » ');
-        if (is_single()) {
-            echo ' » ';
-            the_title();
-        }
-    } elseif (is_page()) {
-        the_title();
-    } elseif (is_search()) {
-        echo 'Search: "' . get_search_query() . '"';
-    } elseif (is_404()) {
-        echo '404';
-    }
-
-    echo '</p>';
-}
 
 // Allow CSS uploads
 function rd3_allow_css_uploads($mimes)
