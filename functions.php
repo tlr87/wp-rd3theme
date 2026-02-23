@@ -31,6 +31,7 @@ require get_template_directory() . '/modules/maintenance.php';
 require get_template_directory() . '/modules/breadcrumbs.php';
 require get_template_directory() . '/modules/seo.php';
 
+
 // ===============================
 // Sanitize Checkbox
 // ===============================
