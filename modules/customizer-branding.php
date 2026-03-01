@@ -248,7 +248,7 @@ function rd3_branding_styles()
             ;
         }
 
-        .site-header .container {
+        .site-header .container,.site-header::before {
             background-color:
                 <?php echo esc_attr($header_bg_color) ?>
             ;
