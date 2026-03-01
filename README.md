@@ -1,275 +1,222 @@
 # RD3 Starter Theme
 
 **Version:** 1.0  
-**Author:** RD3 Tech  
-
-A lightweight, client-ready WordPress starter theme designed for small businesses, churches, and community organisations. It focuses on simplicity, flexibility, and easy customisation through the WordPress Customizer.
-
----
-
-## Overview
-
-RD3 Starter Theme provides a clean foundation for building professional WordPress websites without unnecessary complexity. It allows non-technical users to manage branding, layout, and content while giving developers a solid base for extension.
+**Author:** Tom Revill / RD3 Tech  
+**Description:** A clean, modular WordPress starter theme built for flexibility, SEO, and fast development. Features include customizable branding, layout controls, maintenance mode, SEO modules, social sharing, and structured data support.
 
 ---
 
-## Features
-
-### Header
-
-- Custom logo (via Customizer)
-- Logo alignment: left, centre, right
-- Independent header menu alignment
-- Header background image (cover, centre, no-repeat)
-- Optional overlay for improved readability
-
-### Footer
-
-- Footer menu with independent alignment
-- Toggle to show/hide footer menu
-- Three-column widget area
-- Footer background image support
-- Optional overlay
-
-### Customizer Options
-
-- Logo upload and alignment
-- Header and footer menu alignment
-- Primary and secondary colours
-- Font selection (System, Arial, Roboto, Poppins, Lato)
-- Header and footer background images
-- Homepage layout selection
-- Page selection for full-page homepage
-
-### Widgets
-
-- Sidebar widget area
-- Three independent footer widget columns
-
-### Homepage Layout
-
-- Latest posts (default)
-- Full-page content (selectable)
-
-### Performance & Design
-
-- Fully responsive layout
-- Minimal, lightweight CSS
-- Easy to customise
-- Ready for future expansion
+## Table of Contents
+1. [Installation](#installation)
+2. [Theme Features](#theme-features)
+3. [Modules](#modules)
+4. [Customizer Settings](#customizer-settings)
+5. [Maintenance Mode](#maintenance-mode)
+6. [SEO & Social](#seo--social)
+7. [Dynamic Styling](#dynamic-styling)
+8. [Widgets](#widgets)
+9. [Recommended Plugins](#recommended-plugins)
+10. [Support](#support)
 
 ---
 
 ## Installation
 
-1. Download or clone this repository.
-2. Upload the folder to `/wp-content/themes/`.
-3. In WordPress Admin, go to **Appearance → Themes**.
-4. Activate **RD3 Starter Theme**.
-5. Configure via **Appearance → Customize**.
+1. Copy the `rd3-starter` theme folder to your WordPress `wp-content/themes/` directory.  
+2. Activate the theme via **Appearance → Themes**.  
+3. Configure the theme via **Appearance → Customize**.  
 
 ---
 
-## Customisation Guide
+## Theme Features
 
-### Customizer
-
-Navigate to:
-
-```
-Appearance → Customize → Branding Settings
-```
-
-From here you can:
-
-- Upload and align the logo
-- Set menu alignment
-- Configure colours and fonts
-- Upload background images
-- Toggle footer menu
-- Select homepage layout
-
-### Menus
-
-- Header menu:  
-  `Appearance → Menus → Manage Locations → Main Menu`
-
-- Footer menu:  
-  `Appearance → Menus → Manage Locations → Footer Menu`
-
-### Widgets
-
-Go to:
-
-```
-Appearance → Widgets
-```
-
-Configure:
-
-- Sidebar
-- Footer Column 1–3
+- Clean, modular structure for easy customization  
+- Fully responsive design with horizontal and vertical layouts  
+- Custom branding options (logo, colors, header/footer backgrounds)  
+- Maintenance / Coming Soon mode  
+- SEO, Open Graph, Twitter Cards, and JSON-LD structured data support  
+- Widgetized footer, sidebar, and maintenance pages  
+- Upload custom CSS for advanced styling  
+- Breadcrumbs support  
+- Enqueued assets with dependency management  
 
 ---
 
-## CSS Customisation
+## Modules
 
-Additional styling can be added in:
+All major features are organized in `/modules/` for clean separation:
 
-```
-assets/css/main.css
-```
+- **seo.php** – Meta Enhancements (robots, canonical, author, publisher, generator, additional meta), Social Sharing & Open Graph / Twitter Card controls ,Structured Data (JSON-LD) configuration  
+- **maintenance.php** – Maintenance page template  
+- **branding.php** – Branding & dynamic styling  
+- **layout.php** – Layout & custom CSS controls  
 
-Example overlay styling:
-
-```css
-.site-header::before,
-.site-footer::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.3);
-    z-index: 0;
-}
-
-.site-header .container,
-.site-footer .container {
-    position: relative;
-    z-index: 1;
-}
-```
+This modular setup makes it easy to **enable, extend, or replace** functionality without touching `functions.php`.
 
 ---
 
-## Theme Structure
+## Customizer Settings
 
-```
-rd3-starter-theme/
-├── assets/
-│   ├── css/
-│   │   └── main.css
-│   └── js/
-│       └── main.js
-├── footer.php
-├── functions.php
-├── header.php
-├── index.php
-├── style.css
-└── screenshot.png
-```
+**Branding**  
+- Site logo, logo alignment, site title, tagline  
+- Header and footer background images and colors  
+- Breadcrumbs toggle  
+- Sidebar position  
+
+**Layout & Custom CSS**  
+- Horizontal / vertical header layout  
+- Upload a custom CSS file  
+- Master enable/disable toggle  
+
+**Maintenance Mode**  
+- Enable/disable maintenance mode  
+- Logo, background color, text color  
+- Maintenance message and countdown timer  
+- Auto reload when countdown ends  
+- Widget area for maintenance page content  
+
+**SEO Settings**  
+- **Social Sharing**: Open Graph & Twitter cards  
+- **Structured Data**: JSON-LD support for articles, products, organization, and website  
+- **Meta Enhancements**: Robots, canonical URLs, author, publisher, generator, and additional meta  
 
 ---
+
+## Maintenance Mode
+
+- Template located at `/modules/maintenance.php`  
+- Widgets can be assigned via **Appearance → Widgets → Maintenance Page Widgets**  
+- Countdown timer auto-disables maintenance mode if configured  
+- Works without JavaScript; pure PHP / HTML solution  
+
+---
+
+## SEO & Social
+
+- Meta tags for description, Open Graph, Twitter Cards  
+- JSON-LD structured data for enhanced search engine results  
+- Custom meta enhancements (robots, canonical, author, publisher, generator)  
+- Social sharing links configurable via Customizer  
+- Full control via **Appearance → Customize → SEO Settings**  
+
+---
+
+## Dynamic Styling
+
+- Background image/color, header/footer backgrounds  
+- Primary and secondary color palette  
+- Logo alignment  
+- Header and footer menu alignment  
+- Custom CSS uploads supported  
+
+---
+
+## Widgets
+
+- Sidebar (`main-sidebar`)  
+- Footer columns (`footer-col-1`, `footer-col-2`, `footer-col-3`)  
+- Maintenance page (`maintenance-widgets`)  
+
+---
+
+## Recommended Plugins
+
+- **Classic Editor** or **Gutenberg** (as needed)  
+
 
 ## Developer Guide
 
-This section is for extending or modifying theme behaviour.
+RD3 Starter Theme is designed to be **modular, maintainable, and extendable**. This guide provides an overview for developers working with the theme.
 
-### Header & Footer
+### 1. File Structure
 
-- `header.php` – Logo, menus, and header elements
-- `footer.php` – Widgets, menus, and footer blocks
+rd3-starter/
+├─ assets/
+│ ├─ css/ # Main stylesheets and layout CSS
+│ ├─ js/ # JavaScript assets
+├─ modules/
+│ ├─ branding.php # Branding & dynamic styles
+│ ├─ layout.php # Layout & custom CSS
+│ ├─ maintenance.php # Maintenance mode template
+│ ├─ seo-meta.php # Meta enhancements (description, canonical, robots)
+│ ├─ seo-social.php # Open Graph & Twitter Cards
+│ ├─ seo-schema.php # Structured Data / JSON-LD
+├─ functions.php # Includes modules and essential hooks
+├─ header.php
+├─ footer.php
+├─ index.php
+├─ style.css
 
-### Customizer Settings
 
-All Customizer logic is in:
-
-```
-functions.php → rd3_branding_customizer()
-```
-
-To add a new setting:
-
-```php
-$wp_customize->add_setting('new_setting_name', [
-    'default' => 'value'
-]);
-
-$wp_customize->add_control('new_setting_name', [
-    'label' => 'New Setting',
-    'section' => 'rd3_branding',
-    'type' => 'text'
-]);
-```
-
-Retrieve values using:
-
-```php
-get_theme_mod('new_setting_name');
-```
-
-### Dynamic Styles
-
-Generated in:
-
-```
-rd3_branding_styles()
-```
-
-Append new rules here when adding Customizer options.
-
-### Widgets
-
-- Registered in `rd3_widgets()`
-- Output in `footer.php` or templates
-
-### JavaScript
-
-Add custom scripts in:
-
-```
-assets/js/main.js
-```
-
-Automatically enqueued via `rd3_assets()`.
-
-### Homepage Logic
-
-Controlled by `rd3_homepage_layout`:
-
-```php
-$layout = get_theme_mod('rd3_homepage_layout', 'posts');
-
-if ($layout === 'page') {
-    $page_id = get_theme_mod('rd3_homepage_page', 0);
-    echo apply_filters(
-        'the_content',
-        get_post_field('post_content', $page_id)
-    );
-} else {
-    if (have_posts()) {
-        while (have_posts()) {
-            the_post();
-            the_content();
-        }
-    }
-}
-```
-
----
-
-## Best Practices
-
-- Use the Customizer for most changes
-- Create a child theme for major customisation
-- Keep custom CSS organised
-- Use WordPress hooks where possible
-- Avoid editing core files directly
-
----
-
-## License
-
-This project is licensed under **Creative Commons Attribution-NonCommercial (CC BY-NC)**.  
-Commercial use requires permission from RD3 Tech.
 
 ---
 
 ## Support
 
-For support, customisation, or development services, contact:
+For questions or help with the RD3 Starter Theme:  
+- Email: tom@rd3tech.com  
+- Website: [https://rd3tech.com](https://rd3tech.com)  
 
-**RD3 Tech**  
-Website: https://rd3tech.com
+---
+
+## Notes
+
+- All modules are loaded from `/modules/` folder for easier maintenance.  
+- Functions.php only contains **module includes** and essential hooks.  
+- CSS/JS assets are enqueued properly for performance.  
+- Fully compatible with WordPress 6.0+  
+
+## Templates
+
+- Maintenance mode template: /modules/maintenance.php
+- Standard templates: header.php, footer.php, index.php
+- Widgets available for sidebar, footer, maintenance page
+
+## Customizer Guidelines
+
+- Split into Branding, Layout, Maintenance, SEO
+- Add new settings with proper sanitize_callback
+- Add controls for text, color, image, checkbox, or radio types
+
+Example:
+```
+$wp_customize->add_setting('rd3_custom_setting', [
+    'default' => '',
+    'sanitize_callback' => 'sanitize_text_field',
+]);
+
+$wp_customize->add_control('rd3_custom_setting', [
+    'type' => 'text',
+    'section' => 'rd3_layout_section',
+    'label' => 'Custom Setting',
+]);
+```
+
+
+SEO Integration
+- /modules/seo.php: meta description, canonical, robots, Open Graph & Twitter Cards, structured data / JSON-LD
+
+Enqueueing Scripts & Styles
+
+- Use wp_enqueue_script() and wp_enqueue_style() in modules
+
+Example:
+```
+wp_enqueue_style('rd3-custom', get_template_directory_uri() . '/assets/css/custom.css', ['rd3-main'], '1.0');
+```
+
+## Best Practices
+
+Keep code modular in /modules/
+Avoid editing functions.php for major features
+Sanitize all user input
+Use proper hooks, WordPress API functions, and enqueue assets correctly
+Admin users bypass maintenance mode
+
+## Extending the Theme
+
+Add new modules for features like analytics, newsletter, or custom post types
+
+Include the module in functions.php and hook into WordPress appropriately
+
+This guide ensures developers can easily extend, maintain, and debug RD3 Starter Theme without breaking core functionality.
