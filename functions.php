@@ -20,7 +20,13 @@ function rd3_theme_setup()
 add_action('after_setup_theme', 'rd3_theme_setup');
 
 // ===============================
-// Load modules
+// Load required modules
+// ===============================
+
+require get_template_directory() . '/modules/breadcrumbs.php';
+
+// ===============================
+// Load optional modules
 // ===============================
 require get_template_directory() . '/modules/assets.php';
 require get_template_directory() . '/modules/widgets.php';
@@ -28,9 +34,7 @@ require get_template_directory() . '/modules/css-upload.php';
 require get_template_directory() . '/modules/customizer-branding.php';
 require get_template_directory() . '/modules/customizer-layout.php';
 require get_template_directory() . '/modules/maintenance.php'; 
-require get_template_directory() . '/modules/breadcrumbs.php';
 require get_template_directory() . '/modules/seo.php';
-
 
 // ===============================
 // Sanitize Checkbox
