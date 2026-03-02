@@ -259,6 +259,29 @@ background: transparent;
     text-decoration: underline;
 }
 
+
+.pagination {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.pagination .page-numbers {
+    display: inline-block;
+    padding: 8px 14px;
+    margin: 4px;
+    background: #f3f3f3;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.pagination .current {
+    background: #222;
+    color: #fff;
+}
+
+
+
+
 /* ===============================
    Hero Section
 =============================== */
