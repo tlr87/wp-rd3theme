@@ -44,3 +44,18 @@ article.post h2,
 article.page h1 {
     padding-left: 0.5%;
 }
+
+/* ===============================
+   Responsive
+=============================== */
+@media (max-width: 1024px) {
+article.page, article.single-post, article.post{
+        padding: 6% 3%;
+}
+}
+
+@media (max-width: 767px) {
+    article.page, article.single-post, article.post{
+        padding: 6% 3%;
+}
+}
