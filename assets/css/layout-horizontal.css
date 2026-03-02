@@ -6,6 +6,9 @@
 }
 
 
+.content-area{
+    min-height: auto;
+}
 
 .main-nav.desktop ul {
     display: flex;
@@ -16,4 +19,28 @@
 
 article.page, article.single-post {
     padding: 0vh 4vh;
+}
+
+
+
+
+article.page,
+article.single-post,
+article.post {
+    padding: 2% 14%;
+}
+
+article.single-post h1,
+article.single-post p,
+article.post h2,
+article.post p,
+article.page h1,
+article.page p {
+    background-color: white;
+}
+
+article.single-post h1,
+article.post h2,
+article.page h1 {
+    padding-left: 0.5%;
 }
