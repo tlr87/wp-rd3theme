@@ -175,6 +175,7 @@ body.menu-open .mobile-nav {
 .content-area {
     display: flex;
     gap: 2rem;
+    min-height: 100%;
 }
 
 .site-main {
