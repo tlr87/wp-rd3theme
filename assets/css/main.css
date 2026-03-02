@@ -93,7 +93,10 @@ p{
 /* ===============================
    Navigation - Desktop
 =============================== */
-
+.main-nav{
+    padding-left: 1%;
+    padding-right: 1%;
+}
 
 .main-nav.desktop li a {
     font-weight: 500;
