@@ -15,10 +15,16 @@
     flex-direction: column;
 }
 
+
+article.single-post{
+    margin-left: 13%;
+    margin-right: 2%;
+}
+
 article.page,
 article.single-post,
 article.post {
-    padding: 2% 14%;
+    padding: 2% 0%;
 }
 
 article.single-post h1,
