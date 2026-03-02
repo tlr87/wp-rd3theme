@@ -258,7 +258,9 @@ background: transparent;
 .breadcrumbs a:hover {
     text-decoration: underline;
 }
-
+/* ===============================
+Pagination
+=============================== */
 
 .pagination {
     margin-top: 2rem;
@@ -279,6 +281,9 @@ background: transparent;
     color: #fff;
 }
 
+.nav-links {
+    text-align: center;
+}
 
 
 
