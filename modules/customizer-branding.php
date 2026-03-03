@@ -145,7 +145,7 @@ function rd3_branding_customizer($wp_customize)
         'type' => 'checkbox'
     ]);
 
-    // Header & Footer Background Images
+    // Header Background Images
     $wp_customize->add_setting('rd3_header_bg');
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_header_bg', [
         'label' => 'Header Background Image',
@@ -153,13 +153,18 @@ function rd3_branding_customizer($wp_customize)
         'settings' => 'rd3_header_bg'
     ]));
 
-    $wp_customize->add_setting('rd3_footer_bg');
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_footer_bg', [
-        'label' => 'Footer Background Image',
-        'section' => 'rd3_branding',
-        'settings' => 'rd3_footer_bg'
-    ]));
 
+        // Enable Header Background Color
+        $wp_customize->add_setting('rd3_enable_header_bg_color', [
+            'default' => true,
+            'sanitize_callback' => 'wp_validate_boolean'
+        ]);
+        $wp_customize->add_control('rd3_enable_header_bg_color_control', [
+            'label' => __('Enable Header Background Color', 'rd3starter'),
+            'section' => 'rd3_branding',
+            'type' => 'checkbox',
+            'settings' => 'rd3_enable_header_bg_color',
+        ]);
 
 // Header Background Opacity
     $wp_customize->add_setting('rd3_header_bg_opacity', [
@@ -177,34 +182,8 @@ function rd3_branding_customizer($wp_customize)
         ],
     ]);
 
-    // Footer Background Opacity
-    $wp_customize->add_setting('rd3_footer_bg_opacity', [
-        'default' => 1,
-        'sanitize_callback' => 'rd3_sanitize_opacity',
-    ]);
-    $wp_customize->add_control('rd3_footer_bg_opacity', [
-        'label' => __('Footer Background Opacity', 'rd3starter'),
-        'section' => 'rd3_branding',
-        'type' => 'number',
-        'input_attrs' => [
-            'min' => 0,
-            'max' => 1,
-            'step' => 0.01,
-        ],
-    ]);
 
 
-        // Enable Header Background Color
-        $wp_customize->add_setting('rd3_enable_header_bg_color', [
-            'default' => true,
-            'sanitize_callback' => 'wp_validate_boolean'
-        ]);
-        $wp_customize->add_control('rd3_enable_header_bg_color_control', [
-            'label' => __('Enable Header Background Color', 'rd3starter'),
-            'section' => 'rd3_branding',
-            'type' => 'checkbox',
-            'settings' => 'rd3_enable_header_bg_color',
-        ]);
 
 
     // Header Background Colour
@@ -224,6 +203,7 @@ function rd3_branding_customizer($wp_customize)
         )
     );
 
+    
     // Enable Footer Background Color
     $wp_customize->add_setting('rd3_enable_footer_bg_color', [
         'default' => true,
@@ -235,7 +215,33 @@ function rd3_branding_customizer($wp_customize)
         'type' => 'checkbox',
         'settings' => 'rd3_enable_footer_bg_color',
     ]);
+    
+    //Footer Background Images
+    $wp_customize->add_setting('rd3_footer_bg');
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'rd3_footer_bg', [
+        'label' => 'Footer Background Image',
+        'section' => 'rd3_branding',
+        'settings' => 'rd3_footer_bg'
+    ]));
 
+
+
+
+    // Footer Background Opacity
+    $wp_customize->add_setting('rd3_footer_bg_opacity', [
+        'default' => 1,
+        'sanitize_callback' => 'rd3_sanitize_opacity',
+    ]);
+    $wp_customize->add_control('rd3_footer_bg_opacity', [
+        'label' => __('Footer Background Opacity', 'rd3starter'),
+        'section' => 'rd3_branding',
+        'type' => 'number',
+        'input_attrs' => [
+            'min' => 0,
+            'max' => 1,
+            'step' => 0.01,
+        ],
+    ]);
 
     // Footer Background Colour
     $wp_customize->add_setting('rd3_footer_bg_color', [
