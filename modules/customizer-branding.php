@@ -131,6 +131,17 @@ function rd3_branding_customizer($wp_customize)
     ]);
 
 
+    // Footer Info Alignment
+    $wp_customize->add_setting('rd3_footer_info_alignment', ['default' => 'center']);
+    $wp_customize->add_control('rd3_footer_info_alignment', [
+        'label' => 'Footer Info Alignment',
+        'section' => 'rd3_branding',
+        'type' => 'radio',
+        'choices' => ['left' => 'Left', 'center' => 'Center', 'right' => 'Right']
+    ]);
+
+
+
     // Footer Menu Toggle
     $wp_customize->add_setting('rd3_show_footer_menu', ['default' => true]);
     $wp_customize->add_control('rd3_show_footer_menu', [
@@ -273,6 +284,7 @@ function rd3_branding_styles()
     $footer_bg = get_theme_mod('rd3_footer_bg', '');
     $header_menu_align = get_theme_mod('rd3_header_menu_alignment', 'center');
     $footer_menu_align = get_theme_mod('rd3_footer_menu_alignment', 'center');
+    $footer_info_align = get_theme_mod('rd3_footer_info_alignment', 'center');
     $enable_header_bg_color = get_theme_mod('rd3_enable_header_bg_color', true);
     $enable_footer_bg_color = get_theme_mod('rd3_enable_footer_bg_color', true);
     $header_bg_color = get_theme_mod('rd3_header_bg_color', '#ffffff');
@@ -332,12 +344,22 @@ function rd3_branding_styles()
             ;
         }
 
+
+     
+
         .main-nav {
             display: flex;
             justify-content:
                 <?php echo $header_menu_align === 'left' ? 'flex-start' : ($header_menu_align === 'right' ? 'flex-end' : 'center'); ?>
             ;
             width: 100%;
+        }
+
+        .footer-info{
+                display: flex;
+            justify-content:
+                <?php echo $footer_info_align === 'left' ? 'flex-start' : ($footer_info_align === 'right' ? 'flex-end' : 'center'); ?>
+            ;
         }
 
         .footer-nav ul {
