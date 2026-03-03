@@ -19,29 +19,45 @@
 article.single-post{
     margin-left: 13%;
     margin-right: 2%;
+    
 }
+
+article.page ul,
+article.single-post ul,
+article.post ul {
+    margin: 1rem 0;         
+    padding-left: 2rem;     
+    list-style: disc;       
+}
+
 
 article.page,
 article.single-post,
 article.post {
-    padding: 2% 0%;
+    display: table;
+    background-color: white;
+    width: 83%;
+    margin-left: auto;
+    margin-top: 3%;
+    
 }
 
-article.single-post h1,
-article.single-post p,
-article.post h2,
-article.post p,
-article.page h1,
-article.page p {
-    background-color: white;
+article.page{
+    margin-right: 3%;
 }
+
+article.post{
+    margin-left: 0;
+} 
+
+
+
 
 article.single-post h1,
 article.post h2,
 article.page h1 {
-    padding-left: 0.5%;
+    padding-left: 0.7%;
 }
-
 
 
 /* ===============================
