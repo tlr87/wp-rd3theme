@@ -260,12 +260,6 @@ function rd3_branding_styles()
                 !important;
         }
 
-        .site-header,
-        .site-footer {
-            background:
-                <?php echo $secondary; ?>
-            ;
-        }
 
         .site-header .logo {
             text-align:
