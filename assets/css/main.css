@@ -35,7 +35,7 @@ h1 {
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 1rem;
-    color: var(--heading-color);
+
 }
 
 h2 {
@@ -43,7 +43,7 @@ h2 {
     font-weight: 700;
     line-height: 1.3;
     margin-bottom: 0.9rem;
-    color: var(--heading-color);
+
 }
 
 h3 {
@@ -51,7 +51,7 @@ h3 {
     font-weight: 600;
     line-height: 1.4;
     margin-bottom: 0.8rem;
-    color: var(--heading-color);
+    
 }
 
 h4 {
@@ -59,7 +59,6 @@ h4 {
     font-weight: 600;
     line-height: 1.4;
     margin-bottom: 0.7rem;
-    color: var(--heading-color);
 }
 
 h5 {
@@ -67,7 +66,7 @@ h5 {
     font-weight: 500;
     line-height: 1.5;
     margin-bottom: 0.6rem;
-    color: var(--heading-color);
+
 }
 
 h6 {
@@ -75,7 +74,7 @@ h6 {
     font-weight: 500;
     line-height: 1.5;
     margin-bottom: 0.5rem;
-    color: var(--heading-color);
+
 }
 /* ===============================
    Paragraphs
@@ -84,7 +83,6 @@ p {
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 1rem;
-    color: var(--paragraph-color);
     padding: 0.6rem;
 }
 
@@ -92,14 +90,12 @@ p {
    Links
    =============================== */
 a {
-    color: var(--link-color);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover,
 a:focus {
-    color: var(--link-hover-color);
     text-decoration: underline;
 }
 
@@ -110,7 +106,6 @@ ul,
 ol {
     margin: 1rem 0;
     padding-left: 1.5rem;
-    color: var(--list-color);
 }
 
 li {
@@ -135,9 +130,6 @@ li {
    Header
 =============================== */
 
-.site-header a {
-    color: #fff;
-}
 
 .site-header::before {
     content: "";
@@ -189,7 +181,7 @@ li {
 
 .main-nav.desktop li a {
     font-weight: 500;
-    color: #fff;
+
 }
 
 .main-nav.desktop li a:hover {

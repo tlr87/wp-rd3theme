@@ -32,9 +32,12 @@ require get_template_directory() . '/modules/assets.php';
 require get_template_directory() . '/modules/widgets.php';
 require get_template_directory() . '/modules/css-upload.php';
 require get_template_directory() . '/modules/customizer-branding.php';
+require get_template_directory() . '/modules/customizer-typography.php';
 require get_template_directory() . '/modules/customizer-layout.php';
 require get_template_directory() . '/modules/maintenance.php'; 
 require get_template_directory() . '/modules/seo.php';
+
+
 
 // ===============================
 // Sanitize Checkbox
@@ -45,6 +48,9 @@ function rd3_sanitize_checkbox($checked)
 }
 
 
+// ===============================
+// Sanitize Hex to RGB
+// ===============================
 function hex_to_rgba($hex, $alpha = 1) {
     $hex = str_replace('#', '', $hex);
     if (strlen($hex) === 3) {
