@@ -159,6 +159,41 @@ function rd3_branding_customizer($wp_customize)
         'section' => 'rd3_branding',
         'settings' => 'rd3_footer_bg'
     ]));
+
+
+// Header Background Opacity
+    $wp_customize->add_setting('rd3_header_bg_opacity', [
+        'default' => 1,
+        'sanitize_callback' => 'rd3_sanitize_opacity',
+    ]);
+    $wp_customize->add_control('rd3_header_bg_opacity', [
+        'label' => __('Header Background Opacity', 'rd3starter'),
+        'section' => 'rd3_branding',
+        'type' => 'number',
+        'input_attrs' => [
+            'min' => 0,
+            'max' => 1,
+            'step' => 0.01,
+        ],
+    ]);
+
+    // Footer Background Opacity
+    $wp_customize->add_setting('rd3_footer_bg_opacity', [
+        'default' => 1,
+        'sanitize_callback' => 'rd3_sanitize_opacity',
+    ]);
+    $wp_customize->add_control('rd3_footer_bg_opacity', [
+        'label' => __('Footer Background Opacity', 'rd3starter'),
+        'section' => 'rd3_branding',
+        'type' => 'number',
+        'input_attrs' => [
+            'min' => 0,
+            'max' => 1,
+            'step' => 0.01,
+        ],
+    ]);
+
+
         // Enable Header Background Color
         $wp_customize->add_setting('rd3_enable_header_bg_color', [
             'default' => true,
@@ -223,7 +258,12 @@ function rd3_branding_customizer($wp_customize)
 }
 add_action('customize_register', 'rd3_branding_customizer');
 
-
+// ===============================
+// Opacity Sanitizer
+// ===============================
+function rd3_sanitize_opacity($value) {
+    return ($value >= 0 && $value <= 1) ? $value : 1;
+}
 
 // ===============================
 // Dynamic Styles
@@ -244,6 +284,9 @@ function rd3_branding_styles()
     $enable_footer_bg_color = get_theme_mod('rd3_enable_footer_bg_color', true);
     $header_bg_color = get_theme_mod('rd3_header_bg_color', '#ffffff');
     $footer_bg_color = get_theme_mod('rd3_footer_bg_color', '#ffffff');
+    $header_bg_opacity = get_theme_mod('rd3_header_bg_opacity', 1);
+    $footer_bg_opacity = get_theme_mod('rd3_footer_bg_opacity', 1);
+    
 
     $fonts = [
         'system' => 'system-ui, sans-serif',
@@ -269,17 +312,17 @@ function rd3_branding_styles()
         background-color: <?php echo esc_attr($rd3_bg_color); ?>;
     }
 
-    <?php if ($enable_header_bg_color): ?>
-        .site-header {
-            background-color: <?php echo esc_attr($header_bg_color); ?>;
-        }
-    <?php endif; ?>
+ <?php if ($enable_header_bg_color): ?>
+.site-header {
+    background-color: <?php echo esc_attr(hex_to_rgba($header_bg_color, $header_bg_opacity)); ?>;
+}
+<?php endif; ?>
 
-    <?php if ($enable_footer_bg_color): ?>
-        .site-footer {
-            background-color: <?php echo esc_attr($footer_bg_color); ?>;
-        }
-    <?php endif; ?>
+<?php if ($enable_footer_bg_color): ?>
+.site-footer {
+    background-color: <?php echo esc_attr(hex_to_rgba($footer_bg_color, $footer_bg_opacity)); ?>;
+}
+<?php endif; ?>
 
     .site-header .logo {
         text-align: <?php echo $logo_text_align; ?>;

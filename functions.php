@@ -43,3 +43,20 @@ function rd3_sanitize_checkbox($checked)
 {
     return (isset($checked) && $checked === true) ? true : false;
 }
+
+
+function hex_to_rgba($hex, $alpha = 1) {
+    $hex = str_replace('#', '', $hex);
+    if (strlen($hex) === 3) {
+        $r = hexdec(str_repeat($hex[0], 2));
+        $g = hexdec(str_repeat($hex[1], 2));
+        $b = hexdec(str_repeat($hex[2], 2));
+    } elseif (strlen($hex) === 6) {
+        $r = hexdec(substr($hex, 0, 2));
+        $g = hexdec(substr($hex, 2, 2));
+        $b = hexdec(substr($hex, 4, 2));
+    } else {
+        return "rgba(0,0,0,$alpha)";
+    }
+    return "rgba($r,$g,$b,$alpha)";
+}
