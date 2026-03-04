@@ -130,34 +130,50 @@ function rd3_dynamic_typography_css() {
 
     echo "<style>";
 
+    // ================================
     // Typography
+    // ================================
     foreach($elements as $el) {
-        $color   = get_theme_mod("rd3_{$el}_color", ($el==='a'?'#007bff':'#333333'));
+
+        $color   = get_theme_mod("rd3_{$el}_color", ($el==='a' ? '#007bff' : '#333333'));
         $font    = get_theme_mod("rd3_{$el}_font_size", '');
         $line    = get_theme_mod("rd3_{$el}_line_height", '');
         $margin  = get_theme_mod("rd3_{$el}_margin_bottom", '1rem');
 
-        echo "{$el} { color: {$color};";
+        // Headings must override nested links
+        if(in_array($el, ['h1','h2','h3','h4','h5','h6'])) {
+            echo "{$el}, {$el} a {";
+        } else {
+            echo "{$el} {";
+        }
 
-        if($font) echo " font-size: {$font};";
-        if($line) echo " line-height: {$line};";
+        echo "color: {$color};";
 
-        echo " margin-bottom: {$margin}; }";
+        if($font) {
+            echo " font-size: {$font};";
+        }
 
-        // Link hover
-        if($el==='a') {
+        if($line) {
+            echo " line-height: {$line};";
+        }
+
+        echo " margin-bottom: {$margin};";
+        echo "}";
+
+        // Standard link hover (not affecting heading links)
+        if($el === 'a') {
             echo "a:hover, a:focus { opacity: 0.8; }";
         }
 
-        // List padding
-        if(in_array($el,['ul','ol'])) {
+        // Add default list padding
+        if(in_array($el, ['ul','ol'])) {
             echo "{$el} { padding-left: 1.5rem; }";
         }
     }
 
+    // ================================
     // Main Navigation
-    // Make sure the selector matches your theme
-    // Common themes use: .main-navigation ul.menu
+    // ================================
     $nav_selector = '.main-nav, .main-nav a, .main-nav li';
 
     $nav_color   = get_theme_mod('rd3_main_nav_color', '#333333');
@@ -170,16 +186,18 @@ function rd3_dynamic_typography_css() {
         font-size: {$nav_font};
         line-height: {$nav_line};
         margin-bottom: {$nav_margin};
-    }
+    }";
 
-    .main-nav a {
+    echo ".main-nav a {
         color: {$nav_color};
         text-decoration: none;
-    }
+    }";
 
-    .main-nav a:hover,
-    .main-nav a:focus { opacity: 0.8; }";
+    echo ".main-nav a:hover,
+          .main-nav a:focus {
+        opacity: 0.8;
+    }";
 
     echo "</style>";
 }
-add_action('wp_head', 'rd3_dynamic_typography_css');  
+add_action('wp_head', 'rd3_dynamic_typography_css');
