@@ -147,11 +147,11 @@ li {
     z-index: 1;
     flex-direction: column;
     align-items: flex-start; /* controlled by logo alignment */
-    padding: 2% 0;
+    padding: 1.1% 0;
 }
 
 .site-header .logo {
-    margin-bottom: 20px;
+    margin-bottom: 55px;
     padding-left: 2.5%;
     padding-right: 2.5%;
 }
@@ -177,6 +177,12 @@ li {
 .main-nav{
     padding-left: 1%;
     padding-right: 1%;
+}
+
+.menu-item a{
+    background-color:#d3d3d3;
+    padding: 10px;
+
 }
 
 .main-nav.desktop li a {
@@ -460,3 +466,4 @@ Pagination
         width: 100%;
     }
 }
+
