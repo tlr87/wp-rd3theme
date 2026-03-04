@@ -27,7 +27,7 @@
                 <?php endif; ?>
 
                 <?php if ( get_theme_mod('rd3_show_site_desc', true) ): ?>
-                    <p><?php bloginfo('description'); ?></p>
+                    <h6><?php bloginfo('description'); ?></h6>
                 <?php endif; ?>
 
             <?php else: ?>

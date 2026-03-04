@@ -25,7 +25,7 @@
 
         <!-- Footer Info -->
         <div class="footer-info">
-            <p>&copy; <?php echo date('Y');?> <?php bloginfo('name');?>. All rights reserved.</p>
+            <h6>&copy; <?php echo date('Y');?> <?php bloginfo('name');?>. All rights reserved.</h6>
         </div>
 
     </div>
