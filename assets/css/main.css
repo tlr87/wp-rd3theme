@@ -450,6 +450,11 @@ Pagination
     .site-main {
         flex: 1;
     }
+
+    
+   .menu-item a{
+    background-color:transparent;}
+
 }
 
 @media (max-width: 767px) {
@@ -465,5 +470,9 @@ Pagination
     .mobile-nav {
         width: 100%;
     }
+
+    .menu-item a{
+        background-color:transparent;}
+    
 }
 
