@@ -7,9 +7,8 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // ================================
-// Typography Customizer & Main Navigation Customizer
+// Typography & Main Navigation Customizer
 // ================================
-
 function rd3_typography_and_nav_customizer($wp_customize) {
 
     // -------------------------------
@@ -23,9 +22,23 @@ function rd3_typography_and_nav_customizer($wp_customize) {
     // Elements to customize
     $elements = ['h1','h2','h3','h4','h5','h6','p','a','ul','ol','li'];
 
+    // Google Fonts list (expand as needed)
+    $google_fonts = [
+        'Roboto' => 'Roboto',
+        'Open Sans' => 'Open Sans',
+        'Lato' => 'Lato',
+        'Montserrat' => 'Montserrat',
+        'Oswald' => 'Oswald',
+        'Merriweather' => 'Merriweather',
+        'Playfair Display' => 'Playfair Display',
+        'Source Sans Pro' => 'Source Sans Pro',
+    ];
+
     foreach($elements as $el) {
 
+        // -------------------------------
         // Color
+        // -------------------------------
         $wp_customize->add_setting("rd3_{$el}_color", [
             'default'           => ($el === 'a') ? '#007bff' : '#333333',
             'sanitize_callback' => 'sanitize_hex_color',
@@ -35,7 +48,9 @@ function rd3_typography_and_nav_customizer($wp_customize) {
             'section' => 'rd3_typography',
         ]));
 
-        // Font Size (skip li/ul/ol)
+        // -------------------------------
+        // Font Size (skip ul/ol/li)
+        // -------------------------------
         if(!in_array($el, ['ul','ol','li'])) {
             $wp_customize->add_setting("rd3_{$el}_font_size", [
                 'default'           => ($el==='p') ? '1rem' : '2rem',
@@ -48,7 +63,9 @@ function rd3_typography_and_nav_customizer($wp_customize) {
             ]);
         }
 
+        // -------------------------------
         // Line Height (headings + paragraph)
+        // -------------------------------
         if(in_array($el, ['h1','h2','h3','h4','h5','h6','p'])) {
             $wp_customize->add_setting("rd3_{$el}_line_height", [
                 'default'           => '1.4',
@@ -61,7 +78,9 @@ function rd3_typography_and_nav_customizer($wp_customize) {
             ]);
         }
 
+        // -------------------------------
         // Margin Bottom
+        // -------------------------------
         $wp_customize->add_setting("rd3_{$el}_margin_bottom", [
             'default'           => '1rem',
             'sanitize_callback' => 'sanitize_text_field',
@@ -71,6 +90,22 @@ function rd3_typography_and_nav_customizer($wp_customize) {
             'section' => 'rd3_typography',
             'type'    => 'text',
         ]);
+
+        // -------------------------------
+        // Google Font Selection (headings + p + a)
+        // -------------------------------
+        if(in_array($el, ['h1','h2','h3','h4','h5','h6','p','a'])) {
+            $wp_customize->add_setting("rd3_{$el}_font", [
+                'default'           => 'Roboto',
+                'sanitize_callback' => 'sanitize_text_field',
+            ]);
+            $wp_customize->add_control("rd3_{$el}_font", [
+                'label'   => ucfirst($el).' Font',
+                'section' => 'rd3_typography',
+                'type'    => 'select',
+                'choices' => $google_fonts,
+            ]);
+        }
     }
 
     // -------------------------------
@@ -91,7 +126,7 @@ function rd3_typography_and_nav_customizer($wp_customize) {
         'sanitize_callback' => 'sanitize_text_field',
     ]);
     $wp_customize->add_control('rd3_main_nav_font_size', [
-        'label'   => __('Main Navigation Font Size (e.g., 1rem, 16px)', 'rd3starter'),
+        'label'   => __('Main Navigation Font Size', 'rd3starter'),
         'section' => 'rd3_typography',
         'type'    => 'text',
     ]);
@@ -102,7 +137,7 @@ function rd3_typography_and_nav_customizer($wp_customize) {
         'sanitize_callback' => 'sanitize_text_field',
     ]);
     $wp_customize->add_control('rd3_main_nav_line_height', [
-        'label'   => __('Main Navigation Line Height (e.g., 1.5)', 'rd3starter'),
+        'label'   => __('Main Navigation Line Height', 'rd3starter'),
         'section' => 'rd3_typography',
         'type'    => 'text',
     ]);
@@ -117,30 +152,63 @@ function rd3_typography_and_nav_customizer($wp_customize) {
         'section' => 'rd3_typography',
         'type'    => 'text',
     ]);
+
+    // Main Navigation Font
+    $wp_customize->add_setting('rd3_main_nav_font', [
+        'default'           => 'Roboto',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('rd3_main_nav_font', [
+        'label'   => __('Main Navigation Font', 'rd3starter'),
+        'section' => 'rd3_typography',
+        'type'    => 'select',
+        'choices' => $google_fonts,
+    ]);
 }
 add_action('customize_register', 'rd3_typography_and_nav_customizer');
+
+
+// ================================
+// Enqueue Selected Google Fonts
+// ================================
+function rd3_enqueue_google_fonts() {
+    $font_elements = ['h1','h2','h3','h4','h5','h6','p','a','main_nav'];
+    $fonts = [];
+
+    foreach($font_elements as $el) {
+        $font = get_theme_mod("rd3_{$el}_font", 'Roboto');
+        if($font) $fonts[] = $font;
+    }
+
+    $fonts = array_unique($fonts);
+
+    if(!empty($fonts)) {
+        $fonts_url = 'https://fonts.googleapis.com/css2?';
+        foreach($fonts as $font) {
+            $fonts_url .= 'family=' . str_replace(' ', '+', $font) . '&';
+        }
+        $fonts_url .= 'display=swap';
+        wp_enqueue_style('rd3-google-fonts', esc_url($fonts_url), [], null);
+    }
+}
+add_action('wp_enqueue_scripts', 'rd3_enqueue_google_fonts');
 
 
 // ================================
 // Output Dynamic CSS
 // ================================
 function rd3_dynamic_typography_css() {
-
     $elements = ['h1','h2','h3','h4','h5','h6','p','a','ul','ol','li'];
 
     echo "<style>";
 
-    // ================================
-    // Typography
-    // ================================
     foreach($elements as $el) {
-
         $color   = get_theme_mod("rd3_{$el}_color", ($el==='a' ? '#007bff' : '#333333'));
         $font    = get_theme_mod("rd3_{$el}_font_size", '');
         $line    = get_theme_mod("rd3_{$el}_line_height", '');
         $margin  = get_theme_mod("rd3_{$el}_margin_bottom", '1rem');
+        $family  = get_theme_mod("rd3_{$el}_font", 'Roboto');
 
-        // Headings must override nested links
         if(in_array($el, ['h1','h2','h3','h4','h5','h6'])) {
             echo "{$el}, {$el} a {";
         } else {
@@ -148,43 +216,35 @@ function rd3_dynamic_typography_css() {
         }
 
         echo "color: {$color};";
+        if($font) echo " font-size: {$font};";
+        if($line) echo " line-height: {$line};";
+        if($family) echo " font-family: '{$family}', sans-serif;";
+        echo " margin-bottom: {$margin}; }";
 
-        if($font) {
-            echo " font-size: {$font};";
-        }
-
-        if($line) {
-            echo " line-height: {$line};";
-        }
-
-        echo " margin-bottom: {$margin};";
-        echo "}";
-
-        // Standard link hover (not affecting heading links)
+        // Standard link hover
         if($el === 'a') {
             echo "a:hover, a:focus { opacity: 0.8; }";
         }
 
-        // Add default list padding
+        // Default list padding
         if(in_array($el, ['ul','ol'])) {
             echo "{$el} { padding-left: 1.5rem; }";
         }
     }
 
-    // ================================
     // Main Navigation
-    // ================================
     $nav_selector = '.main-nav, .main-nav a, .main-nav li';
-
     $nav_color   = get_theme_mod('rd3_main_nav_color', '#333333');
     $nav_font    = get_theme_mod('rd3_main_nav_font_size', '1rem');
     $nav_line    = get_theme_mod('rd3_main_nav_line_height', '1.5');
     $nav_margin  = get_theme_mod('rd3_main_nav_margin_bottom', '1rem');
+    $nav_family  = get_theme_mod('rd3_main_nav_font', 'Roboto');
 
     echo "{$nav_selector} {
         color: {$nav_color};
         font-size: {$nav_font};
         line-height: {$nav_line};
+        font-family: '{$nav_family}', sans-serif;
         margin-bottom: {$nav_margin};
     }";
 
