@@ -147,7 +147,7 @@ li {
     z-index: 1;
     flex-direction: column;
     align-items: flex-start; /* controlled by logo alignment */
-    padding: 1.1% 0;
+    padding: 1% 0;
 }
 
 .site-header .logo {
@@ -180,7 +180,7 @@ li {
 }
 
 .menu-item a{
-    background-color:#d3d3d3;
+    background-color:#4f4f4f;
     padding: 10px;
 
 }
