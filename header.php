@@ -16,22 +16,25 @@
 
     
    <!-- Logo -->
-        <div class="logo <?php echo esc_attr($logo_align_class); ?>">
-            <?php if(get_theme_mod('rd3_logo')): ?>
+            <div class="logo <?php echo esc_attr($logo_align_class); ?>">
+
+            <?php if ( get_theme_mod('rd3_logo') ) : ?>
                 <a href="<?php echo esc_url(home_url('/')); ?>">
                     <img src="<?php echo esc_url(get_theme_mod('rd3_logo')); ?>" alt="<?php bloginfo('name'); ?>">
                 </a>
+            <?php endif; ?>
 
-                <?php if ( get_theme_mod('rd3_show_site_title', true) ): ?>
-                    <h1><?php bloginfo('name'); ?></h1>
-                <?php endif; ?>
 
-                <?php if ( get_theme_mod('rd3_show_site_desc', true) ): ?>
-                    <h6><?php bloginfo('description'); ?></h6>
-                <?php endif; ?>
+            <?php if ( get_theme_mod('rd3_show_site_title', true) ) : ?>
+                <h1>
+                    <a href="<?php echo esc_url(home_url('/')); ?>">
+                        <?php bloginfo('name'); ?>
+                    </a>
+                </h1>
+            <?php endif; ?>
 
-            <?php else: ?>
-                <h1><a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></h1>
+            <?php if ( get_theme_mod('rd3_show_site_desc', true) ) : ?>
+                <h6><?php bloginfo('description'); ?></h6>
             <?php endif; ?>
         </div>
 
