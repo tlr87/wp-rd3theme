@@ -1,12 +1,16 @@
 <?php
 /**
- * Typography Customizer Module
- * Allows H1-H6, P, A, UL, OL, LI customization via WordPress Customizer
+ * Typography & Main Navigation Customizer Module
+ * Allows dynamic customization of H1-H6, P, A, UL, OL, LI, and .main-nav
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-function rd3_typography_customizer($wp_customize) {
+// ================================
+// Typography Customizer & Main Navigation Customizer
+// ================================
+
+function rd3_typography_and_nav_customizer($wp_customize) {
 
     // -------------------------------
     // Typography Section
@@ -16,6 +20,7 @@ function rd3_typography_customizer($wp_customize) {
         'priority' => 40,
     ]);
 
+    // Elements to customize
     $elements = ['h1','h2','h3','h4','h5','h6','p','a','ul','ol','li'];
 
     foreach($elements as $el) {
@@ -43,7 +48,7 @@ function rd3_typography_customizer($wp_customize) {
             ]);
         }
 
-        // Line Height (for headings & paragraph)
+        // Line Height (headings + paragraph)
         if(in_array($el, ['h1','h2','h3','h4','h5','h6','p'])) {
             $wp_customize->add_setting("rd3_{$el}_line_height", [
                 'default'           => '1.4',
@@ -68,17 +73,64 @@ function rd3_typography_customizer($wp_customize) {
         ]);
     }
 
+    // -------------------------------
+    // Main Navigation
+    // -------------------------------
+    $wp_customize->add_setting('rd3_main_nav_color', [
+        'default'           => '#333333',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'rd3_main_nav_color', [
+        'label'   => __('Main Navigation Color', 'rd3starter'),
+        'section' => 'rd3_typography',
+    ]));
+
+    // Font size
+    $wp_customize->add_setting('rd3_main_nav_font_size', [
+        'default'           => '1rem',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('rd3_main_nav_font_size', [
+        'label'   => __('Main Navigation Font Size (e.g., 1rem, 16px)', 'rd3starter'),
+        'section' => 'rd3_typography',
+        'type'    => 'text',
+    ]);
+
+    // Line height
+    $wp_customize->add_setting('rd3_main_nav_line_height', [
+        'default'           => '1.5',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('rd3_main_nav_line_height', [
+        'label'   => __('Main Navigation Line Height (e.g., 1.5)', 'rd3starter'),
+        'section' => 'rd3_typography',
+        'type'    => 'text',
+    ]);
+
+    // Margin bottom
+    $wp_customize->add_setting('rd3_main_nav_margin_bottom', [
+        'default'           => '1rem',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('rd3_main_nav_margin_bottom', [
+        'label'   => __('Main Navigation Margin Bottom', 'rd3starter'),
+        'section' => 'rd3_typography',
+        'type'    => 'text',
+    ]);
 }
-add_action('customize_register', 'rd3_typography_customizer');
+add_action('customize_register', 'rd3_typography_and_nav_customizer');
 
 
-// -------------------------------
+// ================================
 // Output Dynamic CSS
-// -------------------------------
+// ================================
 function rd3_dynamic_typography_css() {
+
     $elements = ['h1','h2','h3','h4','h5','h6','p','a','ul','ol','li'];
+
     echo "<style>";
 
+    // Typography
     foreach($elements as $el) {
         $color   = get_theme_mod("rd3_{$el}_color", ($el==='a'?'#007bff':'#333333'));
         $font    = get_theme_mod("rd3_{$el}_font_size", '');
@@ -102,6 +154,31 @@ function rd3_dynamic_typography_css() {
             echo "{$el} { padding-left: 1.5rem; }";
         }
     }
+
+    // Main Navigation
+    // Make sure the selector matches your theme
+    // Common themes use: .main-navigation ul.menu
+    $nav_selector = '.main-nav, .main-nav a, .main-nav li';
+
+    $nav_color   = get_theme_mod('rd3_main_nav_color', '#333333');
+    $nav_font    = get_theme_mod('rd3_main_nav_font_size', '1rem');
+    $nav_line    = get_theme_mod('rd3_main_nav_line_height', '1.5');
+    $nav_margin  = get_theme_mod('rd3_main_nav_margin_bottom', '1rem');
+
+    echo "{$nav_selector} {
+        color: {$nav_color};
+        font-size: {$nav_font};
+        line-height: {$nav_line};
+        margin-bottom: {$nav_margin};
+    }
+
+    .main-nav a {
+        color: {$nav_color};
+        text-decoration: none;
+    }
+
+    .main-nav a:hover,
+    .main-nav a:focus { opacity: 0.8; }";
 
     echo "</style>";
 }
