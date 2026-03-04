@@ -147,7 +147,7 @@ li {
     z-index: 1;
     flex-direction: column;
     align-items: flex-start; /* controlled by logo alignment */
-    padding: 1% 0;
+    padding: 0.5% 0;
 }
 
 .site-header .logo {
