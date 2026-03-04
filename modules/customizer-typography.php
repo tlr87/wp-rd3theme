@@ -182,4 +182,4 @@ function rd3_dynamic_typography_css() {
 
     echo "</style>";
 }
-add_action('wp_head', 'rd3_dynamic_typography_css');
+add_action('wp_head', 'rd3_dynamic_typography_css');  
