@@ -181,6 +181,7 @@ li {
 
 .main-nav.desktop li a {
     font-weight: 500;
+    /* background-color:#4f4f4f;  for potential added tabs*/
 
 }
 
