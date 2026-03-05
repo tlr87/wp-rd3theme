@@ -54,7 +54,7 @@
             <span class="hamburger hamburger-colour"></span>
             <span class="hamburger hamburger-colour"></span>
             <span class="hamburger hamburger-colour "></span>
-            <span class="screen-reader-text"><?php _e('Toggle Menu', 'davis'); ?></span>
+            <span class="screen-reader-text"><?php _e('Toggle Menu'); ?></span>
         </button>
     </div>
 
