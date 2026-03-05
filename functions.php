@@ -65,48 +65,47 @@ function hex_to_rgba($hex, $alpha = 1) {
 }
 
 
-// ===============================
-// Fallback CSS loader
-// Ensures main.css + layout-horizontal.css load if assets.php is missing
-// ===============================
+/**
+ * ===============================
+ * Core Fallbacks for RD3 Starter Theme
+ * ===============================
+ *
+ * Ensures essential assets and functions are always available,
+ * even if optional modules are missing:
+ *
+ * 1. Fallback CSS loader:
+ *    - Loads main.css + layout-horizontal.css if assets.php is not included
+ *
+ * 2. Fallback Breadcrumbs:
+ *    - Ensures `rd3_breadcrumbs()` is always callable
+ *      even if breadcrumbs.php module is missing
+ *
+ * @package rd3starter
+ */
 
+
+/* ── Fallback for assets.php ── */
 if ( ! defined( 'RD3_ASSETS_LOADED' ) ) {
 
     function rd3_fallback_assets() {
-        $theme_version = wp_get_theme()->get( 'Version' ) ?: '1.0.0';
+        $ver = wp_get_theme()->get( 'Version' ) ?: '1.0.0';
 
-        // Always load main.css
-        wp_enqueue_style(
-            'rd3-main',
-            get_template_directory_uri() . '/assets/css/main.css',
-            array(),
-            $theme_version
-        );
+        // Main stylesheet
+        wp_enqueue_style( 'rd3-main', get_template_directory_uri() . '/assets/css/main.css', [], $ver );
 
-        // Fallback: always horizontal layout
-        wp_enqueue_style(
-            'rd3-layout-horizontal',
-            get_template_directory_uri() . '/assets/css/layout-horizontal.css',
-            array( 'rd3-main' ),
-            $theme_version
-        );
+        // Default horizontal layout
+        wp_enqueue_style( 'rd3-layout-horizontal', get_template_directory_uri() . '/assets/css/layout-horizontal.css', ['rd3-main'], $ver );
     }
-    add_action( 'wp_enqueue_scripts', 'rd3_fallback_assets', 5 ); // run early
+    add_action( 'wp_enqueue_scripts', 'rd3_fallback_assets', 5 );
 }
 
-
-// ===============================
-// Fallback Breadcrumbs 
-// Ensures `rd3_breadcrumbs() is always callable,
-// even if breadcrumbs.php module is missing.
-// ===============================
-
+/* ── Fallback for breadcrumbs.php ── */
 if ( ! function_exists( 'rd3_breadcrumbs' ) ) {
 
     /**
      * Fallback breadcrumbs function
      *
-     * Outputs minimal valid markup so templates don't break.
+     * Outputs minimal markup so templates don't break.
      */
     function rd3_breadcrumbs() {
         echo '<nav class="breadcrumbs-fallback">';
