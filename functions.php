@@ -34,7 +34,7 @@ require get_template_directory() . '/modules/css-upload.php';
 require get_template_directory() . '/modules/customizer-branding.php';
 require get_template_directory() . '/modules/customizer-typography.php';
 require get_template_directory() . '/modules/customizer-layout.php';
-require get_template_directory() . '/modules/maintenance.php'; 
+require get_template_directory() . '/modules/maintenance.php';
 require get_template_directory() . '/modules/seo.php';
 
 // ===============================
@@ -48,7 +48,8 @@ function rd3_sanitize_checkbox($checked)
 // ===============================
 // Sanitize Hex to RGB
 // ===============================
-function hex_to_rgba($hex, $alpha = 1) {
+function hex_to_rgba($hex, $alpha = 1)
+{
     $hex = str_replace('#', '', $hex);
     if (strlen($hex) === 3) {
         $r = hexdec(str_repeat($hex[0], 2));
@@ -63,7 +64,6 @@ function hex_to_rgba($hex, $alpha = 1) {
     }
     return "rgba($r,$g,$b,$alpha)";
 }
-
 
 /**
  * ===============================
@@ -80,36 +80,36 @@ function hex_to_rgba($hex, $alpha = 1) {
  *    - Ensures `rd3_breadcrumbs()` is always callable
  *      even if breadcrumbs.php module is missing
  *
- * @package rd3starter
  */
 
-
 /* ── Fallback for assets.php ── */
-if ( ! defined( 'RD3_ASSETS_LOADED' ) ) {
+if (!defined('RD3_ASSETS_LOADED')) {
 
-    function rd3_fallback_assets() {
-        $ver = wp_get_theme()->get( 'Version' ) ?: '1.0.0';
+    function rd3_fallback_assets()
+    {
+        $ver = wp_get_theme()->get('Version') ?: '1.0.0';
 
         // Main stylesheet
-        wp_enqueue_style( 'rd3-main', get_template_directory_uri() . '/assets/css/main.css', [], $ver );
+        wp_enqueue_style('rd3-main', get_template_directory_uri() . '/assets/css/main.css', [], $ver);
 
         // Default horizontal layout
-        wp_enqueue_style( 'rd3-layout-horizontal', get_template_directory_uri() . '/assets/css/layout-horizontal.css', ['rd3-main'], $ver );
+        wp_enqueue_style('rd3-layout-horizontal', get_template_directory_uri() . '/assets/css/layout-horizontal.css', ['rd3-main'], $ver);
     }
-    add_action( 'wp_enqueue_scripts', 'rd3_fallback_assets', 5 );
+    add_action('wp_enqueue_scripts', 'rd3_fallback_assets', 5);
 }
 
 /* ── Fallback for breadcrumbs.php ── */
-if ( ! function_exists( 'rd3_breadcrumbs' ) ) {
+if (!function_exists('rd3_breadcrumbs')) {
 
     /**
      * Fallback breadcrumbs function
      *
      * Outputs minimal markup so templates don't break.
      */
-    function rd3_breadcrumbs() {
+    function rd3_breadcrumbs()
+    {
         echo '<nav class="breadcrumbs-fallback">';
-        echo '<a href="' . esc_url( home_url( '/' ) ) . '">Home</a>';
+        echo '<a href="' . esc_url(home_url('/')) . '">Home</a>';
         echo '</nav>';
     }
 }
