@@ -51,9 +51,9 @@
 
         <!-- Mobile Hamburger -->
         <button id="menu-toggle" class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMenu()">
-            <span class="hamburger"></span>
-            <span class="hamburger"></span>
-            <span class="hamburger"></span>
+            <span class="hamburger hamburger-colour"></span>
+            <span class="hamburger hamburger-colour"></span>
+            <span class="hamburger hamburger-colour "></span>
             <span class="screen-reader-text"><?php _e('Toggle Menu', 'davis'); ?></span>
         </button>
     </div>
