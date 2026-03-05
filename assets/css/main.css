@@ -398,6 +398,9 @@ Pagination
     text-align: center;
 }
 
+.footer-info{
+    padding: 0% 2%;
+}
 
 
 .site-footer::before {

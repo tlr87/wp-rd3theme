@@ -46,6 +46,28 @@ function rd3_branding_customizer($wp_customize)
         )
     );
 
+    // ===============================
+    // Hamburger Menu Color
+    // ===============================
+    $wp_customize->add_setting('rd3_hamburger_color', [
+        'default'           => '#000000',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+
+    $wp_customize->add_control(
+        new WP_Customize_Color_Control(
+            $wp_customize,
+            'rd3_hamburger_color_control',
+            [
+                'label'   => __('Hamburger Menu Color', 'rd3starter'),
+                'section' => 'rd3_branding', // ✅ Shows in Branding Settings
+                'settings'=> 'rd3_hamburger_color',
+            ]
+        )
+    );
+
+
+
     // Site Logo
     $wp_customize->add_setting('rd3_logo');
     $wp_customize->add_control(new WP_Customize_Image_Control(
@@ -89,6 +111,7 @@ function rd3_branding_customizer($wp_customize)
         'type' => 'checkbox',
         'settings' => 'rd3_show_site_desc',
     ]);
+
 
     // Display Breadcrumbs
     $wp_customize->add_setting('rd3_show_breadcrumbs', ['default' => true, 'sanitize_callback' => 'wp_validate_boolean']);
@@ -272,16 +295,14 @@ function rd3_sanitize_opacity($value)
 // ===============================
 // Dynamic Styles
 // ===============================
-function rd3_branding_styles()
-{
-    $rd3_bg_img = get_theme_mod('rd3_bg_img', '');
-    $rd3_bg_color = get_theme_mod('rd3_bg_color', '#ffffff');
-    $primary = get_theme_mod('rd3_primary_color', '#000000');
-    $secondary = get_theme_mod('rd3_secondary_color', '#666666');
-    $logo_align = get_theme_mod('rd3_logo_alignment', 'left');
+function rd3_branding_styles() {
+    $rd3_bg_img       = get_theme_mod('rd3_bg_img', '');
+    $rd3_bg_color     = get_theme_mod('rd3_bg_color', '#ffffff');
+    $hamburger_color  = get_theme_mod('rd3_hamburger_color', '#000000');
+    $logo_align       = get_theme_mod('rd3_logo_alignment', 'left');
     $logo_align_class = 'logo-align-' . $logo_align;
-    $header_bg = get_theme_mod('rd3_header_bg', '');
-    $footer_bg = get_theme_mod('rd3_footer_bg', '');
+    $header_bg        = get_theme_mod('rd3_header_bg', '');
+    $footer_bg        = get_theme_mod('rd3_footer_bg', '');
     $header_menu_align = get_theme_mod('rd3_header_menu_alignment', 'center');
     $footer_menu_align = get_theme_mod('rd3_footer_menu_alignment', 'center');
     $footer_info_align = get_theme_mod('rd3_footer_info_alignment', 'center');
@@ -291,103 +312,80 @@ function rd3_branding_styles()
     $footer_bg_color = get_theme_mod('rd3_footer_bg_color', '#ffffff');
     $header_bg_opacity = get_theme_mod('rd3_header_bg_opacity', 1);
     $footer_bg_opacity = get_theme_mod('rd3_footer_bg_opacity', 1);
-
-
-    $fonts = [
-        'system' => 'system-ui, sans-serif',
-        'arial' => 'Arial, sans-serif',
-        'roboto' => 'Roboto, sans-serif',
-        'poppins' => 'Poppins, sans-serif',
-        'lato' => 'Lato, sans-serif'
-    ];
-    $logo_text_align = $logo_align;
     ?>
-
     <style>
-        <?php if ($rd3_bg_img): ?>
-            .Main-container {
-                background-image: url('<?php echo esc_url($rd3_bg_img); ?>');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-
-        <?php endif; ?>
-
+        /* Site Background */
         .Main-container {
-            background-color:
-                <?php echo esc_attr($rd3_bg_color); ?>
-            ;
+            <?php if ($rd3_bg_img): ?>
+            background-image: url('<?php echo esc_url($rd3_bg_img); ?>');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            <?php endif; ?>
+            background-color: <?php echo esc_attr($rd3_bg_color); ?>;
         }
 
+        /* Hamburger Menu */
+        span.hamburger.hamburger-colour {
+            color: <?php echo esc_attr($hamburger_color); ?>;
+            background-color: <?php echo esc_attr($hamburger_color); ?>!important;
+        }
+
+        /* Header Background */
         <?php if ($enable_header_bg_color): ?>
-            .site-header {
-                background-color:
-                    <?php echo esc_attr(hex_to_rgba($header_bg_color, $header_bg_opacity)); ?>
-                ;
-            }
-
+        .site-header {
+            background-color: <?php echo esc_attr(hex_to_rgba($header_bg_color, $header_bg_opacity)); ?>;
+        }
         <?php endif; ?>
-
-        <?php if ($enable_footer_bg_color): ?>
-            .site-footer {
-                background-color:
-                    <?php echo esc_attr(hex_to_rgba($footer_bg_color, $footer_bg_opacity)); ?>
-                ;
-            }
-
-        <?php endif; ?>
-
-        .site-header .logo {
-            text-align:
-                <?php echo $logo_text_align; ?>
-            ;
-        }
-
-
-     
-
-        .main-nav {
-            display: flex;
-            justify-content:
-                <?php echo $header_menu_align === 'left' ? 'flex-start' : ($header_menu_align === 'right' ? 'flex-end' : 'center'); ?>
-            ;
-            width: 100%;
-        }
-
-        .footer-info{
-                display: flex;
-            justify-content:
-                <?php echo $footer_info_align === 'left' ? 'flex-start' : ($footer_info_align === 'right' ? 'flex-end' : 'center'); ?>
-            ;
-        }
-
-        .footer-nav ul {
-            display: flex;
-            justify-content:
-                <?php echo $footer_menu_align === 'left' ? 'flex-start' : ($footer_menu_align === 'right' ? 'flex-end' : 'center'); ?>
-            ;
-        }
 
         <?php if ($header_bg): ?>
-            .site-header {
-                background-image: url('<?php echo esc_url($header_bg); ?>');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
+        .site-header {
+            background-image: url('<?php echo esc_url($header_bg); ?>');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        <?php endif; ?>
 
+        /* Footer Background */
+        <?php if ($enable_footer_bg_color): ?>
+        .site-footer {
+            background-color: <?php echo esc_attr(hex_to_rgba($footer_bg_color, $footer_bg_opacity)); ?>;
+        }
         <?php endif; ?>
 
         <?php if ($footer_bg): ?>
-            .site-footer {
-                background-image: url('<?php echo esc_url($footer_bg); ?>');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-
+        .site-footer {
+            background-image: url('<?php echo esc_url($footer_bg); ?>');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
         <?php endif; ?>
+
+        /* Logo Alignment */
+        .site-header .logo {
+            text-align: <?php echo esc_attr($logo_align); ?>;
+        }
+
+        /* Header Menu Alignment */
+        .main-nav {
+            display: flex;
+            justify-content: <?php echo $header_menu_align === 'left' ? 'flex-start' : ($header_menu_align === 'right' ? 'flex-end' : 'center'); ?>;
+            width: 100%;
+        }
+
+        /* Footer Info Alignment */
+        .footer-info {
+            display: flex;
+            justify-content: <?php echo $footer_info_align === 'left' ? 'flex-start' : ($footer_info_align === 'right' ? 'flex-end' : 'center'); ?>;
+        }
+
+        /* Footer Menu Alignment */
+        .footer-nav ul {
+            display: flex;
+            justify-content: <?php echo $footer_menu_align === 'left' ? 'flex-start' : ($footer_menu_align === 'right' ? 'flex-end' : 'center'); ?>;
+        }
     </style>
     <?php
 }

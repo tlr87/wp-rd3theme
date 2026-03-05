@@ -15,8 +15,8 @@
     <div class="container">
 
     
-        <!-- Logo -->
-        <div class="logo <?php echo esc_attr($logo_align_class); ?>">
+   <!-- Logo -->
+            <div class="logo <?php echo esc_attr($logo_align_class); ?>">
 
             <?php if ( get_theme_mod('rd3_logo') ) : ?>
                 <a href="<?php echo esc_url(home_url('/')); ?>">
@@ -32,7 +32,6 @@
                     </a>
                 </h1>
             <?php endif; ?>
-
 
             <?php if ( get_theme_mod('rd3_show_site_desc', true) ) : ?>
                 <h6><?php bloginfo('description'); ?></h6>
@@ -53,10 +52,10 @@
 
         <!-- Mobile Hamburger -->
         <button id="menu-toggle" class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMenu()">
-            <span class="hamburger"></span>
-            <span class="hamburger"></span>
-            <span class="hamburger"></span>
-            <span class="screen-reader-text"><?php _e('Toggle Menu', 'davis'); ?></span>
+            <span class="hamburger hamburger-colour"></span>
+            <span class="hamburger hamburger-colour"></span>
+            <span class="hamburger hamburger-colour "></span>
+            <span class="screen-reader-text"><?php _e('Toggle Menu'); ?></span>
         </button>
     </div>
 

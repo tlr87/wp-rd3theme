@@ -6,6 +6,11 @@
  * @package rd3starter
  */
 
+// assets.php check
+if ( ! defined( 'RD3_ASSETS_LOADED' ) ) {
+    define( 'RD3_ASSETS_LOADED', true );
+}
+
 function rd3_enqueue_assets(): void {
 
     $theme_version = wp_get_theme()->get( 'Version' ) ?: '1.0.0';

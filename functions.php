@@ -34,10 +34,8 @@ require get_template_directory() . '/modules/css-upload.php';
 require get_template_directory() . '/modules/customizer-branding.php';
 require get_template_directory() . '/modules/customizer-typography.php';
 require get_template_directory() . '/modules/customizer-layout.php';
-require get_template_directory() . '/modules/maintenance.php'; 
+require get_template_directory() . '/modules/maintenance.php';
 require get_template_directory() . '/modules/seo.php';
-
-
 
 // ===============================
 // Sanitize Checkbox
@@ -47,11 +45,11 @@ function rd3_sanitize_checkbox($checked)
     return (isset($checked) && $checked === true) ? true : false;
 }
 
-
 // ===============================
 // Sanitize Hex to RGB
 // ===============================
-function hex_to_rgba($hex, $alpha = 1) {
+function hex_to_rgba($hex, $alpha = 1)
+{
     $hex = str_replace('#', '', $hex);
     if (strlen($hex) === 3) {
         $r = hexdec(str_repeat($hex[0], 2));
@@ -65,4 +63,53 @@ function hex_to_rgba($hex, $alpha = 1) {
         return "rgba(0,0,0,$alpha)";
     }
     return "rgba($r,$g,$b,$alpha)";
+}
+
+/**
+ * ===============================
+ * Core Fallbacks for RD3 Starter Theme
+ * ===============================
+ *
+ * Ensures essential assets and functions are always available,
+ * even if optional modules are missing:
+ *
+ * 1. Fallback CSS loader:
+ *    - Loads main.css + layout-horizontal.css if assets.php is not included
+ *
+ * 2. Fallback Breadcrumbs:
+ *    - Ensures `rd3_breadcrumbs()` is always callable
+ *      even if breadcrumbs.php module is missing
+ *
+ */
+
+/* ── Fallback for assets.php ── */
+if (!defined('RD3_ASSETS_LOADED')) {
+
+    function rd3_fallback_assets()
+    {
+        $ver = wp_get_theme()->get('Version') ?: '1.0.0';
+
+        // Main stylesheet
+        wp_enqueue_style('rd3-main', get_template_directory_uri() . '/assets/css/main.css', [], $ver);
+
+        // Default horizontal layout
+        wp_enqueue_style('rd3-layout-horizontal', get_template_directory_uri() . '/assets/css/layout-horizontal.css', ['rd3-main'], $ver);
+    }
+    add_action('wp_enqueue_scripts', 'rd3_fallback_assets', 5);
+}
+
+/* ── Fallback for breadcrumbs.php ── */
+if (!function_exists('rd3_breadcrumbs')) {
+
+    /**
+     * Fallback breadcrumbs function
+     *
+     * Outputs minimal markup so templates don't break.
+     */
+    function rd3_breadcrumbs()
+    {
+        echo '<nav class="breadcrumbs-fallback">';
+        echo '<a href="' . esc_url(home_url('/')) . '">Home</a>';
+        echo '</nav>';
+    }
 }
