@@ -93,3 +93,24 @@ if ( ! defined( 'RD3_ASSETS_LOADED' ) ) {
     }
     add_action( 'wp_enqueue_scripts', 'rd3_fallback_assets', 5 ); // run early
 }
+
+
+// ===============================
+// Fallback Breadcrumbs 
+// Ensures `rd3_breadcrumbs() is always callable,
+// even if breadcrumbs.php module is missing.
+// ===============================
+
+if ( ! function_exists( 'rd3_breadcrumbs' ) ) {
+
+    /**
+     * Fallback breadcrumbs function
+     *
+     * Outputs minimal valid markup so templates don't break.
+     */
+    function rd3_breadcrumbs() {
+        echo '<nav class="breadcrumbs-fallback">';
+        echo '<a href="' . esc_url( home_url( '/' ) ) . '">Home</a>';
+        echo '</nav>';
+    }
+}
