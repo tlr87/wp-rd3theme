@@ -433,6 +433,46 @@ Pagination
     margin-bottom: 10px;
 }
 
+
+/* Default: hide the toggle button on desktop */
+.sidebar-toggle-button {
+    display: none;
+    padding: 0.5rem 1rem;
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.sidebar-toggle-button:hover {
+    background-color: #005177;
+}
+
+
+
+/* Base arrow */
+.arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-right: 8px;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333; /* downward pointing by default */
+}
+
+/* Rotate right when sidebar is hidden */
+.arrow.right {
+    transform: rotate(-90deg); /* points right */
+}
+
+/* Down when sidebar is visible */
+.arrow.down {
+    transform: rotate(0deg); /* points down */
+}
+
 /* ===============================
    Responsive
 =============================== */
@@ -484,16 +524,3 @@ Pagination
     }
 }
 
-/* Default: hide the toggle button on desktop */
-.sidebar-toggle-button {
-    display: none;
-    padding: 0.5rem 1rem;
-    background-color: #0073aa;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-}
-.sidebar-toggle-button:hover {
-    background-color: #005177;
-}

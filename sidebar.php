@@ -1,9 +1,12 @@
 <?php if ( is_active_sidebar( 'main-sidebar' ) ) : ?> 
 
     <!-- Toggle Sidebar Button -->
-    <button id="toggle-sidebar" class="sidebar-toggle-button">Toggle Sidebar</button>
+    <button id="toggle-sidebar" class="sidebar-toggle-button">
+        <span class="arrow right"></span>
+        Toggle Sidebar
+    </button>
 
-    <div class="main-sidebar-wrapper">
+    <div class="main-sidebar-wrapper" style="display: block;">
         <?php dynamic_sidebar( 'main-sidebar' ); ?>
     </div>
 
@@ -11,23 +14,21 @@
         (function() {
             const toggleButton = document.getElementById('toggle-sidebar');
             const sidebar = document.querySelector('.main-sidebar-wrapper');
+            const arrow = toggleButton.querySelector('.arrow');
 
-            // Function to check screen width
-            function updateToggleButton() {
-                const width = window.innerWidth;
-                if (width <= 1024) { 
-                    toggleButton.style.display = 'block';
+            // Function to update arrow based on sidebar visibility
+            function updateArrow() {
+                if (sidebar.style.display === 'none' || getComputedStyle(sidebar).display === 'none') {
+                    arrow.classList.remove('down');
+                    arrow.classList.add('right');
                 } else {
-                    toggleButton.style.display = 'none';
-                    sidebar.style.display = 'block'; // ensure sidebar visible on desktop
+                    arrow.classList.remove('right');
+                    arrow.classList.add('down');
                 }
             }
 
-            // Initial check
-            updateToggleButton();
-
-            // Update on resize
-            window.addEventListener('resize', updateToggleButton);
+            // Initial arrow state
+            updateArrow();
 
             // Toggle sidebar on click
             toggleButton.addEventListener('click', () => {
@@ -36,6 +37,7 @@
                 } else {
                     sidebar.style.display = 'none';
                 }
+                updateArrow();
             });
         })();
     </script>
