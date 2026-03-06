@@ -37,6 +37,9 @@ require get_template_directory() . '/modules/customizer-layout.php';
 require get_template_directory() . '/modules/maintenance.php';
 require get_template_directory() . '/modules/seo.php';
 
+
+require get_template_directory() . '/modules/support-email-module.php';
+
 // ===============================
 // Sanitize Checkbox
 // ===============================
