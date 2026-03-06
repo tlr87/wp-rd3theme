@@ -505,6 +505,9 @@ Pagination
     .content-area{
         gap: 0;
     }
+    .menu-item a {
+        background-color: transparent;
+    }
 }
 
 @media (max-width: 767px) {
@@ -533,6 +536,9 @@ Pagination
       .content-area{
         gap: 0;
     }
+       .menu-item a {
+        background-color: transparent;
+    
     
 }
 
