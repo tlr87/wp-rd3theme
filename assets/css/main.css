@@ -506,7 +506,7 @@ Pagination
         gap: 0;
     }
     .mobile-nav li a{
-        background-color: transparent;
+        background-color: transparent;/* for tomrevill.com*/
     }
 }
 
@@ -537,7 +537,7 @@ Pagination
         gap: 0;
     }
     .mobile-.mobile-nav li a{
-        background-color: transparent;
+        background-color: transparent;  /* for tomrevill.com*/
     
     
 }
