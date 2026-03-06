@@ -438,13 +438,13 @@ Pagination
 .sidebar-toggle-button {
     display: none;
     padding: 0.5rem 1rem;
-    background-color: #0073aa;
+    background-color: #000000;
     color: #fff;
     border: none;
     cursor: pointer;
 }
 .sidebar-toggle-button:hover {
-    background-color: #005177;
+    background-color: #686868;
 }
 
 
