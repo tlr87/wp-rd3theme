@@ -142,6 +142,22 @@ function rd3_branding_customizer($wp_customize)
         ]
     ));
 
+    // Button Hover Background Color
+    $wp_customize->add_setting('toggle-button-hover-bg', [
+        'default' => '#005177',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control(
+        $wp_customize,
+        'toggle-button-hover-bg',
+        [
+            'label' => __('Sidebar Toggle Button Hover Background', 'rd3starter'),
+            'section' => 'rd3_branding',
+            'settings' => 'toggle-button-hover-bg',
+        ]
+    ));
+
     // Button Text Color
     $wp_customize->add_setting('toggle-button-text', [
         'default' => '#ffffff',
@@ -173,6 +189,8 @@ function rd3_branding_customizer($wp_customize)
             'settings' => 'toggle-button-arrow',
         ]
     ));
+
+
 
     // Sidebar Position
     $wp_customize->add_setting('rd3_sidebar_position', [
@@ -457,6 +475,7 @@ function rd3_branding_styles()
     $submit_bg = get_theme_mod('rd3_search_submit_bg', '#333333');
     $submit_text = get_theme_mod('rd3_search_submit_text', '#ffffff');
     $toggleBtn_bg = get_theme_mod('toggle-button-bg', '#0073aa');
+    $toggleBtn_hover_bg = get_theme_mod('toggle-button-hover-bg', '#005177');
     $toggleBtn_text = get_theme_mod('toggle-button-text', '#ffffff');
     $toggleBtn_arrow = get_theme_mod('toggle-button-arrow', '#ffffff');
 
@@ -491,6 +510,12 @@ function rd3_branding_styles()
             ;
             color:
                 <?php echo esc_attr($toggleBtn_text); ?>
+            ;
+        }
+
+        .sidebar-toggle-button:hover {
+            background-color:
+                <?php echo esc_attr($toggleBtn_hover_bg); ?>
             ;
         }
 
