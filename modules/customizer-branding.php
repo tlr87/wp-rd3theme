@@ -67,6 +67,9 @@ function rd3_branding_customizer($wp_customize)
 
 
 
+
+
+
     // Site Logo
     $wp_customize->add_setting('rd3_logo');
     $wp_customize->add_control(new WP_Customize_Image_Control(
@@ -121,6 +124,56 @@ function rd3_branding_customizer($wp_customize)
         'settings' => 'rd3_show_breadcrumbs',
     ]);
 
+    // Sidebar Toggle Button Colors
+
+    // Button Background
+    $wp_customize->add_setting('toggle-button-bg', [
+        'default' => '#0073aa',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control(
+        $wp_customize,
+        'toggle-button-bg',
+        [
+            'label' => __('Sidebar Toggle Button Background', 'rd3starter'),
+            'section' => 'rd3_branding',
+            'settings' => 'toggle-button-bg',
+        ]
+    ));
+
+    // Button Text Color
+    $wp_customize->add_setting('toggle-button-text', [
+        'default' => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control(
+        $wp_customize,
+        'toggle-button-text',
+        [
+            'label' => __('Sidebar Toggle Button Text Color', 'rd3starter'),
+            'section' => 'rd3_branding',
+            'settings' => 'toggle-button-text',
+        ]
+    ));
+
+    // Arrow Color
+    $wp_customize->add_setting('toggle-button-arrow', [
+        'default' => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control(
+        $wp_customize,
+        'toggle-button-arrow',
+        [
+            'label' => __('Sidebar Toggle Arrow Color', 'rd3starter'),
+            'section' => 'rd3_branding',
+            'settings' => 'toggle-button-arrow',
+        ]
+    ));
+
     // Sidebar Position
     $wp_customize->add_setting('rd3_sidebar_position', [
         'default' => 'left',
@@ -133,6 +186,7 @@ function rd3_branding_customizer($wp_customize)
         'settings' => 'rd3_sidebar_position',
         'choices' => ['left' => 'Left', 'right' => 'Right'],
     ]);
+
 
     // Header Menu Alignment
     $wp_customize->add_setting('rd3_header_menu_alignment', ['default' => 'center']);
@@ -172,9 +226,7 @@ function rd3_branding_customizer($wp_customize)
         'type' => 'checkbox'
     ]);
 
-    // ===============================
     // Search Form Styling
-    // ===============================
 
     // Input background color
     $wp_customize->add_setting('rd3_search_input_bg', array(
@@ -255,8 +307,6 @@ function rd3_branding_customizer($wp_customize)
             'settings' => 'rd3_search_submit_text',
         )
     ));
-
-
 
     // Header Background Images
     $wp_customize->add_setting('rd3_header_bg');
@@ -366,6 +416,9 @@ function rd3_branding_customizer($wp_customize)
     );
 
 
+
+
+
 }
 add_action('customize_register', 'rd3_branding_customizer');
 
@@ -403,6 +456,9 @@ function rd3_branding_styles()
     $input_border = get_theme_mod('rd3_search_input_border', '#cccccc');
     $submit_bg = get_theme_mod('rd3_search_submit_bg', '#333333');
     $submit_text = get_theme_mod('rd3_search_submit_text', '#ffffff');
+    $toggleBtn_bg = get_theme_mod('toggle-button-bg', '#0073aa');
+    $toggleBtn_text = get_theme_mod('toggle-button-text', '#ffffff');
+    $toggleBtn_arrow = get_theme_mod('toggle-button-arrow', '#ffffff');
 
     ?>
     <style>
@@ -427,6 +483,21 @@ function rd3_branding_styles()
             background-color:
                 <?php echo esc_attr($hamburger_color); ?>
                 !important;
+        }
+
+        .sidebar-toggle-button {
+            background-color:
+                <?php echo esc_attr($toggleBtn_bg); ?>
+            ;
+            color:
+                <?php echo esc_attr($toggleBtn_text); ?>
+            ;
+        }
+
+        .sidebar-toggle-button .arrow {
+            border-top-color:
+                <?php echo esc_attr($toggleBtn_arrow); ?>
+            ;
         }
 
         /* Header Background */
@@ -501,11 +572,7 @@ function rd3_branding_styles()
             ;
         }
 
-
-
         /* Search Form Styling*/
-
-
         .search-form,
         .wp-block-search {
             width: 100%;

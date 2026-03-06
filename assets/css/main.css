@@ -442,7 +442,6 @@ Pagination
     color: #fff;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
 }
 .sidebar-toggle-button:hover {
     background-color: #005177;
@@ -497,6 +496,9 @@ Pagination
         display: inline-block;
         margin-bottom: 1rem;
     }
+    .content-area{
+        gap: 0;
+    }
 }
 
 @media (max-width: 767px) {
@@ -522,5 +524,9 @@ Pagination
         display: inline-block;
         margin-bottom: 1rem;
     }
+      .content-area{
+        gap: 0;
+    }
+    
 }
 
