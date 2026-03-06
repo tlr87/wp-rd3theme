@@ -187,6 +187,7 @@ li {
 
 .main-nav.desktop li a {
     font-weight: 500;
+    /* background-color:#4f4f4f;  for potential added tabs*/
 
 }
 
@@ -438,26 +439,72 @@ Pagination
     margin-bottom: 10px;
 }
 
+
+/* Default: hide the toggle button on desktop */
+.sidebar-toggle-button {
+    display: none;
+    padding: 0.5rem 1rem;
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.sidebar-toggle-button:hover {
+    background-color: #005177;
+}
+
+
+
+/* Base arrow */
+.arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-right: 8px;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333; /* downward pointing by default */
+}
+
+/* Rotate right when sidebar is hidden */
+.arrow.right {
+    transform: rotate(-90deg); /* points right */
+}
+
+/* Down when sidebar is visible */
+.arrow.down {
+    transform: rotate(0deg); /* points down */
+}
+
 /* ===============================
    Responsive
 =============================== */
 @media (max-width: 1024px) {
     .content-area {
-        flex-direction: column!important;
+        flex-direction: column !important;
         padding: 1%;
     }
     .sidebar {
         max-width: 100%;
-        
     }
     .site-main {
         flex: 1;
     }
+    .main-sidebar-wrapper {
+        width: 100%;
+        /* display removed so JS can toggle */
+    }
 
-    
-   .menu-item a{
-    background-color:transparent;}
-
+    /* Show toggle button on tablet */
+    .sidebar-toggle-button {
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+    .content-area{
+        gap: 0;
+    }
 }
 
 @media (max-width: 767px) {
@@ -473,9 +520,19 @@ Pagination
     .mobile-nav {
         width: 100%;
     }
+    .main-sidebar-wrapper {
+        width: 100%;
+        /* display removed so JS can toggle */
+    }
 
-    .menu-item a{
-        background-color:transparent;}
+    /* Show toggle button on mobile */
+    .sidebar-toggle-button {
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+      .content-area{
+        gap: 0;
+    }
     
 }
 
