@@ -505,7 +505,7 @@ Pagination
     .content-area{
         gap: 0;
     }
-    .menu-item a {
+    .mobile-nav li a{
         background-color: transparent;
     }
 }
@@ -536,7 +536,7 @@ Pagination
       .content-area{
         gap: 0;
     }
-       .menu-item a {
+    .mobile-.mobile-nav li a{
         background-color: transparent;
     
     
