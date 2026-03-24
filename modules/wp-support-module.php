@@ -36,27 +36,11 @@ function theme_support_email_page() {
             ? '<div class="notice notice-success"><p>Email sent successfully!</p></div>'
             : '<div class="notice notice-error"><p>Failed to send email.</p></div>';
     }
-
-    $default_message = <<<HTML
-<p>Hello,</p>
-<p>Thank you so much for your help with rd3tech.com! I’m thrilled that the Email Routing → Remote fix worked — WordPress emails are now delivering perfectly to Gmail, which is fantastic.</p>
-<p>I also provide technical support for other websites hosted on the same server, specifically:</p>
-<ul>
-<li><a href="https://lighthousechurch.nz/" target="_blank">lighthousechurch.nz</a></li>
-<li><a href="https://ngunguruhall.nz/" target="_blank">ngunguruhall.nz</a></li>
-</ul>
-<p>I’ve noticed that both of these sites are sending WordPress emails via PHP <code>mail()</code>, and I want to ensure they deliver correctly without going to spam or being quarantined, similar to the fix for rd3tech.com.</p>
-<p>Could you advise the best way to configure these sites so that:</p>
-<ol>
-<li>Outgoing WordPress emails are routed correctly via their MX records.</li>
-<li>Reverse DNS (PTR) and SPF/DKIM/DMARC settings are properly aligned.</li>
-<li>Emails do not get blocked or quarantined by Google Workspace or other providers.</li>
-</ol>
-<p>Any guidance or step-by-step recommendations would be greatly appreciated.</p>
-<p>Kind regards,<br>Tom Revill</p>
-HTML;
-
+        $default_message = <<<HTML
+        Hello, your message here.
+        HTML;
     ?>
+    
     <div class="wrap">
         <h1>Send Support Email</h1>
         <form method="post">
@@ -68,7 +52,7 @@ HTML;
                 </tr>
                 <tr>
                     <th><label for="subject">Subject</label></th>
-                    <td><input type="text" id="subject" name="subject" value="Question: WordPress Email Delivery Issue" class="regular-text" required></td>
+                    <td><input type="text" id="subject" name="subject" value="Put your subject here." class="regular-text" required></td>
                 </tr>
                 <tr>
                     <th><label for="message">Message</label></th>
