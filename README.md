@@ -2,7 +2,10 @@
 
 **Version:** 1.0  
 **Author:** Tom Revill / RD3 Tech  
-**Description:** A clean, modular WordPress starter theme built for flexibility, SEO, and fast development. Features include customizable branding, layout controls, maintenance mode, SEO modules, social sharing, and structured data support.
+
+**Description:**  
+A clean, modular WordPress starter theme built for flexibility, SEO, and fast development.  
+Features include customizable branding, layout controls, maintenance mode, SEO modules, social sharing, structured data support, and extended developer-focused features.
 
 ---
 
@@ -15,171 +18,223 @@
 6. [SEO & Social](#seo--social)
 7. [Dynamic Styling](#dynamic-styling)
 8. [Widgets](#widgets)
-9. [Recommended Plugins](#recommended-plugins)
-10. [Support](#support)
+9. [For Developers](#for-developers)
+10. [Recommended Plugins](#recommended-plugins)
+11. [Support](#support)
 
 ---
 
 ## Installation
 
-1. Copy the `rd3-starter` theme folder to your WordPress `wp-content/themes/` directory.  
-2. Activate the theme via **Appearance → Themes**.  
-3. Configure the theme via **Appearance → Customize**.  
+1. Copy the `rd3-starter` theme folder to your WordPress:
+   ```
+   /wp-content/themes/
+   ```
+
+2. Activate the theme:
+   - Go to **Appearance → Themes**
+   - Click **Activate**
+
+3. Configure settings:
+   - Go to **Appearance → Customize**
 
 ---
 
 ## Theme Features
 
 - Clean, modular structure for easy customization  
-- Fully responsive design with horizontal and vertical layouts  
-- Custom branding options (logo, colors, header/footer backgrounds)  
+- Fully responsive design (horizontal & vertical layouts)  
+- Custom branding (logo, colors, header/footer backgrounds)  
 - Maintenance / Coming Soon mode  
-- SEO, Open Graph, Twitter Cards, and JSON-LD structured data support  
-- Widgetized footer, sidebar, and maintenance pages  
-- Upload custom CSS for advanced styling  
+- SEO, Open Graph, Twitter Cards, JSON-LD structured data  
+- Widgetized footer, sidebar, and maintenance areas  
+- Custom CSS support for advanced styling  
 - Breadcrumbs support  
-- Enqueued assets with dependency management  
+- Properly enqueued assets with dependency management  
 
 ---
 
 ## Modules
 
-All major features are organized in `/modules/` for clean separation:
+All major features are located in `/modules/`:
 
-- **seo.php** – Meta Enhancements (robots, canonical, author, publisher, generator, additional meta), Social Sharing & Open Graph / Twitter Card controls ,Structured Data (JSON-LD) configuration  
-- **maintenance.php** – Maintenance page template  
-- **branding.php** – Branding & dynamic styling  
-- **layout.php** – Layout & custom CSS controls  
+- `seo-meta.php` – Meta enhancements (description, canonical, robots)  
+- `seo-social.php` – Open Graph & Twitter Cards  
+- `seo-schema.php` – Structured data (JSON-LD)  
+- `branding.php` – Branding and dynamic styles  
+- `layout.php` – Layout controls and custom CSS  
+- `maintenance.php` – Maintenance mode template  
 
-This modular setup makes it easy to **enable, extend, or replace** functionality without touching `functions.php`.
+This modular approach allows you to enable, extend, or replace functionality without modifying `functions.php`.
 
 ---
 
 ## Customizer Settings
 
-**Branding**  
-- Site logo, logo alignment, site title, tagline  
-- Header and footer background images and colors  
-- Breadcrumbs toggle  
+### Branding
+- Logo, logo alignment, site title, tagline  
+- Header & footer background images and colors  
+- Breadcrumb toggle  
 - Sidebar position  
 
-**Layout & Custom CSS**  
+### Layout & Custom CSS
 - Horizontal / vertical header layout  
-- Upload a custom CSS file  
-- Master enable/disable toggle  
+- Upload custom CSS  
+- Global enable/disable toggle  
 
-**Maintenance Mode**  
+### Maintenance Mode
 - Enable/disable maintenance mode  
-- Logo, background color, text color  
+- Custom logo, background, and text colors  
 - Maintenance message and countdown timer  
-- Auto reload when countdown ends  
-- Widget area for maintenance page content  
+- Auto-disable when countdown ends  
+- Widget area for content  
 
-**SEO Settings**  
-- **Social Sharing**: Open Graph & Twitter cards  
-- **Structured Data**: JSON-LD support for articles, products, organization, and website  
-- **Meta Enhancements**: Robots, canonical URLs, author, publisher, generator, and additional meta  
+### SEO Settings
+- Open Graph & Twitter Cards  
+- JSON-LD structured data  
+- Robots, canonical URLs, author, publisher, generator meta  
+- Social sharing controls  
 
 ---
 
 ## Maintenance Mode
 
-- Template located at `/modules/maintenance.php`  
-- Widgets can be assigned via **Appearance → Widgets → Maintenance Page Widgets**  
-- Countdown timer auto-disables maintenance mode if configured  
-- Works without JavaScript; pure PHP / HTML solution  
+- Template: `/modules/maintenance.php`  
+- Widgets: Assign via **Appearance → Widgets → Maintenance Page Widgets**  
+- Countdown timer can auto-disable maintenance mode  
+- Works without JavaScript (pure PHP/HTML)  
+- Admin users bypass maintenance mode  
 
 ---
 
 ## SEO & Social
 
-- Meta tags for description, Open Graph, Twitter Cards  
-- JSON-LD structured data for enhanced search engine results  
-- Custom meta enhancements (robots, canonical, author, publisher, generator)  
-- Social sharing links configurable via Customizer  
-- Full control via **Appearance → Customize → SEO Settings**  
+- Meta description and SEO enhancements  
+- Open Graph and Twitter Card support  
+- JSON-LD structured data for:
+  - Articles  
+  - Products  
+  - Organization  
+  - Website  
+- Custom meta tags:
+  - Robots  
+  - Canonical  
+  - Author  
+  - Publisher  
 
 ---
 
 ## Dynamic Styling
 
-- Background image/color, header/footer backgrounds  
-- Primary and secondary color palette  
+- Background images and colors  
+- Header and footer styling  
+- Primary & secondary color palette  
 - Logo alignment  
-- Header and footer menu alignment  
-- Custom CSS uploads supported  
+- Menu alignment controls  
+- Custom CSS uploads  
 
 ---
 
 ## Widgets
 
+Available widget areas:
+
 - Sidebar (`main-sidebar`)  
-- Footer columns (`footer-col-1`, `footer-col-2`, `footer-col-3`)  
+- Footer:
+  - `footer-col-1`  
+  - `footer-col-2`  
+  - `footer-col-3`  
 - Maintenance page (`maintenance-widgets`)  
 
 ---
 
-## Recommended Plugins
+## For Developers
 
-- **Classic Editor** or **Gutenberg** (as needed)  
+RD3 Starter Theme is designed to be modular, maintainable, and extendable. This guide provides an overview for developers working with the theme.
 
+---
 
-## Developer Guide
+### 📁 File Structure
 
-RD3 Starter Theme is designed to be **modular, maintainable, and extendable**. This guide provides an overview for developers working with the theme.
-
-### 1. File Structure
-
+```
 rd3-starter/
 ├─ assets/
-│ ├─ css/ # Main stylesheets and layout CSS
-│ ├─ js/ # JavaScript assets
+│  ├─ css/        # Main stylesheets and layout CSS
+│  ├─ js/         # JavaScript assets
 ├─ modules/
-│ ├─ branding.php # Branding & dynamic styles
-│ ├─ layout.php # Layout & custom CSS
-│ ├─ maintenance.php # Maintenance mode template
-│ ├─ seo-meta.php # Meta enhancements (description, canonical, robots)
-│ ├─ seo-social.php # Open Graph & Twitter Cards
-│ ├─ seo-schema.php # Structured Data / JSON-LD
-├─ functions.php # Includes modules and essential hooks
+│  ├─ branding.php
+│  ├─ layout.php
+│  ├─ maintenance.php
+│  ├─ seo-meta.php
+│  ├─ seo-social.php
+│  ├─ seo-schema.php
+├─ functions.php   # Includes modules and essential hooks
 ├─ header.php
 ├─ footer.php
 ├─ index.php
 ├─ style.css
-
-
-
----
-
-## Support
-
-For questions or help with the RD3 Starter Theme:  
-- Email: tom@rd3tech.com  
-- Website: [https://rd3tech.com](https://rd3tech.com)  
+```  
 
 ---
 
-## Notes
+### 🧩 Modules Overview
 
-- All modules are loaded from `/modules/` folder for easier maintenance.  
-- Functions.php only contains **module includes** and essential hooks.  
-- CSS/JS assets are enqueued properly for performance.  
+- All modules are loaded from the `/modules/` folder for easier maintenance  
+- `functions.php` only contains module includes and essential hooks  
+- Assets are enqueued properly for performance  
 - Fully compatible with WordPress 6.0+  
 
-## Templates
+---
 
-- Maintenance mode template: /modules/maintenance.php
-- Standard templates: header.php, footer.php, index.php
-- Widgets available for sidebar, footer, maintenance page
+### 🎨 Adding Custom CSS
 
-## Customizer Guidelines
+#### Option 1: Enqueue Custom CSS
 
-- Split into Branding, Layout, Maintenance, SEO
-- Add new settings with proper sanitize_callback
-- Add controls for text, color, image, checkbox, or radio types
+```php
+wp_enqueue_style(
+    'rd3-custom',
+    get_template_directory_uri() . '/assets/css/custom.css',
+    ['rd3-main'],
+    '1.0'
+);
+```
+
+#### Option 2: Add via Customizer
+- Go to **Appearance → Customize**
+- Add CSS in the custom CSS section
+
+---
+
+### 🧱 Adding a Module
+
+1. Create a new file in `/modules/`:
+   ```
+   /modules/analytics.php
+   ```
+
+2. Add your code:
+   ```php
+   <?php
+   add_action('wp_head', function() {
+       echo '<!-- Analytics Module Loaded -->';
+   });
+   ```
+
+3. Include it in `functions.php`:
+   ```php
+   require get_template_directory() . '/modules/analytics.php';
+   ```
+
+---
+
+### 🛠 Customizer Guidelines
+
+- Split into: Branding, Layout, Maintenance, SEO  
+- Add settings with proper `sanitize_callback`  
 
 Example:
-```
+
+```php
 $wp_customize->add_setting('rd3_custom_setting', [
     'default' => '',
     'sanitize_callback' => 'sanitize_text_field',
@@ -192,31 +247,84 @@ $wp_customize->add_control('rd3_custom_setting', [
 ]);
 ```
 
+---
 
-SEO Integration
-- /modules/seo.php: meta description, canonical, robots, Open Graph & Twitter Cards, structured data / JSON-LD
+### 🔗 SEO Integration
 
-Enqueueing Scripts & Styles
+- `/modules/seo-meta.php`  
+  - Meta description, canonical, robots  
+- `/modules/seo-social.php`  
+  - Open Graph & Twitter Cards  
+- `/modules/seo-schema.php`  
+  - Structured data (JSON-LD)  
 
-- Use wp_enqueue_script() and wp_enqueue_style() in modules
+---
 
-Example:
+### ⚙️ Enqueueing Scripts & Styles
+
+Use WordPress enqueue functions inside modules:
+
+```php
+wp_enqueue_style(
+    'rd3-custom',
+    get_template_directory_uri() . '/assets/css/custom.css',
+    ['rd3-main'],
+    '1.0'
+);
 ```
-wp_enqueue_style('rd3-custom', get_template_directory_uri() . '/assets/css/custom.css', ['rd3-main'], '1.0');
-```
 
-## Best Practices
+---
 
-Keep code modular in /modules/
-Avoid editing functions.php for major features
-Sanitize all user input
-Use proper hooks, WordPress API functions, and enqueue assets correctly
-Admin users bypass maintenance mode
+### 🧠 Best Practices
 
-## Extending the Theme
+- Keep code modular in `/modules/`  
+- Avoid editing `functions.php` for major features  
+- Sanitize all user input  
+- Use WordPress APIs and hooks  
+- Enqueue assets properly  
+- Admin users bypass maintenance mode  
 
-Add new modules for features like analytics, newsletter, or custom post types
+---
 
-Include the module in functions.php and hook into WordPress appropriately
+### 🔧 Extending the Theme
+
+You can extend the theme by adding modules for:
+
+- Analytics  
+- Newsletter integration  
+- Custom post types  
+- Additional layouts or features  
+
+Include modules in `functions.php` and hook into WordPress appropriately.
+
+---
+
+## Recommended Plugins
+
+- Classic Editor (if needed)  
+- Gutenberg (block editor)  
+- Any SEO plugin (optional)  
+
+---
+
+## Support
+
+For questions or help with the RD3 Starter Theme:
+
+- Email: tom@rd3tech.com  
+- Website: https://rd3tech.com  
+
+---
+
+## Notes
+
+- All modules are loaded from `/modules/`  
+- `functions.php` only contains module includes and essential hooks  
+- CSS/JS assets are enqueued properly for performance  
+- Fully compatible with WordPress 6.0+  
+- Templates:
+  - `/modules/maintenance.php`  
+  - `header.php`, `footer.php`, `index.php`  
+- Widgets available for sidebar, footer, and maintenance page  
 
 This guide ensures developers can easily extend, maintain, and debug RD3 Starter Theme without breaking core functionality.
